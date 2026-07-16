@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎰 CASINO ROYALE</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             min-height: 100vh;
             background: #0a0a1a;
@@ -13,6 +18,8 @@
             overflow-x: hidden;
             position: relative;
         }
+
+        /* ===== ФОН С ДЕВУШКАМИ ===== */
         .background {
             position: fixed;
             top: 0;
@@ -20,8 +27,12 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            background: linear-gradient(135deg, rgba(10, 10, 30, 0.85) 0%, rgba(30, 10, 50, 0.85) 100%);
+            background: 
+                linear-gradient(135deg, rgba(10, 10, 30, 0.85) 0%, rgba(30, 10, 50, 0.85) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="%231a0a2e" width="400" height="300"/><circle cx="50" cy="50" r="30" fill="%23ffd70022"/><circle cx="350" cy="250" r="40" fill="%23ffd70022"/><circle cx="200" cy="150" r="50" fill="%23ffd70011"/></svg>');
+            background-size: cover;
         }
+
         .girls-container {
             position: fixed;
             top: 0;
@@ -32,28 +43,54 @@
             pointer-events: none;
             overflow: hidden;
         }
+
         .girl {
             position: absolute;
             bottom: 0;
             font-size: 180px;
             opacity: 0.6;
+            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.2));
             animation: floatGirl 6s ease-in-out infinite;
             text-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
         }
-        .girl:nth-child(1) { left: 2%; animation-delay: 0s; font-size: 200px; opacity: 0.7; }
-        .girl:nth-child(2) { right: 2%; animation-delay: 2s; font-size: 220px; opacity: 0.7; }
-        .girl:nth-child(3) { left: 50%; transform: translateX(-50%); animation-delay: 4s; font-size: 160px; opacity: 0.5; bottom: -20px; }
+
+        .girl:nth-child(1) {
+            left: 2%;
+            animation-delay: 0s;
+            font-size: 200px;
+            opacity: 0.7;
+        }
+
+        .girl:nth-child(2) {
+            right: 2%;
+            animation-delay: 2s;
+            font-size: 220px;
+            opacity: 0.7;
+        }
+
+        .girl:nth-child(3) {
+            left: 50%;
+            transform: translateX(-50%);
+            animation-delay: 4s;
+            font-size: 160px;
+            opacity: 0.5;
+            bottom: -20px;
+        }
+
         @keyframes floatGirl {
             0%, 100% { transform: translateY(0px) rotate(-2deg); }
             50% { transform: translateY(-15px) rotate(2deg); }
         }
+
+        /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
         .main-container {
             position: relative;
             z-index: 1;
-            max-width: 800px;
+            max-width: 750px;
             margin: 20px auto;
             padding: 0 15px;
         }
+
         .casino {
             background: radial-gradient(ellipse at center, rgba(26, 26, 62, 0.95) 0%, rgba(13, 13, 26, 0.98) 100%);
             border: 3px solid #ffd700;
@@ -63,6 +100,7 @@
             backdrop-filter: blur(10px);
             margin-bottom: 20px;
         }
+
         h1 {
             color: #ffd700;
             text-align: center;
@@ -72,6 +110,8 @@
             margin-bottom: 20px;
             font-weight: 900;
         }
+
+        /* ===== СТАТИСТИКА ===== */
         .stats {
             display: flex;
             justify-content: space-between;
@@ -85,18 +125,24 @@
             flex-wrap: wrap;
             gap: 10px;
         }
+
         .stats span {
             color: #ffd700;
             font-weight: bold;
             font-size: 22px;
         }
+
+        /* ===== БАРАБАНЫ ===== */
         .slot-machine {
             background: #0a0a1a;
             border-radius: 20px;
             padding: 30px 20px;
             border: 2px solid #ffd70066;
             margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
         }
+
         .reels {
             display: flex;
             justify-content: center;
@@ -104,11 +150,13 @@
             margin: 10px 0;
             perspective: 1000px;
         }
+
         .reel-wrapper {
             width: 130px;
             height: 160px;
             perspective: 600px;
         }
+
         .reel {
             width: 100%;
             height: 100%;
@@ -123,9 +171,11 @@
             transition: all 0.3s ease;
             transform-style: preserve-3d;
         }
+
         .reel.spinning {
             animation: reelSpin 0.12s linear infinite;
         }
+
         @keyframes reelSpin {
             0% { transform: rotateX(0deg) scale(1); }
             25% { transform: rotateX(90deg) scale(1.05); }
@@ -133,21 +183,33 @@
             75% { transform: rotateX(270deg) scale(1.05); }
             100% { transform: rotateX(360deg) scale(1); }
         }
+
         .reel.winner {
             animation: winGlow 0.6s ease 3;
             border-color: #ff6b00;
             box-shadow: 0 0 60px rgba(255, 215, 0, 0.8), inset 0 0 60px rgba(255, 215, 0, 0.3);
         }
+
         @keyframes winGlow {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); border-color: #ffd700; }
-            50% { box-shadow: 0 0 80px rgba(255, 215, 0, 1), 0 0 120px rgba(255, 215, 0, 0.6); border-color: #ff6b00; transform: scale(1.08); }
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+                border-color: #ffd700;
+            }
+            50% { 
+                box-shadow: 0 0 80px rgba(255, 215, 0, 1), 0 0 120px rgba(255, 215, 0, 0.6);
+                border-color: #ff6b00;
+                transform: scale(1.08);
+            }
         }
+
+        /* ===== УПРАВЛЕНИЕ ===== */
         .controls {
             display: flex;
             flex-direction: column;
             gap: 15px;
             align-items: center;
         }
+
         .bet-control {
             display: flex;
             gap: 20px;
@@ -155,6 +217,7 @@
             color: white;
             font-size: 18px;
         }
+
         .bet-control button {
             background: #ffd700;
             border: none;
@@ -167,16 +230,19 @@
             transition: 0.3s;
             color: #1a1a3e;
         }
+
         .bet-control button:hover {
             transform: scale(1.15);
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
         }
+
         .bet-control span {
             font-size: 24px;
             color: #ffd700;
             min-width: 80px;
             text-align: center;
         }
+
         .spin-btn {
             background: linear-gradient(135deg, #ffd700, #ff6b00);
             color: #1a1a3e;
@@ -193,15 +259,18 @@
             width: 100%;
             max-width: 320px;
         }
+
         .spin-btn:hover:not(:disabled) {
             transform: scale(1.05) translateY(-2px);
             box-shadow: 0 8px 50px rgba(255, 215, 0, 0.5);
         }
+
         .spin-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             transform: none;
         }
+
         .message {
             color: #ffd700;
             text-align: center;
@@ -211,6 +280,7 @@
             font-weight: bold;
             text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
+
         .reset-btn {
             background: transparent;
             border: 1px solid #ff4444;
@@ -222,11 +292,13 @@
             transition: 0.3s;
             margin-top: 10px;
         }
+
         .reset-btn:hover {
             background: #ff4444;
             color: white;
             box-shadow: 0 0 30px rgba(255, 68, 68, 0.3);
         }
+
         .history {
             color: #888;
             text-align: center;
@@ -239,6 +311,85 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+
+        .save-status {
+            color: #888;
+            text-align: center;
+            font-size: 12px;
+            margin-top: 10px;
+            opacity: 0.6;
+        }
+
+        /* ===== ТАБЛИЦА ЛИДЕРОВ (ЛОКАЛЬНАЯ) ===== */
+        .leaderboard-section {
+            background: rgba(0,0,0,0.6);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid #ffd70044;
+        }
+
+        .leaderboard-section h2 {
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .leaderboard-section ol {
+            color: white;
+            padding-left: 25px;
+        }
+
+        .leaderboard-section li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ffffff22;
+            font-size: 16px;
+        }
+
+        .leaderboard-section li:last-child {
+            border-bottom: none;
+        }
+
+        .player-input {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .player-input input {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 2px solid #ffd700;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            font-size: 16px;
+            outline: none;
+            min-width: 200px;
+        }
+
+        .player-input input::placeholder {
+            color: #888;
+        }
+
+        .player-input button {
+            background: #ffd700;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            color: #1a1a3e;
+        }
+
+        .player-input button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255,215,0,0.5);
+        }
+
+        /* ===== КОНФЕТТИ ===== */
         .confetti-container {
             position: fixed;
             top: 0;
@@ -249,6 +400,7 @@
             z-index: 9999;
             overflow: hidden;
         }
+
         .confetti {
             position: absolute;
             width: 12px;
@@ -256,17 +408,19 @@
             top: -20px;
             animation: confettiFall linear forwards;
         }
+
         @keyframes confettiFall {
-            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(720deg) scale(0); opacity: 0; }
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg) scale(0);
+                opacity: 0;
+            }
         }
-        .save-status {
-            color: #888;
-            text-align: center;
-            font-size: 12px;
-            margin-top: 10px;
-            opacity: 0.6;
-        }
+
+        /* ===== АДАПТАЦИЯ ===== */
         @media (max-width: 700px) {
             .casino { padding: 15px; }
             .reel-wrapper { width: 90px; height: 120px; }
@@ -281,6 +435,7 @@
             .bet-control span { font-size: 20px; min-width: 60px; }
             .reels { gap: 10px; }
         }
+
         @media (max-width: 450px) {
             .reel-wrapper { width: 70px; height: 95px; }
             .reel { font-size: 40px; }
@@ -291,6 +446,7 @@
 </head>
 <body>
 
+    <!-- ФОН С ДЕВУШКАМИ -->
     <div class="background"></div>
     <div class="girls-container">
         <div class="girl">👩‍💼</div>
@@ -298,11 +454,12 @@
         <div class="girl">👩‍🦰</div>
     </div>
 
+    <!-- КОНФЕТТИ -->
     <div class="confetti-container" id="confettiContainer"></div>
 
     <div class="main-container">
 
-        <!-- ИГРА -->
+        <!-- КАЗИНО -->
         <div class="casino">
             <h1>🎰 CASINO ROYALE</h1>
 
@@ -310,13 +467,20 @@
                 <div>💰 Баланс: <span id="balance">1000</span>$</div>
                 <div>🏆 Выигрыш: <span id="lastWin">0</span>$</div>
                 <div>🎯 Спинов: <span id="spins">0</span></div>
+                <div>📈 Рекорд: <span id="highScore">0</span>$</div>
             </div>
 
             <div class="slot-machine">
                 <div class="reels">
-                    <div class="reel-wrapper"><div class="reel" id="reel1">🍒</div></div>
-                    <div class="reel-wrapper"><div class="reel" id="reel2">🍒</div></div>
-                    <div class="reel-wrapper"><div class="reel" id="reel3">🍒</div></div>
+                    <div class="reel-wrapper">
+                        <div class="reel" id="reel1">🍒</div>
+                    </div>
+                    <div class="reel-wrapper">
+                        <div class="reel" id="reel2">🍒</div>
+                    </div>
+                    <div class="reel-wrapper">
+                        <div class="reel" id="reel3">🍒</div>
+                    </div>
                 </div>
             </div>
 
@@ -338,19 +502,35 @@
             <div class="save-status" id="saveStatus">💾 Прогресс сохраняется автоматически</div>
         </div>
 
+        <!-- ТАБЛИЦА ЛИДЕРОВ -->
+        <div class="casino">
+            <div class="leaderboard-section">
+                <h2>🏆 ТАБЛИЦА ЛИДЕРОВ</h2>
+                <div class="player-input">
+                    <input type="text" id="playerNameInput" placeholder="👤 Введите ваше имя" maxlength="20">
+                    <button id="saveRecordBtn">💾 Сохранить рекорд</button>
+                </div>
+                <div id="leaderboard">
+                    <p style="color: #888; text-align: center;">Загрузка...</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
         // ============================================
-        //  ИГРОВАЯ ЛОГИКА (БЕЗ ВХОДА)
+        //  ИГРОВАЯ ЛОГИКА
         // ============================================
         
+        // Основные переменные
         let balance = 1000;
         let bet = 10;
         let spins = 0;
         let isSpinning = false;
         let history = [];
         let lastWin = 0;
+        let highScore = 0;
 
         const symbols = ['🍒', '🍋', '🍊', '🍇', '💎', '7️⃣', '⭐', '🎰'];
         const winTable = {
@@ -363,7 +543,7 @@
         };
 
         // ============================================
-        //  СОХРАНЕНИЕ В LOCALSTORAGE
+        //  РАБОТА С LOCALSTORAGE
         // ============================================
 
         function saveGame() {
@@ -371,12 +551,18 @@
                 balance: balance,
                 spins: spins,
                 history: history.slice(-12),
-                lastWin: lastWin
+                lastWin: lastWin,
+                highScore: highScore
             };
             localStorage.setItem('casinoRoyaleSave', JSON.stringify(data));
-            document.getElementById('saveStatus').textContent = '💾 Прогресс сохранён!';
+            
+            // Обновляем статус сохранения
+            const status = document.getElementById('saveStatus');
+            status.textContent = '💾 Прогресс сохранён!';
+            status.style.color = '#4caf50';
             setTimeout(() => {
-                document.getElementById('saveStatus').textContent = '💾 Прогресс сохраняется автоматически';
+                status.textContent = '💾 Прогресс сохраняется автоматически';
+                status.style.color = '#888';
             }, 2000);
         }
 
@@ -389,6 +575,7 @@
                     spins = data.spins || 0;
                     history = data.history || [];
                     lastWin = data.lastWin || 0;
+                    highScore = data.highScore || 0;
                     return true;
                 } catch (e) {
                     console.error('Ошибка загрузки:', e);
@@ -399,7 +586,71 @@
         }
 
         // ============================================
-        //  ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+        //  РАБОТА С ТАБЛИЦЕЙ ЛИДЕРОВ (ЛОКАЛЬНАЯ)
+        // ============================================
+
+        function loadLeaderboard() {
+            const data = localStorage.getItem('casinoLeaderboard');
+            if (data) {
+                try {
+                    return JSON.parse(data);
+                } catch (e) {
+                    return [];
+                }
+            }
+            return [];
+        }
+
+        function saveLeaderboard(leaderboard) {
+            localStorage.setItem('casinoLeaderboard', JSON.stringify(leaderboard));
+        }
+
+        function addRecord(name, score) {
+            if (!name || name.trim() === '') {
+                alert('⚠️ Введите ваше имя!');
+                return;
+            }
+            
+            const leaderboard = loadLeaderboard();
+            leaderboard.push({
+                name: name.trim(),
+                score: score,
+                date: new Date().toLocaleDateString()
+            });
+            
+            // Сортируем по убыванию
+            leaderboard.sort((a, b) => b.score - a.score);
+            
+            // Оставляем топ-10
+            if (leaderboard.length > 10) {
+                leaderboard.length = 10;
+            }
+            
+            saveLeaderboard(leaderboard);
+            renderLeaderboard();
+            alert(`✅ Рекорд ${score}$ сохранён для игрока ${name}!`);
+        }
+
+        function renderLeaderboard() {
+            const leaderboard = loadLeaderboard();
+            const container = document.getElementById('leaderboard');
+            
+            if (leaderboard.length === 0) {
+                container.innerHTML = '<p style="color: #888; text-align: center;">Пока нет рекордов. Стань первым! 🎯</p>';
+                return;
+            }
+            
+            let html = '<ol>';
+            leaderboard.forEach((entry, index) => {
+                const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}.`;
+                html += `<li>${medal} <strong>${entry.name}</strong>: ${entry.score}$ <span style="color: #666; font-size: 12px;">(${entry.date})</span></li>`;
+            });
+            html += '</ol>';
+            container.innerHTML = html;
+        }
+
+        // ============================================
+        //  ИГРОВЫЕ ФУНКЦИИ
         // ============================================
 
         function getWeightedSymbol() {
@@ -417,8 +668,8 @@
             document.getElementById('bet').textContent = bet;
             document.getElementById('spins').textContent = spins;
             document.getElementById('lastWin').textContent = lastWin;
+            document.getElementById('highScore').textContent = highScore;
             
-            // Обновляем историю
             if (history.length > 0) {
                 document.getElementById('history').textContent = 'История: ' + history.join(' | ');
             } else {
@@ -426,17 +677,12 @@
             }
         }
 
-        // ============================================
-        //  ИГРА
-        // ============================================
-
         function changeBet(amount) {
             if (isSpinning) return;
             let newBet = bet + amount;
             if (newBet >= 1 && newBet <= balance) {
                 bet = newBet;
                 updateUI();
-                saveGame();
             }
         }
 
@@ -510,6 +756,12 @@
             if (winAmount > 0) {
                 balance += winAmount;
                 lastWin = winAmount;
+                
+                // Обновляем рекорд
+                if (winAmount > highScore) {
+                    highScore = winAmount;
+                }
+                
                 document.getElementById('message').textContent = `🎉 ВЫИГРЫШ ${winAmount}$! 🎉`;
 
                 reels.forEach(reel => {
@@ -551,6 +803,7 @@
         function launchConfetti() {
             const container = document.getElementById('confettiContainer');
             const colors = ['#ffd700', '#ff6b00', '#ff0040', '#00ff80', '#00bfff', '#ff00ff', '#ff4444', '#44ff44'];
+            
             for (let i = 0; i < 120; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
@@ -600,6 +853,7 @@
             spins = 0;
             history = [];
             lastWin = 0;
+            highScore = 0;
             
             localStorage.removeItem('casinoRoyaleSave');
             
@@ -611,9 +865,13 @@
             document.getElementById('reel2').textContent = '🍒';
             document.getElementById('reel3').textContent = '🍒';
             document.getElementById('confettiContainer').innerHTML = '';
-            document.getElementById('saveStatus').textContent = '💾 Прогресс сброшен';
+            
+            const status = document.getElementById('saveStatus');
+            status.textContent = '💾 Прогресс сброшен';
+            status.style.color = '#ff6b00';
             setTimeout(() => {
-                document.getElementById('saveStatus').textContent = '💾 Прогресс сохраняется автоматически';
+                status.textContent = '💾 Прогресс сохраняется автоматически';
+                status.style.color = '#888';
             }, 2000);
         }
 
@@ -638,6 +896,15 @@
             document.getElementById('betUpBtn').addEventListener('click', function() { changeBet(5); });
             document.getElementById('betDownBtn').addEventListener('click', function() { changeBet(-5); });
             document.getElementById('resetBtn').addEventListener('click', resetGame);
+            document.getElementById('saveRecordBtn').addEventListener('click', function() {
+                const name = document.getElementById('playerNameInput').value.trim();
+                if (!name) {
+                    alert('⚠️ Введите ваше имя!');
+                    return;
+                }
+                addRecord(name, balance);
+                document.getElementById('playerNameInput').value = '';
+            });
             
             console.log('✅ Все кнопки привязаны!');
         });
@@ -649,21 +916,19 @@
         window.addEventListener('load', function() {
             console.log('🚀 Игра загружена!');
             
-            // Загружаем сохранённый прогресс
+            // Загружаем прогресс
             const loaded = loadGame();
             if (loaded) {
                 console.log('💾 Прогресс загружен!');
-                document.getElementById('saveStatus').textContent = '💾 Прогресс загружен!';
-                setTimeout(() => {
-                    document.getElementById('saveStatus').textContent = '💾 Прогресс сохраняется автоматически';
-                }, 2000);
             } else {
                 console.log('🆕 Новая игра');
             }
             
+            // Загружаем таблицу лидеров
+            renderLeaderboard();
+            
             updateUI();
             
-            // Если баланс 0, блокируем кнопку
             if (balance <= 0) {
                 document.getElementById('spinBtn').disabled = true;
                 document.getElementById('message').textContent = '💸 ТЫ ПРОИГРАЛ ВСЁ! Нажми "Сбросить прогресс"';
