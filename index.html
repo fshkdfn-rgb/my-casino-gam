@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎰 CASINO ROYALE</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -73,62 +72,6 @@
             margin-bottom: 20px;
             font-weight: 900;
         }
-        /* ===== АВТОРИЗАЦИЯ (только вход) ===== */
-        .auth-container {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-            background: rgba(0,0,0,0.4);
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid #ffd70033;
-        }
-        .auth-container input {
-            padding: 12px 20px;
-            border-radius: 10px;
-            border: 2px solid #ffd700;
-            background: rgba(0,0,0,0.5);
-            color: white;
-            font-size: 16px;
-            outline: none;
-            min-width: 200px;
-        }
-        .auth-container input::placeholder { color: #888; }
-        .auth-container button {
-            background: #ffd700;
-            border: none;
-            padding: 12px 40px;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-            color: #1a1a3e;
-        }
-        .auth-container button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
-        }
-        .user-info {
-            color: #ffd700;
-            text-align: center;
-            padding: 10px;
-            font-size: 18px;
-        }
-        .user-info span { color: #fff; }
-        .user-info button {
-            margin-left: 15px;
-            padding: 8px 25px;
-            border: none;
-            border-radius: 10px;
-            background: #ff4444;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .user-info button:hover { background: #cc0000; }
         .stats {
             display: flex;
             justify-content: space-between;
@@ -296,28 +239,6 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-        .leaderboard-section {
-            background: rgba(0,0,0,0.6);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid #ffd70044;
-        }
-        .leaderboard-section h2 {
-            color: #ffd700;
-            text-align: center;
-            margin-bottom: 15px;
-            font-size: 24px;
-        }
-        .leaderboard-section ol {
-            color: white;
-            padding-left: 25px;
-        }
-        .leaderboard-section li {
-            padding: 8px 0;
-            border-bottom: 1px solid #ffffff22;
-            font-size: 16px;
-        }
-        .leaderboard-section li:last-child { border-bottom: none; }
         .confetti-container {
             position: fixed;
             top: 0;
@@ -339,6 +260,13 @@
             0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
             100% { transform: translateY(110vh) rotate(720deg) scale(0); opacity: 0; }
         }
+        .save-status {
+            color: #888;
+            text-align: center;
+            font-size: 12px;
+            margin-top: 10px;
+            opacity: 0.6;
+        }
         @media (max-width: 700px) {
             .casino { padding: 15px; }
             .reel-wrapper { width: 90px; height: 120px; }
@@ -352,16 +280,12 @@
             .bet-control button { width: 35px; height: 35px; font-size: 20px; }
             .bet-control span { font-size: 20px; min-width: 60px; }
             .reels { gap: 10px; }
-            .auth-container input { min-width: 150px; font-size: 14px; padding: 10px 15px; }
-            .auth-container button { padding: 10px 30px; font-size: 14px; }
         }
         @media (max-width: 450px) {
             .reel-wrapper { width: 70px; height: 95px; }
             .reel { font-size: 40px; }
             .girl { font-size: 80px !important; }
             .girl:nth-child(2) { display: none; }
-            .auth-container { flex-direction: column; align-items: center; }
-            .auth-container input { width: 100%; }
         }
     </style>
 </head>
@@ -378,31 +302,16 @@
 
     <div class="main-container">
 
-        <!-- АВТОРИЗАЦИЯ (ТОЛЬКО ВХОД) -->
-        <div class="casino">
-            <div id="authSection">
-                <div class="auth-container">
-                    <input type="email" id="loginEmail" placeholder="📧 Email">
-                    <input type="password" id="loginPassword" placeholder="🔒 Пароль">
-                    <button id="loginBtn">🔑 Войти</button>
-                </div>
-            </div>
-            <div id="userInfo" style="display: none;">
-                <div class="user-info">
-                    👋 Привет, <span id="displayUsername"></span>!
-                    <button id="logoutBtn">🚪 Выйти</button>
-                </div>
-            </div>
-        </div>
-
         <!-- ИГРА -->
-        <div class="casino" id="gameSection" style="display: none;">
+        <div class="casino">
             <h1>🎰 CASINO ROYALE</h1>
+
             <div class="stats">
                 <div>💰 Баланс: <span id="balance">1000</span>$</div>
                 <div>🏆 Выигрыш: <span id="lastWin">0</span>$</div>
                 <div>🎯 Спинов: <span id="spins">0</span></div>
             </div>
+
             <div class="slot-machine">
                 <div class="reels">
                     <div class="reel-wrapper"><div class="reel" id="reel1">🍒</div></div>
@@ -410,50 +319,35 @@
                     <div class="reel-wrapper"><div class="reel" id="reel3">🍒</div></div>
                 </div>
             </div>
+
             <div class="controls">
                 <div class="bet-control">
                     <button id="betDownBtn">−</button>
                     <span>Ставка: <span id="bet">10</span>$</span>
                     <button id="betUpBtn">+</button>
                 </div>
+
                 <button class="spin-btn" id="spinBtn">🎲 SPIN</button>
+
                 <div class="message" id="message">💃 Начни игру!</div>
+
                 <button class="reset-btn" id="resetBtn">🔄 Сбросить прогресс</button>
             </div>
-            <div class="history" id="history">История: </div>
-        </div>
 
-        <!-- ТАБЛИЦА ЛИДЕРОВ -->
-        <div class="casino">
-            <div class="leaderboard-section">
-                <h2>🏆 ТАБЛИЦА ЛИДЕРОВ</h2>
-                <div id="leaderboard">
-                    <p style="color: #888; text-align: center;">⏳ Загрузка...</p>
-                </div>
-            </div>
+            <div class="history" id="history">История: </div>
+            <div class="save-status" id="saveStatus">💾 Прогресс сохраняется автоматически</div>
         </div>
 
     </div>
 
     <script>
         // ============================================
-        //  ПОДКЛЮЧЕНИЕ К SUPABASE
+        //  ИГРОВАЯ ЛОГИКА (БЕЗ ВХОДА)
         // ============================================
         
-        const SUPABASE_URL = 'https://bxjuvzyxspcavnpcfytj.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_qsUmLkXOfCa6359Ywg5sUQ-_MOTJ_';
-        
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
-        // ============================================
-        //  ПЕРЕМЕННЫЕ
-        // ============================================
-        
-        let currentUser = null;
-        let userBalance = 1000;
-        let userSpins = 0;
-        let currentUsername = '';
+        let balance = 1000;
         let bet = 10;
+        let spins = 0;
         let isSpinning = false;
         let history = [];
         let lastWin = 0;
@@ -467,6 +361,42 @@
             '🍒': 20, '🍋': 18, '🍊': 16, '🍇': 14,
             '💎': 12, '⭐': 10, '7️⃣': 6, '🎰': 4
         };
+
+        // ============================================
+        //  СОХРАНЕНИЕ В LOCALSTORAGE
+        // ============================================
+
+        function saveGame() {
+            const data = {
+                balance: balance,
+                spins: spins,
+                history: history.slice(-12),
+                lastWin: lastWin
+            };
+            localStorage.setItem('casinoRoyaleSave', JSON.stringify(data));
+            document.getElementById('saveStatus').textContent = '💾 Прогресс сохранён!';
+            setTimeout(() => {
+                document.getElementById('saveStatus').textContent = '💾 Прогресс сохраняется автоматически';
+            }, 2000);
+        }
+
+        function loadGame() {
+            const saved = localStorage.getItem('casinoRoyaleSave');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    balance = data.balance || 1000;
+                    spins = data.spins || 0;
+                    history = data.history || [];
+                    lastWin = data.lastWin || 0;
+                    return true;
+                } catch (e) {
+                    console.error('Ошибка загрузки:', e);
+                    return false;
+                }
+            }
+            return false;
+        }
 
         // ============================================
         //  ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
@@ -483,126 +413,36 @@
         }
 
         function updateUI() {
-            document.getElementById('balance').textContent = userBalance;
+            document.getElementById('balance').textContent = balance;
             document.getElementById('bet').textContent = bet;
-            document.getElementById('spins').textContent = userSpins;
+            document.getElementById('spins').textContent = spins;
             document.getElementById('lastWin').textContent = lastWin;
-        }
-
-        // ============================================
-        //  АВТОРИЗАЦИЯ (ТОЛЬКО ВХОД)
-        // ============================================
-        
-        async function login() {
-            console.log('🔄 Вход начат...');
             
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
-            
-            if (!email || !password) {
-                alert('⚠️ Введите email и пароль!');
-                return;
+            // Обновляем историю
+            if (history.length > 0) {
+                document.getElementById('history').textContent = 'История: ' + history.join(' | ');
+            } else {
+                document.getElementById('history').textContent = 'История: ';
             }
-            
-            try {
-                console.log('🔑 Вход в систему...');
-                const { data, error } = await supabaseClient.auth.signInWithPassword({
-                    email: email,
-                    password: password
-                });
-                
-                if (error) throw error;
-                
-                if (data.user) {
-                    console.log('✅ Вход успешен!');
-                    currentUser = data.user;
-                    await loadUserData();
-                    showGame();
-                    document.getElementById('loginEmail').value = '';
-                    document.getElementById('loginPassword').value = '';
-                }
-            } catch (error) {
-                console.error('❌ Ошибка:', error);
-                alert('❌ Неверный email или пароль!');
-            }
-        }
-        
-        async function logout() {
-            console.log('🚪 Выход...');
-            await supabaseClient.auth.signOut();
-            currentUser = null;
-            document.getElementById('authSection').style.display = 'block';
-            document.getElementById('userInfo').style.display = 'none';
-            document.getElementById('gameSection').style.display = 'none';
-        }
-        
-        async function loadUserData() {
-            if (!currentUser) return;
-            try {
-                console.log('📊 Загрузка данных пользователя...');
-                const { data, error } = await supabaseClient
-                    .from('users')
-                    .select('*')
-                    .eq('id', currentUser.id)
-                    .single();
-                
-                if (error) throw error;
-                if (data) {
-                    userBalance = data.balance || 1000;
-                    userSpins = data.total_spins || 0;
-                    currentUsername = data.username || 'Игрок';
-                    document.getElementById('displayUsername').textContent = currentUsername;
-                    updateUI();
-                    console.log('✅ Данные загружены, баланс:', userBalance);
-                }
-            } catch (error) {
-                console.error('❌ Ошибка загрузки данных:', error);
-            }
-        }
-        
-        async function saveUserData() {
-            if (!currentUser) return;
-            try {
-                console.log('💾 Сохранение данных...');
-                await supabaseClient
-                    .from('users')
-                    .update({ balance: userBalance, total_spins: userSpins })
-                    .eq('id', currentUser.id);
-                console.log('✅ Данные сохранены');
-            } catch (error) {
-                console.error('❌ Ошибка сохранения:', error);
-            }
-        }
-        
-        function showGame() {
-            document.getElementById('authSection').style.display = 'none';
-            document.getElementById('userInfo').style.display = 'block';
-            document.getElementById('gameSection').style.display = 'block';
-            updateUI();
-            fetchLeaderboard();
-            console.log('🎮 Игра открыта!');
         }
 
         // ============================================
         //  ИГРА
         // ============================================
-        
+
         function changeBet(amount) {
             if (isSpinning) return;
             let newBet = bet + amount;
-            if (newBet >= 1 && newBet <= userBalance) {
+            if (newBet >= 1 && newBet <= balance) {
                 bet = newBet;
                 updateUI();
+                saveGame();
             }
         }
 
-        async function spin() {
+        function spin() {
             if (isSpinning) return;
-            if (!currentUser) {
-                alert('⚠️ Войдите в аккаунт, чтобы играть!');
-                return;
-            }
-            if (userBalance < bet) {
+            if (balance < bet) {
                 document.getElementById('message').textContent = '❌ Недостаточно средств!';
                 return;
             }
@@ -611,8 +451,8 @@
             document.getElementById('spinBtn').disabled = true;
             document.getElementById('message').textContent = '🎰 Крутим...';
 
-            userBalance -= bet;
-            userSpins++;
+            balance -= bet;
+            spins++;
 
             const reels = [
                 document.getElementById('reel1'),
@@ -642,18 +482,24 @@
             });
         }
 
-        async function checkResult(results, reels) {
+        function checkResult(results, reels) {
             let winAmount = 0;
 
+            // Три одинаковых
             if (results[0] === results[1] && results[1] === results[2]) {
                 winAmount = winTable[results[0]] * Math.ceil(bet / 10);
             }
+            
+            // Спецкомбинации
             if (results.includes('7️⃣') && results.includes('💎') && results.includes('⭐')) {
                 winAmount = Math.max(winAmount, bet * 8);
             }
+            
             if (results.filter(s => s === '🎰').length === 2) {
                 winAmount = Math.max(winAmount, bet * 5);
             }
+
+            // Два одинаковых
             if (results[0] === results[1] && results[0] !== results[2]) {
                 winAmount = Math.max(winAmount, Math.floor(bet * 1.5));
             }
@@ -662,7 +508,7 @@
             }
 
             if (winAmount > 0) {
-                userBalance += winAmount;
+                balance += winAmount;
                 lastWin = winAmount;
                 document.getElementById('message').textContent = `🎉 ВЫИГРЫШ ${winAmount}$! 🎉`;
 
@@ -674,39 +520,26 @@
                 launchConfetti();
                 playWinSound();
 
-                if (currentUser && currentUsername) {
-                    try {
-                        console.log('🏆 Сохранение рекорда...');
-                        await supabaseClient
-                            .from('leaderboard')
-                            .insert([{
-                                user_id: currentUser.id,
-                                player_name: currentUsername,
-                                score: winAmount
-                            }]);
-                        console.log('✅ Рекорд сохранён!');
-                        await fetchLeaderboard();
-                    } catch (e) {
-                        console.error('❌ Ошибка сохранения рекорда:', e);
-                    }
-                }
             } else {
                 lastWin = 0;
                 document.getElementById('message').textContent = '😔 Попробуй ещё!';
             }
 
             updateUI();
-            await saveUserData();
 
+            // Сохраняем историю
             history.push(`${results.join(' ')} ${winAmount > 0 ? '💎+' + winAmount : '❌'}`);
             if (history.length > 12) history.shift();
             document.getElementById('history').textContent = 'История: ' + history.join(' | ');
 
+            // Сохраняем прогресс
+            saveGame();
+
             isSpinning = false;
             document.getElementById('spinBtn').disabled = false;
 
-            if (userBalance <= 0) {
-                document.getElementById('message').textContent = '💸 ТЫ ПРОИГРАЛ ВСЁ! Используй "Сбросить прогресс"';
+            if (balance <= 0) {
+                document.getElementById('message').textContent = '💸 ТЫ ПРОИГРАЛ ВСЁ! Нажми "Сбросить прогресс"';
                 document.getElementById('spinBtn').disabled = true;
             }
         }
@@ -755,58 +588,21 @@
         }
 
         // ============================================
-        //  ТАБЛИЦА ЛИДЕРОВ
-        // ============================================
-
-        async function fetchLeaderboard() {
-            try {
-                console.log('📊 Загрузка таблицы лидеров...');
-                const { data, error } = await supabaseClient
-                    .from('leaderboard')
-                    .select('player_name, score')
-                    .order('score', { ascending: false })
-                    .limit(10);
-                    
-                if (error) throw error;
-                
-                const leaderboardDiv = document.getElementById('leaderboard');
-                if (!data || data.length === 0) {
-                    leaderboardDiv.innerHTML = '<p style="color: #888; text-align: center;">Пока нет рекордов. Стань первым! 🎯</p>';
-                    return;
-                }
-                
-                let html = '<ol>';
-                data.forEach((entry, index) => {
-                    const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}.`;
-                    html += `<li>${medal} <strong>${entry.player_name}</strong>: ${entry.score}$</li>`;
-                });
-                html += '</ol>';
-                leaderboardDiv.innerHTML = html;
-                console.log('✅ Таблица лидеров загружена');
-            } catch (error) {
-                console.error('❌ Ошибка загрузки:', error);
-                document.getElementById('leaderboard').innerHTML = 
-                    '<p style="color: #ff4444; text-align: center;">❌ Ошибка загрузки рейтинга</p>';
-            }
-        }
-
-        // ============================================
         //  СБРОС
         // ============================================
 
-        async function resetGame() {
+        function resetGame() {
             if (isSpinning) return;
-            if (!currentUser) {
-                alert('⚠️ Войдите в аккаунт!');
-                return;
-            }
             if (!confirm('⚠️ Вы уверены, что хотите сбросить прогресс? Баланс станет 1000$, а спины обнулятся!')) return;
             
-            userBalance = 1000;
-            userSpins = 0;
+            balance = 1000;
+            bet = 10;
+            spins = 0;
             history = [];
             lastWin = 0;
-            await saveUserData();
+            
+            localStorage.removeItem('casinoRoyaleSave');
+            
             updateUI();
             document.getElementById('message').textContent = '🔄 Прогресс сброшен!';
             document.getElementById('history').textContent = 'История: ';
@@ -815,6 +611,10 @@
             document.getElementById('reel2').textContent = '🍒';
             document.getElementById('reel3').textContent = '🍒';
             document.getElementById('confettiContainer').innerHTML = '';
+            document.getElementById('saveStatus').textContent = '💾 Прогресс сброшен';
+            setTimeout(() => {
+                document.getElementById('saveStatus').textContent = '💾 Прогресс сохраняется автоматически';
+            }, 2000);
         }
 
         // ============================================
@@ -834,8 +634,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🔗 Привязка кнопок...');
             
-            document.getElementById('loginBtn').addEventListener('click', login);
-            document.getElementById('logoutBtn').addEventListener('click', logout);
             document.getElementById('spinBtn').addEventListener('click', spin);
             document.getElementById('betUpBtn').addEventListener('click', function() { changeBet(5); });
             document.getElementById('betDownBtn').addEventListener('click', function() { changeBet(-5); });
@@ -848,37 +646,29 @@
         //  ЗАГРУЗКА ПРИ СТАРТЕ
         // ============================================
 
-        window.addEventListener('load', async function() {
+        window.addEventListener('load', function() {
             console.log('🚀 Игра загружена!');
-            console.log('🔗 Подключение к Supabase:', SUPABASE_URL);
             
-            try {
-                const { data: { session } } = await supabaseClient.auth.getSession();
-                if (session) {
-                    console.log('👤 Сессия найдена');
-                    currentUser = session.user;
-                    await loadUserData();
-                    showGame();
-                } else {
-                    console.log('👤 Нет активной сессии');
-                }
-                fetchLeaderboard();
-            } catch (error) {
-                console.error('❌ Ошибка при загрузке:', error);
+            // Загружаем сохранённый прогресс
+            const loaded = loadGame();
+            if (loaded) {
+                console.log('💾 Прогресс загружен!');
+                document.getElementById('saveStatus').textContent = '💾 Прогресс загружен!';
+                setTimeout(() => {
+                    document.getElementById('saveStatus').textContent = '💾 Прогресс сохраняется автоматически';
+                }, 2000);
+            } else {
+                console.log('🆕 Новая игра');
+            }
+            
+            updateUI();
+            
+            // Если баланс 0, блокируем кнопку
+            if (balance <= 0) {
+                document.getElementById('spinBtn').disabled = true;
+                document.getElementById('message').textContent = '💸 ТЫ ПРОИГРАЛ ВСЁ! Нажми "Сбросить прогресс"';
             }
         });
-
-        // Реалтайм обновление таблицы
-        supabaseClient
-            .channel('leaderboard-changes')
-            .on('postgres_changes', 
-                { event: 'INSERT', schema: 'public', table: 'leaderboard' },
-                () => {
-                    console.log('🔄 Обновление таблицы лидеров...');
-                    fetchLeaderboard();
-                }
-            )
-            .subscribe();
     </script>
 </body>
 </html>
