@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎰 CASINO ROYALE - СЛОТЫ</title>
+    <title>🎰 CASINO ROYALE</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
@@ -37,7 +37,6 @@
         .stats{display:flex;justify-content:space-between;background:rgba(0,0,0,.7);padding:15px 25px;border-radius:15px;border:1px solid #ffd70044;margin-bottom:25px;color:#fff;font-size:18px;flex-wrap:wrap;gap:10px}
         .stats span{color:#ffd700;font-weight:700;font-size:22px}
         
-        /* ===== НОВЫЙ СЛОТ ===== */
         .slot-machine{
             background:linear-gradient(180deg,#1a0a2e,#0a0a1a);
             border-radius:20px;
@@ -55,187 +54,33 @@
             margin-bottom:20px;
         }
         
-        .slot-header-item{
-            text-align:center;
-        }
+        .slot-header-item{text-align:center}
+        .slot-header-item .label{color:#666;font-size:10px;text-transform:uppercase;letter-spacing:2px;display:block}
+        .slot-header-item .value{color:#ffd700;font-size:20px;font-weight:900;display:block;margin-top:3px;text-shadow:0 0 20px rgba(255,215,0,.2)}
+        .slot-header-item .value.win{color:#00ff88;text-shadow:0 0 30px rgba(0,255,136,.4)}
         
-        .slot-header-item .label{
-            color:#666;
-            font-size:10px;
-            text-transform:uppercase;
-            letter-spacing:2px;
-            display:block;
-        }
+        .reels{display:flex;justify-content:center;gap:15px;margin:15px 0;padding:20px;background:rgba(0,0,0,.6);border-radius:15px;border:2px solid rgba(255,215,0,.15)}
+        .reel-wrapper{width:120px;height:140px;perspective:600px;background:rgba(0,0,0,.5);border-radius:10px;border:2px solid rgba(255,215,0,.2);overflow:hidden}
+        .reel{width:100%;height:100%;display:flex;justify-content:center;align-items:center;font-size:70px;background:linear-gradient(180deg,#0a0a1a,#1a1a3a);transition:all .3s}
+        .reel.spinning{animation:spinReel .08s linear infinite}
+        @keyframes spinReel{0%{transform:translateY(0)}25%{transform:translateY(-15px)}50%{transform:translateY(0)}75%{transform:translateY(15px)}100%{transform:translateY(0)}}
+        .reel.winner{animation:winPulse .5s ease 3;border-color:#ff6b00;box-shadow:0 0 60px rgba(255,215,0,.8)}
+        @keyframes winPulse{0%,100%{box-shadow:0 0 20px rgba(255,215,0,.3);border-color:rgba(255,215,0,.3)}50%{box-shadow:0 0 80px rgba(255,215,0,1);border-color:#ff6b00;transform:scale(1.05)}}
         
-        .slot-header-item .value{
-            color:#ffd700;
-            font-size:20px;
-            font-weight:900;
-            display:block;
-            margin-top:3px;
-            text-shadow:0 0 20px rgba(255,215,0,.2);
-        }
+        .controls{display:flex;flex-direction:column;gap:15px;align-items:center;margin-top:20px}
+        .bet-row{display:flex;gap:15px;align-items:center;background:rgba(0,0,0,.4);padding:10px 25px;border-radius:12px;border:1px solid rgba(255,215,0,.15)}
+        .bet-row button{background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;width:38px;height:38px;border-radius:50%;font-size:20px;font-weight:700;cursor:pointer;transition:.3s;color:#1a1a3e}
+        .bet-row button:hover{transform:scale(1.15);box-shadow:0 0 25px rgba(255,215,0,.5)}
+        .bet-row span{font-size:20px;color:#ffd700;min-width:60px;text-align:center;font-weight:700}
+        .bet-row .label{color:#888;font-size:12px;text-transform:uppercase;letter-spacing:1px}
         
-        .slot-header-item .value.win{
-            color:#00ff88;
-            text-shadow:0 0 30px rgba(0,255,136,.4);
-        }
+        .spin-btn{background:linear-gradient(135deg,#ffd700,#ff6b00);color:#1a1a3e;border:none;padding:16px 60px;font-size:24px;font-weight:900;border-radius:50px;cursor:pointer;transition:.3s;text-transform:uppercase;letter-spacing:3px;box-shadow:0 4px 30px rgba(255,215,0,.3);width:100%;max-width:280px}
+        .spin-btn:hover:not(:disabled){transform:scale(1.05) translateY(-2px);box-shadow:0 8px 50px rgba(255,215,0,.5)}
+        .spin-btn:disabled{opacity:.5;cursor:not-allowed}
         
-        /* Барабаны */
-        .reels{
-            display:flex;
-            justify-content:center;
-            gap:15px;
-            margin:15px 0;
-            padding:20px;
-            background:rgba(0,0,0,.6);
-            border-radius:15px;
-            border:2px solid rgba(255,215,0,.15);
-        }
+        .message{color:#ffd700;text-align:center;font-size:18px;min-height:35px;margin-top:10px;font-weight:700;text-shadow:0 0 20px rgba(255,215,0,.3)}
+        .history{color:#666;text-align:center;font-size:12px;margin-top:15px;border-top:1px solid rgba(255,255,255,.05);padding-top:15px}
         
-        .reel-wrapper{
-            width:120px;
-            height:140px;
-            perspective:600px;
-            background:rgba(0,0,0,.5);
-            border-radius:10px;
-            border:2px solid rgba(255,215,0,.2);
-            overflow:hidden;
-        }
-        
-        .reel{
-            width:100%;
-            height:100%;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            font-size:70px;
-            background:linear-gradient(180deg,#0a0a1a,#1a1a3a);
-            transition:all .3s;
-        }
-        
-        .reel.spinning{
-            animation:spinReel .08s linear infinite;
-        }
-        
-        @keyframes spinReel{
-            0%{transform:translateY(0)}
-            25%{transform:translateY(-15px)}
-            50%{transform:translateY(0)}
-            75%{transform:translateY(15px)}
-            100%{transform:translateY(0)}
-        }
-        
-        .reel.winner{
-            animation:winPulse .5s ease 3;
-            border-color:#ff6b00;
-            box-shadow:0 0 60px rgba(255,215,0,.8);
-        }
-        
-        @keyframes winPulse{
-            0%,100%{box-shadow:0 0 20px rgba(255,215,0,.3);border-color:rgba(255,215,0,.3)}
-            50%{box-shadow:0 0 80px rgba(255,215,0,1);border-color:#ff6b00;transform:scale(1.05)}
-        }
-        
-        /* Кнопки */
-        .controls{
-            display:flex;
-            flex-direction:column;
-            gap:15px;
-            align-items:center;
-            margin-top:20px;
-        }
-        
-        .bet-row{
-            display:flex;
-            gap:15px;
-            align-items:center;
-            background:rgba(0,0,0,.4);
-            padding:10px 25px;
-            border-radius:12px;
-            border:1px solid rgba(255,215,0,.15);
-        }
-        
-        .bet-row button{
-            background:linear-gradient(135deg,#ffd700,#ff8c00);
-            border:none;
-            width:38px;
-            height:38px;
-            border-radius:50%;
-            font-size:20px;
-            font-weight:700;
-            cursor:pointer;
-            transition:.3s;
-            color:#1a1a3e;
-        }
-        
-        .bet-row button:hover{
-            transform:scale(1.15);
-            box-shadow:0 0 25px rgba(255,215,0,.5);
-        }
-        
-        .bet-row span{
-            font-size:20px;
-            color:#ffd700;
-            min-width:60px;
-            text-align:center;
-            font-weight:700;
-        }
-        
-        .bet-row .label{
-            color:#888;
-            font-size:12px;
-            text-transform:uppercase;
-            letter-spacing:1px;
-        }
-        
-        .spin-btn{
-            background:linear-gradient(135deg,#ffd700,#ff6b00);
-            color:#1a1a3e;
-            border:none;
-            padding:16px 60px;
-            font-size:24px;
-            font-weight:900;
-            border-radius:50px;
-            cursor:pointer;
-            transition:.3s;
-            text-transform:uppercase;
-            letter-spacing:3px;
-            box-shadow:0 4px 30px rgba(255,215,0,.3);
-            width:100%;
-            max-width:280px;
-        }
-        
-        .spin-btn:hover:not(:disabled){
-            transform:scale(1.05) translateY(-2px);
-            box-shadow:0 8px 50px rgba(255,215,0,.5);
-        }
-        
-        .spin-btn:disabled{
-            opacity:.5;
-            cursor:not-allowed;
-        }
-        
-        .message{
-            color:#ffd700;
-            text-align:center;
-            font-size:18px;
-            min-height:35px;
-            margin-top:10px;
-            font-weight:700;
-            text-shadow:0 0 20px rgba(255,215,0,.3);
-        }
-        
-        .history{
-            color:#666;
-            text-align:center;
-            font-size:12px;
-            margin-top:15px;
-            border-top:1px solid rgba(255,255,255,.05);
-            padding-top:15px;
-        }
-        
-        /* ===== ДРУГИЕ ИГРЫ ===== */
         .roulette-container{text-align:center;padding:20px}
         .roulette-wheel{position:relative;width:280px;height:280px;margin:0 auto 20px}
         .roulette-wheel canvas{width:100%;height:100%;border-radius:50%;box-shadow:0 0 40px rgba(255,215,0,.3),inset 0 0 40px rgba(255,215,0,.1)}
@@ -313,7 +158,6 @@
     <div class="confetti-container" id="confettiContainer"></div>
     <div class="main-container">
         
-        <!-- АВТОРИЗАЦИЯ -->
         <div class="casino">
             <div id="authSection">
                 <div class="auth-container">
@@ -337,7 +181,6 @@
             </div>
         </div>
 
-        <!-- МЕНЮ -->
         <div class="casino" id="gameMenu" style="display:none">
             <div class="game-menu">
                 <button id="menuSlots" class="active">🎰 Слоты</button>
@@ -346,12 +189,10 @@
             </div>
         </div>
 
-        <!-- СЛОТЫ (НОВЫЙ ДИЗАЙН) -->
+        <!-- СЛОТЫ -->
         <div class="casino" id="gameSlots">
             <h1>🎰 SLOT MACHINE</h1>
-            
             <div class="slot-machine">
-                <!-- Верхняя панель: BET, TOTAL BET, WIN -->
                 <div class="slot-header">
                     <div class="slot-header-item">
                         <span class="label">BET</span>
@@ -370,8 +211,6 @@
                         <span class="value" id="balanceDisplay">1000</span>
                     </div>
                 </div>
-                
-                <!-- Барабаны -->
                 <div class="reels">
                     <div class="reel-wrapper">
                         <div class="reel" id="reel1">🍒</div>
@@ -383,8 +222,6 @@
                         <div class="reel" id="reel3">🍒</div>
                     </div>
                 </div>
-                
-                <!-- Управление -->
                 <div class="controls">
                     <div class="bet-row">
                         <span class="label">BET</span>
@@ -395,7 +232,6 @@
                     <button class="spin-btn" id="spinBtn">🎲 SPIN</button>
                     <div class="message" id="message">💃 Нажми SPIN!</div>
                 </div>
-                
                 <div class="history" id="history">История: </div>
             </div>
         </div>
@@ -482,11 +318,9 @@
                 <div style="color:#ffd700;font-size:18px;margin-bottom:10px">👤 Ваши карты</div>
                 <div class="bj-hand" id="playerHand"></div>
                 <div class="bj-score" id="playerScore">Сумма: 0</div>
-                
                 <div style="color:#ffd700;font-size:18px;margin:20px 0 10px">🤖 Карты дилера</div>
                 <div class="bj-hand" id="dealerHand"></div>
                 <div class="bj-score" id="dealerScore">Сумма: 0</div>
-                
                 <div class="bj-actions">
                     <button id="bjHit">🎯 Взять</button>
                     <button id="bjStand">✋ Стоп</button>
@@ -496,7 +330,7 @@
             </div>
         </div>
 
-        <!-- АДМИН-ПАНЕЛЬ -->
+        <!-- АДМИН -->
         <div class="casino admin-panel" id="adminPanel">
             <h3>🔐 АДМИН-ПАНЕЛЬ</h3>
             <div class="admin-row">
@@ -512,7 +346,7 @@
 
     <script>
         // ============================================
-        //  ПОДКЛЮЧЕНИЕ К SUPABASE
+        //  SUPABASE
         // ============================================
         
         var SB_URL = 'https://bxjuvzyxspcavnpcfytj.supabase.co';
@@ -529,19 +363,16 @@
         var username = '';
         var isAdmin = false;
         
-        // Слоты
         var bet = 10;
         var spinning = false;
         var history = [];
         var lastWin = 0;
         
-        // Рулетка
         var rouletteBet = 10;
         var rouletteSpinning = false;
         var selectedNumber = null;
         var rouletteHistory = [];
         
-        // Блэкджек
         var bjBet = 10;
         var deck = [];
         var playerCards = [];
@@ -551,10 +382,6 @@
         var symbols = ['🍒','🍋','🍊','🍇','💎','7️⃣','⭐','🎰'];
         var wins = {'🍒':12,'🍋':18,'🍊':25,'🍇':30,'💎':60,'7️⃣':120,'⭐':90,'🎰':250};
         var weights = {'🍒':20,'🍋':18,'🍊':16,'🍇':14,'💎':12,'⭐':10,'7️⃣':6,'🎰':4};
-        
-        // ============================================
-        //  РУЛЕТКА
-        // ============================================
         
         var rouletteNumbers = [0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
         
@@ -570,7 +397,7 @@
         }
         
         // ============================================
-        //  ОБЩИЕ ФУНКЦИИ
+        //  ФУНКЦИИ
         // ============================================
         
         function randSymbol() {
@@ -585,17 +412,27 @@
         }
         
         function updateUI() {
-            document.getElementById('balanceDisplay').textContent = userBalance;
-            document.getElementById('balance').textContent = userBalance;
-            document.getElementById('betDisplay').textContent = bet;
-            document.getElementById('totalBetDisplay').textContent = bet;
-            document.getElementById('betValue').textContent = bet;
-            document.getElementById('winDisplay').textContent = lastWin;
-            document.getElementById('rouletteBalance').textContent = userBalance;
-            document.getElementById('rouletteBetDisplay').textContent = rouletteBet;
-            document.getElementById('rouletteBet').textContent = rouletteBet;
-            document.getElementById('bjBalance').textContent = userBalance;
-            document.getElementById('bjBet').textContent = bjBet;
+            var balEl = document.getElementById('balanceDisplay');
+            var betEl = document.getElementById('betDisplay');
+            var totalEl = document.getElementById('totalBetDisplay');
+            var winEl = document.getElementById('winDisplay');
+            var betValEl = document.getElementById('betValue');
+            var rouletteBalEl = document.getElementById('rouletteBalance');
+            var rouletteBetEl = document.getElementById('rouletteBetDisplay');
+            var rouletteBetEl2 = document.getElementById('rouletteBet');
+            var bjBalEl = document.getElementById('bjBalance');
+            var bjBetEl = document.getElementById('bjBet');
+            
+            if (balEl) balEl.textContent = userBalance;
+            if (betEl) betEl.textContent = bet;
+            if (totalEl) totalEl.textContent = bet;
+            if (winEl) winEl.textContent = lastWin;
+            if (betValEl) betValEl.textContent = bet;
+            if (rouletteBalEl) rouletteBalEl.textContent = userBalance;
+            if (rouletteBetEl) rouletteBetEl.textContent = rouletteBet;
+            if (rouletteBetEl2) rouletteBetEl2.textContent = rouletteBet;
+            if (bjBalEl) bjBalEl.textContent = userBalance;
+            if (bjBetEl) bjBetEl.textContent = bjBet;
         }
         
         // ============================================
@@ -667,6 +504,7 @@
                         balance: 1000
                     }]);
                 }
+                return null;
             }).then(function() {
                 alert('✅ Регистрация успешна! Теперь войдите.');
                 document.getElementById('regUsername').value = '';
@@ -686,12 +524,15 @@
                 if (result.error) throw result.error;
                 if (result.data.user) {
                     currentUser = result.data.user;
-                    return loadUser();
+                    return loadUserData();
                 }
+                return null;
             }).then(function() {
-                showGame();
-                document.getElementById('loginEmail').value = '';
-                document.getElementById('loginPassword').value = '';
+                if (currentUser) {
+                    showGame();
+                    document.getElementById('loginEmail').value = '';
+                    document.getElementById('loginPassword').value = '';
+                }
             }).catch(function(err) {
                 alert('❌ Неверный email или пароль!');
             });
@@ -711,10 +552,11 @@
             });
         }
         
-        function loadUser() {
+        function loadUserData() {
             if (!currentUser) return Promise.reject('No user');
             return sb.from('users').select('*').eq('id', currentUser.id).single().then(function(result) {
-                if (!result.error && result.data) {
+                if (result.error) throw result.error;
+                if (result.data) {
                     userBalance = result.data.balance || 1000;
                     username = result.data.username || 'Игрок';
                     document.getElementById('displayUsername').textContent = username;
@@ -729,7 +571,7 @@
             });
         }
         
-        function saveUser() {
+        function saveUserData() {
             if (!currentUser) return Promise.resolve();
             return sb.from('users').update({ balance: userBalance }).eq('id', currentUser.id).then(function() {
                 console.log('✅ Баланс сохранён:', userBalance);
@@ -765,7 +607,7 @@
         }
         
         // ============================================
-        //  СЛОТЫ (НОВЫЙ ДИЗАЙН)
+        //  СЛОТЫ
         // ============================================
         
         function changeBet(amount) {
@@ -828,13 +670,19 @@
                 win = wins[results[0]] * Math.ceil(bet / 10);
             }
             
-            if (results.indexOf('7️⃣') !== -1 && results.indexOf('💎') !== -1 && results.indexOf('⭐') !== -1) {
+            var has7 = false, hasDiamond = false, hasStar = false;
+            for (var i = 0; i < results.length; i++) {
+                if (results[i] === '7️⃣') has7 = true;
+                if (results[i] === '💎') hasDiamond = true;
+                if (results[i] === '⭐') hasStar = true;
+            }
+            if (has7 && hasDiamond && hasStar) {
                 win = Math.max(win, bet * 8);
             }
             
             var scatterCount = 0;
-            for (var i = 0; i < results.length; i++) {
-                if (results[i] === '🎰') scatterCount++;
+            for (var k = 0; k < results.length; k++) {
+                if (results[k] === '🎰') scatterCount++;
             }
             if (scatterCount === 2) win = Math.max(win, bet * 5);
             if (scatterCount === 3) win = Math.max(win, bet * 20);
@@ -851,11 +699,11 @@
                 lastWin = win;
                 document.getElementById('message').textContent = '🎉 ВЫИГРЫШ ' + win + '$! 🎉';
                 document.getElementById('winDisplay').textContent = win;
-                for (var k = 0; k < reels.length; k++) {
-                    reels[k].classList.add('winner');
+                for (var m = 0; m < reels.length; m++) {
+                    reels[m].classList.add('winner');
                     (function(idx) {
                         setTimeout(function() { reels[idx].classList.remove('winner'); }, 1800);
-                    })(k);
+                    })(m);
                 }
                 launchConfetti();
                 playWinSound();
@@ -866,9 +714,10 @@
             }
             
             updateUI();
-            saveUser();
+            saveUserData();
             
-            history.push(results.join(' ') + (win > 0 ? ' 💎+' + win : ' ❌'));
+            var historyText = results.join(' ') + (win > 0 ? ' 💎+' + win : ' ❌');
+            history.push(historyText);
             if (history.length > 12) history.shift();
             document.getElementById('history').textContent = 'История: ' + history.join(' | ');
             
@@ -887,6 +736,7 @@
         function drawRoulette(highlightNum) {
             highlightNum = highlightNum || null;
             var canvas = document.getElementById('rouletteCanvas');
+            if (!canvas) return;
             var ctx = canvas.getContext('2d');
             var size = canvas.width;
             var center = size / 2;
@@ -1030,7 +880,7 @@
                     }
                     
                     updateUI();
-                    saveUser();
+                    saveUserData();
                     
                     rouletteHistory.push('' + finalNumber);
                     if (rouletteHistory.length > 12) rouletteHistory.shift();
@@ -1046,6 +896,7 @@
         
         function drawRouletteAtAngle(angle) {
             var canvas = document.getElementById('rouletteCanvas');
+            if (!canvas) return;
             var ctx = canvas.getContext('2d');
             var size = canvas.width;
             var center = size / 2;
@@ -1192,7 +1043,7 @@
                 document.getElementById('bjStand').disabled = true;
                 document.getElementById('bjNewGame').disabled = false;
                 updateUI();
-                saveUser();
+                saveUserData();
             }
         }
         
@@ -1227,7 +1078,7 @@
             }
             
             updateUI();
-            saveUser();
+            saveUserData();
             document.getElementById('bjNewGame').disabled = false;
         }
         
@@ -1326,7 +1177,7 @@
         // ============================================
         
         document.addEventListener('keydown', function(e) {
-            if (e.code === 'Space') { e.preventDefault(); spin(); }
+            if (e.code === 'Space') { e.preventDefault(); if (document.getElementById('gameSlots').style.display !== 'none') spin(); }
             if (e.code === 'ArrowUp') { e.preventDefault(); changeBet(5); }
             if (e.code === 'ArrowDown') { e.preventDefault(); changeBet(-5); }
         });
@@ -1341,7 +1192,7 @@
             document.getElementById('logoutBtn').onclick = logout;
             
             document.getElementById('menuSlots').onclick = function() { switchGame('slots'); };
-            document.getElementById('menuRoulette').onclick = function() { switchGame('roulette'); drawRoulette(); };
+            document.getElementById('menuRoulette').onclick = function() { switchGame('roulette'); setTimeout(function(){ drawRoulette(); }, 100); };
             document.getElementById('menuBJ').onclick = function() { switchGame('bj'); };
             
             document.getElementById('spinBtn').onclick = spin;
@@ -1376,17 +1227,17 @@
             sb.auth.getSession().then(function(result) {
                 if (result.data && result.data.session) {
                     currentUser = result.data.session.user;
-                    return loadUser();
+                    return loadUserData();
                 }
                 return Promise.resolve();
             }).then(function() {
                 if (currentUser) {
                     showGame();
                 }
-                drawRoulette(0);
+                setTimeout(function(){ drawRoulette(0); }, 200);
             }).catch(function(err) {
                 console.error('Ошибка загрузки:', err);
-                drawRoulette(0);
+                setTimeout(function(){ drawRoulette(0); }, 200);
             });
         });
     </script>
