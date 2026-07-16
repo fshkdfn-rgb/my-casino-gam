@@ -3,421 +3,290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎰 IDLE CASINO RPG</title>
+    <title>Idle Life</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             min-height: 100vh;
-            background: #0a0a1a;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            overflow-x: hidden;
-            position: relative;
-            color: white;
-        }
-
-        /* ===== ФОН ===== */
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background: linear-gradient(135deg, rgba(10, 10, 30, 0.92) 0%, rgba(30, 10, 50, 0.92) 100%);
-        }
-
-        /* ===== КОНТЕЙНЕР ===== */
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 0 15px;
-        }
-
-        .panel {
-            background: radial-gradient(ellipse at center, rgba(26, 26, 62, 0.95) 0%, rgba(13, 13, 26, 0.98) 100%);
-            border: 2px solid #ffd700;
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 60px rgba(255, 215, 0, 0.1), inset 0 0 60px rgba(255, 215, 0, 0.03);
-        }
-
-        h1 {
-            color: #ffd700;
-            text-align: center;
-            font-size: 32px;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3), 0 3px 0 #8b6914;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            font-weight: 900;
-        }
-
-        h2 {
-            color: #ffd700;
-            font-size: 20px;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
-        }
-
-        .subtitle {
-            color: #888;
-            text-align: center;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        /* ===== СТАТИСТИКА ИГРОКА ===== */
-        .player-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 15px;
-            padding: 15px 20px;
-            border: 1px solid #ffd70033;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-item .label {
-            font-size: 12px;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .stat-item .value {
-            font-size: 22px;
-            color: #ffd700;
-            font-weight: bold;
-        }
-
-        .stat-item .value.green { color: #4caf50; }
-        .stat-item .value.red { color: #ff4444; }
-        .stat-item .value.blue { color: #4fc3f7; }
-
-        /* ===== ВКЛАДКИ ===== */
-        .tabs {
+            background: #0b0e14;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             display: flex;
-            gap: 5px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+        .app {
+            max-width: 420px;
+            width: 100%;
+            background: #151e27;
+            border-radius: 28px;
+            padding: 20px 18px 30px;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
+            color: #e8edf2;
+            position: relative;
+            border: 1px solid #2a3846;
+        }
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #1b2631;
+            border-radius: 18px;
+            padding: 12px 16px;
+            margin-bottom: 18px;
+            border: 1px solid #2f4050;
+        }
+        .avatar {
+            font-size: 40px;
+            background: #263544;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #f5b342;
+        }
+        .avatar-info {
+            flex: 1;
+        }
+        .avatar-info .name {
+            font-weight: 700;
+            font-size: 18px;
+            color: #f5b342;
+        }
+        .avatar-info .title {
+            font-size: 13px;
+            color: #a0b3c4;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+            background: #1b2631;
+            border-radius: 16px;
+            padding: 12px 6px;
+            margin-bottom: 16px;
+            border: 1px solid #2a3846;
+        }
+        .stat-box {
+            text-align: center;
+        }
+        .stat-box .label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #7e96ab;
+            letter-spacing: 0.5px;
+        }
+        .stat-box .value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #f5b342;
+        }
+        .stat-box .value.green {
+            color: #6fcf97;
         }
 
+        .tab-bar {
+            display: flex;
+            gap: 4px;
+            background: #1b2631;
+            border-radius: 16px;
+            padding: 4px;
+            margin-bottom: 18px;
+        }
         .tab-btn {
             flex: 1;
-            min-width: 80px;
-            padding: 10px 15px;
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid #ffd70044;
-            border-radius: 10px;
-            color: #888;
+            background: transparent;
+            border: none;
+            color: #7e96ab;
+            padding: 10px 0;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 13px;
             cursor: pointer;
-            transition: 0.3s;
-            font-size: 14px;
-            font-weight: bold;
-            text-align: center;
+            transition: 0.2s;
         }
-
-        .tab-btn:hover {
-            background: rgba(255, 215, 0, 0.2);
-            color: white;
-        }
-
         .tab-btn.active {
-            background: #ffd700;
-            color: #1a1a3e;
-            border-color: #ffd700;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+            background: #f5b342;
+            color: #0b0e14;
+        }
+        .tab-btn:hover {
+            background: #2f4050;
+            color: #e8edf2;
         }
 
         .tab-content {
             display: none;
-            animation: fadeIn 0.3s ease;
         }
-
         .tab-content.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ===== РАБОТА ===== */
         .job-card {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid #ffffff15;
-            margin-bottom: 15px;
+            background: #1b2631;
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            border: 1px solid #2a3846;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
         }
-
-        .job-card .info {
-            flex: 1;
-            min-width: 150px;
-        }
-
-        .job-card .name {
-            font-size: 18px;
-            font-weight: bold;
-            color: #ffd700;
-        }
-
-        .job-card .desc {
-            font-size: 14px;
-            color: #aaa;
-        }
-
-        .job-card .income {
-            font-size: 14px;
-            color: #4caf50;
-        }
-
-        .job-card button {
-            padding: 10px 25px;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 14px;
-        }
-
-        .job-card .work-btn {
-            background: linear-gradient(135deg, #4caf50, #2e7d32);
-            color: white;
-        }
-
-        .job-card .work-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(76, 175, 80, 0.3);
-        }
-
-        .job-card .work-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .job-card .upgrade-btn {
-            background: #ffd700;
-            color: #1a1a3e;
-        }
-
-        .job-card .upgrade-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-        }
-
-        .job-card .upgrade-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* ===== МАГАЗИН ===== */
-        .shop-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .shop-item {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid #ffffff15;
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .shop-item:hover {
-            border-color: #ffd70055;
-        }
-
-        .shop-item .icon {
-            font-size: 40px;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .shop-item .name {
+        .job-card .info .name {
+            font-weight: 600;
             font-size: 16px;
-            font-weight: bold;
-            color: #ffd700;
         }
-
-        .shop-item .desc {
-            font-size: 13px;
-            color: #aaa;
-            margin: 5px 0;
-        }
-
-        .shop-item .price {
-            font-size: 14px;
-            color: #4caf50;
-        }
-
-        .shop-item .level {
+        .job-card .info .desc {
             font-size: 12px;
-            color: #888;
+            color: #7e96ab;
         }
-
-        .shop-item button {
-            margin-top: 10px;
-            padding: 8px 25px;
+        .job-card .actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .btn {
             border: none;
-            border-radius: 8px;
-            font-weight: bold;
+            border-radius: 12px;
+            padding: 8px 18px;
+            font-weight: 600;
+            font-size: 13px;
             cursor: pointer;
-            transition: 0.3s;
-            background: #ffd700;
-            color: #1a1a3e;
-            font-size: 14px;
-            width: 100%;
+            transition: 0.15s;
+            background: #2f4050;
+            color: #e8edf2;
         }
-
-        .shop-item button:hover:not(:disabled) {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        .btn-primary {
+            background: #f5b342;
+            color: #0b0e14;
         }
-
-        .shop-item button:disabled {
+        .btn-primary:disabled {
             opacity: 0.4;
             cursor: not-allowed;
-            transform: none;
+        }
+        .btn-success {
+            background: #6fcf97;
+            color: #0b0e14;
+        }
+        .btn-danger {
+            background: #eb5757;
+            color: #fff;
+        }
+        .btn-sm {
+            padding: 5px 12px;
+            font-size: 12px;
         }
 
-        /* ===== СЛОТ ===== */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .shop-item {
+            background: #1b2631;
+            border-radius: 16px;
+            padding: 14px 12px;
+            border: 1px solid #2a3846;
+            text-align: center;
+        }
+        .shop-item .icon {
+            font-size: 32px;
+        }
+        .shop-item .sname {
+            font-weight: 600;
+            font-size: 14px;
+            margin: 4px 0 2px;
+        }
+        .shop-item .sdesc {
+            font-size: 11px;
+            color: #7e96ab;
+        }
+        .shop-item .slvl {
+            font-size: 12px;
+            color: #f5b342;
+        }
+        .shop-item .sprice {
+            font-size: 13px;
+            font-weight: 600;
+            color: #6fcf97;
+            margin: 6px 0 8px;
+        }
+
         .slot-machine {
-            background: #0a0a1a;
-            border-radius: 15px;
-            padding: 20px;
-            border: 2px solid #ffd70066;
+            background: #0f1720;
+            border-radius: 18px;
+            padding: 20px 12px;
+            border: 1px solid #2a3846;
         }
-
         .reels {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin: 15px 0;
+            gap: 12px;
+            margin: 8px 0 14px;
         }
-
         .reel {
-            width: 100px;
-            height: 120px;
-            background: linear-gradient(180deg, #1a1a3a, #0a0a1a);
-            border: 2px solid #ffd700;
-            border-radius: 12px;
+            width: 80px;
+            height: 96px;
+            background: #1b2631;
+            border-radius: 14px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 65px;
-            box-shadow: inset 0 0 30px rgba(255, 215, 0, 0.1);
-            transition: all 0.3s ease;
+            justify-content: center;
+            font-size: 50px;
+            border: 2px solid #2f4050;
+            transition: 0.15s;
         }
-
         .reel.spinning {
-            animation: reelSpin 0.12s linear infinite;
+            animation: spin 0.12s linear infinite;
         }
-
-        @keyframes reelSpin {
-            0% { transform: rotateX(0deg) scale(1); }
-            25% { transform: rotateX(90deg) scale(1.05); }
-            50% { transform: rotateX(180deg) scale(1); }
-            75% { transform: rotateX(270deg) scale(1.05); }
-            100% { transform: rotateX(360deg) scale(1); }
+        @keyframes spin {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+            100% { transform: scale(1); }
         }
-
         .reel.winner {
-            animation: winGlow 0.6s ease 3;
-            border-color: #ff6b00;
-            box-shadow: 0 0 60px rgba(255, 215, 0, 0.8);
+            border-color: #f5b342;
+            box-shadow: 0 0 24px rgba(245, 179, 66, 0.4);
         }
-
-        @keyframes winGlow {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); border-color: #ffd700; }
-            50% { box-shadow: 0 0 80px rgba(255, 215, 0, 1); border-color: #ff6b00; transform: scale(1.08); }
-        }
-
         .slot-controls {
             display: flex;
-            gap: 15px;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            gap: 12px;
             flex-wrap: wrap;
-            margin-top: 15px;
         }
-
-        .slot-controls button {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
+        .slot-controls .bet-label {
+            font-size: 14px;
+            color: #a0b3c4;
         }
-
-        .slot-controls .spin-btn {
-            background: linear-gradient(135deg, #ffd700, #ff6b00);
-            color: #1a1a3e;
-        }
-
-        .slot-controls .spin-btn:hover:not(:disabled) {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
-        }
-
-        .slot-controls .spin-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .slot-controls .bet-btn {
-            background: #ffd700;
-            color: #1a1a3e;
-            padding: 12px 20px;
-            min-width: 45px;
-        }
-
-        .slot-controls .bet-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .slot-controls .bet-display {
-            font-size: 18px;
-            color: #ffd700;
-            min-width: 60px;
-            text-align: center;
-        }
-
         .slot-message {
-            color: #ffd700;
             text-align: center;
-            font-size: 18px;
-            margin-top: 15px;
-            font-weight: bold;
-            min-height: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #f5b342;
+            margin-top: 12px;
+            min-height: 24px;
         }
 
-        /* ===== КОНФЕТТИ ===== */
+        .history-box {
+            background: #0f1720;
+            border-radius: 14px;
+            padding: 12px 14px;
+            margin-top: 16px;
+            font-size: 12px;
+            color: #7e96ab;
+            max-height: 56px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            border: 1px solid #1f2e3c;
+        }
+
         .confetti-container {
             position: fixed;
             top: 0;
@@ -425,751 +294,577 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 9999;
+            z-index: 999;
             overflow: hidden;
         }
-
         .confetti {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            top: -20px;
-            animation: confettiFall linear forwards;
+            width: 8px;
+            height: 8px;
+            top: -10px;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
         }
 
-        @keyframes confettiFall {
-            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(720deg) scale(0); opacity: 0; }
-        }
-
-        /* ===== УВЕДОМЛЕНИЯ ===== */
-        .notification {
+        .toast {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 10000;
-            background: rgba(0, 0, 0, 0.9);
-            border: 1px solid #ffd700;
-            border-radius: 15px;
-            padding: 15px 25px;
-            color: white;
-            max-width: 300px;
-            animation: slideIn 0.5s ease;
-            box-shadow: 0 0 50px rgba(255, 215, 0, 0.2);
-        }
-
-        .notification .title {
-            color: #ffd700;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .notification .text {
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1b2631;
+            border: 1px solid #f5b342;
+            color: #e8edf2;
+            padding: 10px 24px;
+            border-radius: 40px;
             font-size: 14px;
-            color: #ccc;
+            font-weight: 500;
+            z-index: 1000;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+            animation: toastIn 0.3s ease;
+        }
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        /* ===== ПРОГРЕСС-БАР ===== */
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            margin-top: 10px;
-            overflow: hidden;
-        }
-
-        .progress-bar .fill {
-            height: 100%;
-            background: linear-gradient(90deg, #ffd700, #ff6b00);
-            border-radius: 3px;
-            transition: width 0.3s ease;
-            width: 0%;
-        }
-
-        /* ===== АДАПТАЦИЯ ===== */
-        @media (max-width: 700px) {
-            .panel { padding: 15px; }
-            h1 { font-size: 24px; }
-            .reel { width: 70px; height: 90px; font-size: 45px; }
-            .player-stats { grid-template-columns: repeat(2, 1fr); }
-            .job-card { flex-direction: column; align-items: stretch; }
-            .job-card .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        @media (max-width: 440px) {
+            .reel { width: 64px; height: 78px; font-size: 38px; }
             .shop-grid { grid-template-columns: 1fr 1fr; }
-            .tab-btn { font-size: 12px; padding: 8px 10px; min-width: 60px; }
-        }
-
-        @media (max-width: 450px) {
-            .shop-grid { grid-template-columns: 1fr; }
-            .reels { gap: 10px; }
-            .reel { width: 60px; height: 80px; font-size: 35px; }
-            .slot-controls .bet-btn { padding: 10px 15px; min-width: 35px; font-size: 14px; }
-            .slot-controls .spin-btn { padding: 10px 20px; font-size: 14px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="background"></div>
-    <div class="confetti-container" id="confettiContainer"></div>
+<div class="app" id="app">
 
-    <div class="container">
-
-        <!-- ===== ЗАГОЛОВОК ===== -->
-        <div class="panel">
-            <h1>🎰 IDLE CASINO RPG</h1>
-            <div class="subtitle">Стань миллиардером! Зарабатывай, крути слоты, прокачивайся!</div>
+    <!-- АВАТАР -->
+    <div class="avatar-section">
+        <div class="avatar">🧑‍💼</div>
+        <div class="avatar-info">
+            <div class="name" id="playerName">Новичок</div>
+            <div class="title" id="playerTitle">Безработный</div>
         </div>
-
-        <!-- ===== СТАТИСТИКА ===== -->
-        <div class="panel">
-            <div class="player-stats">
-                <div class="stat-item">
-                    <div class="label">💰 Баланс</div>
-                    <div class="value" id="balanceDisplay">1000</div>
-                </div>
-                <div class="stat-item">
-                    <div class="label">💼 Работа</div>
-                    <div class="value blue" id="jobDisplay">Безработный</div>
-                </div>
-                <div class="stat-item">
-                    <div class="label">📈 Доход/сек</div>
-                    <div class="value green" id="incomeDisplay">0</div>
-                </div>
-                <div class="stat-item">
-                    <div class="label">🎯 Уровень</div>
-                    <div class="value" id="levelDisplay">1</div>
-                </div>
-                <div class="stat-item">
-                    <div class="label">🏆 Всего заработано</div>
-                    <div class="value" id="totalEarnedDisplay">0</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== ВКЛАДКИ ===== -->
-        <div class="panel">
-            <div class="tabs">
-                <button class="tab-btn active" data-tab="work">💼 Работа</button>
-                <button class="tab-btn" data-tab="shop">🛒 Магазин</button>
-                <button class="tab-btn" data-tab="slot">🎰 Слот</button>
-                <button class="tab-btn" data-tab="stats">📊 Статистика</button>
-            </div>
-
-            <!-- ===== РАБОТА ===== -->
-            <div class="tab-content active" id="tab-work">
-                <h2>💼 Работа</h2>
-                <p style="color: #888; margin-bottom: 15px; font-size: 14px;">Зарабатывай деньги на работе или повышай свою должность!</p>
-                <div id="jobList"></div>
-            </div>
-
-            <!-- ===== МАГАЗИН ===== -->
-            <div class="tab-content" id="tab-shop">
-                <h2>🛒 Магазин</h2>
-                <p style="color: #888; margin-bottom: 15px; font-size: 14px;">Прокачивай свои навыки и увеличивай доход!</p>
-                <div class="shop-grid" id="shopGrid"></div>
-            </div>
-
-            <!-- ===== СЛОТ ===== -->
-            <div class="tab-content" id="tab-slot">
-                <h2>🎰 Слот</h2>
-                <p style="color: #888; margin-bottom: 15px; font-size: 14px;">Рискни и выиграй крупную сумму! (Влияет на доход от работы)</p>
-                <div class="slot-machine">
-                    <div class="reels">
-                        <div class="reel" id="reel1">🍒</div>
-                        <div class="reel" id="reel2">🍒</div>
-                        <div class="reel" id="reel3">🍒</div>
-                    </div>
-                    <div class="slot-controls">
-                        <button class="bet-btn" id="betDown">−</button>
-                        <span class="bet-display">Ставка: <span id="betDisplay">10</span>$</span>
-                        <button class="bet-btn" id="betUp">+</button>
-                        <button class="spin-btn" id="spinBtn">🎲 SPIN</button>
-                    </div>
-                    <div class="slot-message" id="slotMessage">Крути барабаны!</div>
-                    <div style="margin-top: 10px; font-size: 13px; color: #666; text-align: center;">
-                        💡 Выигрыш в слоте увеличивает твой доход на 10% от суммы
-                    </div>
-                </div>
-            </div>
-
-            <!-- ===== СТАТИСТИКА ===== -->
-            <div class="tab-content" id="tab-stats">
-                <h2>📊 Статистика</h2>
-                <div id="statsContent" style="color: #aaa; font-size: 14px;"></div>
-            </div>
-
-        </div>
-
-        <!-- ===== СТАТУС СОХРАНЕНИЯ ===== -->
-        <div style="text-align: center; color: #444; font-size: 12px; margin-top: 10px;">
-            💾 Прогресс сохраняется автоматически
-        </div>
-
+        <div style="font-size:13px; color:#7e96ab;" id="levelDisplay">Ур. 1</div>
     </div>
 
-    <script>
-        // ============================================
-        //  ДАННЫЕ ИГРЫ
-        // ============================================
+    <!-- СТАТИСТИКА -->
+    <div class="stats-grid">
+        <div class="stat-box">
+            <div class="label">💰 Баланс</div>
+            <div class="value" id="balanceDisplay">50</div>
+        </div>
+        <div class="stat-box">
+            <div class="label">📈 Доход/сек</div>
+            <div class="value green" id="incomeDisplay">0</div>
+        </div>
+        <div class="stat-box">
+            <div class="label">🎯 Спинов</div>
+            <div class="value" id="spinCountDisplay">0</div>
+        </div>
+    </div>
 
-        const jobs = [
-            { id: 0, name: 'Безработный', baseIncome: 0, cost: 0, level: 0 },
-            { id: 1, name: 'Курьер', baseIncome: 5, cost: 50, level: 1 },
-            { id: 2, name: 'Официант', baseIncome: 10, cost: 150, level: 2 },
-            { id: 3, name: 'Программист', baseIncome: 25, cost: 500, level: 3 },
-            { id: 4, name: 'Менеджер', baseIncome: 50, cost: 1500, level: 4 },
-            { id: 5, name: 'Директор', baseIncome: 120, cost: 5000, level: 5 },
-            { id: 6, name: 'Магнат', baseIncome: 300, cost: 15000, level: 6 },
-            { id: 7, name: 'Миллиардер', baseIncome: 800, cost: 50000, level: 7 },
-            { id: 8, name: 'Легенда', baseIncome: 2000, cost: 150000, level: 8 }
-        ];
+    <!-- ВКЛАДКИ -->
+    <div class="tab-bar">
+        <button class="tab-btn active" data-tab="work">💼 Работа</button>
+        <button class="tab-btn" data-tab="shop">🛒 Улучшения</button>
+        <button class="tab-btn" data-tab="slot">🎰 Слот</button>
+    </div>
 
-        const shopItems = [
-            { id: 'income', name: '💰 Множитель дохода', icon: '📈', desc: '+10% к доходу', baseCost: 100, costMultiplier: 1.5, maxLevel: 50 },
-            { id: 'slotBonus', name: '🎰 Бонус слота', icon: '🎯', desc: '+5% к выигрышу в слоте', baseCost: 150, costMultiplier: 1.6, maxLevel: 30 },
-            { id: 'luck', name: '🍀 Удача', icon: '🍀', desc: '+2% шанс на крупный выигрыш', baseCost: 200, costMultiplier: 1.7, maxLevel: 20 }
-        ];
+    <!-- РАБОТА -->
+    <div class="tab-content active" id="tab-work">
+        <div id="jobList"></div>
+        <button class="btn btn-success" style="width:100%; margin-top:6px;" onclick="work()">💪 Работать сейчас</button>
+    </div>
 
-        const symbols = ['🍒', '🍋', '🍊', '🍇', '💎', '7️⃣', '⭐', '🎰'];
-        const winTable = {
-            '🍒': 10, '🍋': 15, '🍊': 20, '🍇': 25,
-            '💎': 50, '7️⃣': 100, '⭐': 75, '🎰': 200
-        };
-        const symbolWeights = {
-            '🍒': 20, '🍋': 18, '🍊': 16, '🍇': 14,
-            '💎': 12, '⭐': 10, '7️⃣': 6, '🎰': 4
-        };
+    <!-- МАГАЗИН -->
+    <div class="tab-content" id="tab-shop">
+        <div class="shop-grid" id="shopGrid"></div>
+    </div>
 
-        // ============================================
-        //  СОСТОЯНИЕ ИГРЫ
-        // ============================================
+    <!-- СЛОТ -->
+    <div class="tab-content" id="tab-slot">
+        <div class="slot-machine">
+            <div class="reels">
+                <div class="reel" id="reel1">🍒</div>
+                <div class="reel" id="reel2">🍒</div>
+                <div class="reel" id="reel3">🍒</div>
+            </div>
+            <div class="slot-controls">
+                <button class="btn btn-sm" id="betDown">−</button>
+                <span class="bet-label">Ставка: <strong id="betDisplay">2</strong>$</span>
+                <button class="btn btn-sm" id="betUp">+</button>
+                <button class="btn btn-primary" id="spinBtn">🎲 SPIN</button>
+            </div>
+            <div class="slot-message" id="slotMessage">Крути и выигрывай!</div>
+        </div>
+        <div class="history-box" id="historyBox">📜 История: пока пусто</div>
+    </div>
 
-        let game = {
-            balance: 1000,
-            totalEarned: 0,
-            currentJob: 0,
-            jobLevel: 0,
-            incomeMultiplier: 1,
-            slotBonus: 0,
-            luck: 0,
-            spins: 0,
-            totalWins: 0,
-            totalLosses: 0,
-            biggestWin: 0,
-            lastWin: 0,
-            bet: 10,
-            isSpinning: false,
-            history: []
-        };
+</div>
 
-        // ============================================
-        //  СОХРАНЕНИЕ И ЗАГРУЗКА
-        // ============================================
+<div class="confetti-container" id="confettiContainer"></div>
 
-        function saveGame() {
-            try {
-                localStorage.setItem('idleCasinoRPG', JSON.stringify(game));
-            } catch (e) {
-                console.error('Ошибка сохранения:', e);
-            }
+<script>
+    // ============================================================
+    //  ДАННЫЕ
+    // ============================================================
+
+    const jobs = [
+        { id: 0, name: 'Безработный', baseIncome: 0, cost: 0 },
+        { id: 1, name: 'Разносчик', baseIncome: 1, cost: 30 },
+        { id: 2, name: 'Уборщик', baseIncome: 2, cost: 80 },
+        { id: 3, name: 'Официант', baseIncome: 4, cost: 200 },
+        { id: 4, name: 'Курьер', baseIncome: 7, cost: 450 },
+        { id: 5, name: 'Продавец', baseIncome: 12, cost: 900 },
+        { id: 6, name: 'Водитель', baseIncome: 20, cost: 1800 },
+        { id: 7, name: 'Менеджер', baseIncome: 35, cost: 3800 },
+        { id: 8, name: 'Директор', baseIncome: 60, cost: 7500 },
+        { id: 9, name: 'Магнат', baseIncome: 110, cost: 16000 },
+        { id: 10, name: 'Легенда', baseIncome: 220, cost: 35000 }
+    ];
+
+    const upgrades = [
+        { id: 'incomeMult', name: '💼 Зарплата +', icon: '📈', desc: '+15% доход', baseCost: 20, costMult: 1.5, maxLvl: 30 },
+        { id: 'slotBonus', name: '🎰 Бонус слота', icon: '🎯', desc: '+8% выигрыш', baseCost: 25, costMult: 1.6, maxLvl: 25 },
+        { id: 'luck', name: '🍀 Удача', icon: '🍀', desc: '+3% шанс', baseCost: 30, costMult: 1.7, maxLvl: 20 }
+    ];
+
+    const symbols = ['🍒', '🍋', '🍊', '🍇', '💎', '7️⃣', '⭐', '🎰'];
+    const winMap = { '🍒': 4, '🍋': 6, '🍊': 8, '🍇': 12, '💎': 25, '7️⃣': 50, '⭐': 35, '🎰': 80 };
+
+    // ============================================================
+    //  СОСТОЯНИЕ
+    // ============================================================
+
+    let G = {
+        balance: 50,
+        totalEarned: 0,
+        jobId: 0,
+        incomeMult: 1,
+        slotBonus: 0,
+        luck: 0,
+        spins: 0,
+        totalWins: 0,
+        totalLosses: 0,
+        biggestWin: 0,
+        lastWin: 0,
+        bet: 2,
+        isSpinning: false,
+        history: []
+    };
+
+    // Уровни улучшений
+    let upgradeLevels = { incomeMult: 0, slotBonus: 0, luck: 0 };
+
+    // ============================================================
+    //  СОХРАНЕНИЕ
+    // ============================================================
+
+    function save() {
+        const data = { ...G, upgradeLevels };
+        localStorage.setItem('idleLifeSave', JSON.stringify(data));
+    }
+
+    function load() {
+        try {
+            const raw = localStorage.getItem('idleLifeSave');
+            if (!raw) return false;
+            const data = JSON.parse(raw);
+            Object.assign(G, data);
+            if (data.upgradeLevels) upgradeLevels = data.upgradeLevels;
+            return true;
+        } catch { return false; }
+    }
+
+    // ============================================================
+    //  ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+    // ============================================================
+
+    function getJob() { return jobs[G.jobId] || jobs[0]; }
+
+    function getIncome() {
+        const base = getJob().baseIncome;
+        const mult = G.incomeMult || 1;
+        const bonus = 1 + (G.slotBonus || 0) * 0.08;
+        return Math.floor(base * mult * bonus);
+    }
+
+    function getUpgradeCost(id) {
+        const up = upgrades.find(u => u.id === id);
+        const lvl = upgradeLevels[id] || 0;
+        return Math.floor(up.baseCost * Math.pow(up.costMult, lvl));
+    }
+
+    function getMaxLvl(id) {
+        const up = upgrades.find(u => u.id === id);
+        return up.maxLvl;
+    }
+
+    function notify(text, isGood = true) {
+        const old = document.querySelector('.toast');
+        if (old) old.remove();
+        const el = document.createElement('div');
+        el.className = 'toast';
+        el.textContent = text;
+        if (!isGood) el.style.borderColor = '#eb5757';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 2400);
+    }
+
+    // ============================================================
+    //  UI ОБНОВЛЕНИЕ
+    // ============================================================
+
+    function updateUI() {
+        const job = getJob();
+        document.getElementById('playerName').textContent = job.name;
+        document.getElementById('playerTitle').textContent = job.id === 0 ? 'Начинающий' : 'Работник';
+        document.getElementById('levelDisplay').textContent = `Ур. ${job.id + 1}`;
+        document.getElementById('balanceDisplay').textContent = Math.floor(G.balance);
+        document.getElementById('incomeDisplay').textContent = getIncome();
+        document.getElementById('spinCountDisplay').textContent = G.spins;
+        document.getElementById('betDisplay').textContent = G.bet;
+
+        renderJobs();
+        renderShop();
+        renderHistory();
+        updateSlotButton();
+    }
+
+    function renderJobs() {
+        const container = document.getElementById('jobList');
+        let html = '';
+        jobs.forEach((job, idx) => {
+            const isCurrent = idx === G.jobId;
+            const isUnlocked = idx <= G.jobId + 1;
+            const canBuy = isUnlocked && G.balance >= job.cost && !isCurrent;
+
+            html += `
+                <div class="job-card" style="${isCurrent ? 'border-color:#f5b342;' : ''}">
+                    <div class="info">
+                        <div class="name">${job.name} ${isCurrent ? '⭐' : ''}</div>
+                        <div class="desc">💰 ${job.baseIncome}$/сек</div>
+                    </div>
+                    <div class="actions">
+                        ${isCurrent ? `<span style="font-size:12px;color:#6fcf97;">✅ Активна</span>` :
+                         isUnlocked ? `<button class="btn btn-primary btn-sm" onclick="buyJob(${idx})" ${canBuy ? '' : 'disabled'}>${job.cost}$</button>` :
+                         `<span style="font-size:11px;color:#7e96ab;">🔒</span>`}
+                    </div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+
+    function renderShop() {
+        const container = document.getElementById('shopGrid');
+        let html = '';
+        upgrades.forEach(up => {
+            const lvl = upgradeLevels[up.id] || 0;
+            const maxed = lvl >= up.maxLvl;
+            const cost = getUpgradeCost(up.id);
+            const canBuy = G.balance >= cost && !maxed;
+
+            let bonus = '';
+            if (up.id === 'incomeMult') bonus = `+${lvl * 15}% доход`;
+            else if (up.id === 'slotBonus') bonus = `+${lvl * 8}% выигрыш`;
+            else if (up.id === 'luck') bonus = `+${lvl * 3}% удача`;
+
+            html += `
+                <div class="shop-item">
+                    <div class="icon">${up.icon}</div>
+                    <div class="sname">${up.name}</div>
+                    <div class="sdesc">${up.desc}</div>
+                    <div class="slvl">${maxed ? '✅ MAX' : `Ур. ${lvl}/${up.maxLvl}`}</div>
+                    <div class="sprice">${maxed ? '—' : cost + '$'}</div>
+                    <button class="btn btn-primary btn-sm" onclick="buyUpgrade('${up.id}')" ${canBuy ? '' : 'disabled'}>
+                        ${maxed ? 'Готово' : 'Купить'}
+                    </button>
+                    <div style="font-size:11px;color:#6fcf97;margin-top:4px;">${bonus}</div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+
+    function renderHistory() {
+        const el = document.getElementById('historyBox');
+        if (G.history.length === 0) {
+            el.textContent = '📜 История: пока пусто';
+            return;
+        }
+        const last = G.history.slice(-10).join(' | ');
+        el.textContent = '📜 ' + last;
+    }
+
+    function updateSlotButton() {
+        const btn = document.getElementById('spinBtn');
+        btn.disabled = G.isSpinning || G.balance < G.bet;
+    }
+
+    // ============================================================
+    //  РАБОТА
+    // ============================================================
+
+    function buyJob(idx) {
+        const job = jobs[idx];
+        if (G.balance < job.cost) { notify('❌ Не хватает денег!', false); return; }
+        G.balance -= job.cost;
+        G.jobId = idx;
+        save();
+        updateUI();
+        notify(`✅ Теперь ты ${job.name}!`);
+    }
+
+    function work() {
+        const inc = getIncome();
+        if (inc === 0) { notify('💤 У тебя нет работы!', false); return; }
+        G.balance += inc;
+        G.totalEarned += inc;
+        save();
+        updateUI();
+        // маленькая анимация баланса
+        const el = document.getElementById('balanceDisplay');
+        el.style.color = '#6fcf97';
+        setTimeout(() => el.style.color = '', 300);
+    }
+
+    // ============================================================
+    //  МАГАЗИН
+    // ============================================================
+
+    function buyUpgrade(id) {
+        const up = upgrades.find(u => u.id === id);
+        const lvl = upgradeLevels[id] || 0;
+        if (lvl >= up.maxLvl) { notify('⚠️ Максимальный уровень!', false); return; }
+        const cost = getUpgradeCost(id);
+        if (G.balance < cost) { notify('❌ Не хватает денег!', false); return; }
+
+        G.balance -= cost;
+        upgradeLevels[id] = (upgradeLevels[id] || 0) + 1;
+
+        // Применяем эффект
+        if (id === 'incomeMult') G.incomeMult = 1 + upgradeLevels.incomeMult * 0.15;
+        else if (id === 'slotBonus') G.slotBonus = upgradeLevels.slotBonus;
+        else if (id === 'luck') G.luck = upgradeLevels.luck;
+
+        save();
+        updateUI();
+        notify(`✅ ${up.name} улучшен до ${upgradeLevels[id]} уровня!`);
+    }
+
+    // ============================================================
+    //  СЛОТ
+    // ============================================================
+
+    function getWeightedSymbol() {
+        const weights = { '🍒': 24, '🍋': 20, '🍊': 18, '🍇': 14, '💎': 10, '⭐': 8, '7️⃣': 4, '🎰': 2 };
+        // Удача: увеличиваем шанс редких
+        const luckBonus = G.luck || 0;
+        if (Math.random() * 100 < luckBonus * 3) {
+            const rare = ['💎', '7️⃣', '⭐', '🎰'];
+            return rare[Math.floor(Math.random() * rare.length)];
+        }
+        const total = Object.values(weights).reduce((a, b) => a + b, 0);
+        let r = Math.random() * total;
+        for (const [sym, w] of Object.entries(weights)) {
+            r -= w;
+            if (r <= 0) return sym;
+        }
+        return '🍒';
+    }
+
+    function spin() {
+        if (G.isSpinning) return;
+        if (G.balance < G.bet) {
+            document.getElementById('slotMessage').textContent = '❌ Не хватает денег!';
+            return;
         }
 
-        function loadGame() {
-            try {
-                const saved = localStorage.getItem('idleCasinoRPG');
-                if (saved) {
-                    const data = JSON.parse(saved);
-                    Object.assign(game, data);
-                    return true;
+        G.isSpinning = true;
+        document.getElementById('spinBtn').disabled = true;
+        document.getElementById('slotMessage').textContent = '🎰 Крутим...';
+
+        G.balance -= G.bet;
+        G.spins++;
+
+        const reels = [
+            document.getElementById('reel1'),
+            document.getElementById('reel2'),
+            document.getElementById('reel3')
+        ];
+
+        reels.forEach(r => { r.classList.add('spinning'); r.classList.remove('winner'); });
+
+        const delays = [500, 800, 1100];
+        let results = [];
+
+        delays.forEach((delay, idx) => {
+            setTimeout(() => {
+                const sym = getWeightedSymbol();
+                results[idx] = sym;
+                reels[idx].textContent = sym;
+                reels[idx].classList.remove('spinning');
+
+                if (results.length === 3) {
+                    finishSpin(results, reels);
                 }
-            } catch (e) {
-                console.error('Ошибка загрузки:', e);
-            }
-            return false;
+            }, delay);
+        });
+    }
+
+    function finishSpin(results, reels) {
+        let win = 0;
+
+        // Три одинаковых
+        if (results[0] === results[1] && results[1] === results[2]) {
+            win = winMap[results[0]] || 0;
+        }
+        // Спецкомбинации
+        if (results.includes('7️⃣') && results.includes('💎') && results.includes('⭐')) {
+            win = Math.max(win, 40);
+        }
+        if (results.filter(s => s === '🎰').length === 2) {
+            win = Math.max(win, 25);
+        }
+        // Два одинаковых (малый бонус)
+        if (results[0] === results[1] && results[0] !== results[2]) win = Math.max(win, 2);
+        if (results[1] === results[2] && results[1] !== results[0]) win = Math.max(win, 2);
+
+        // Бонус от улучшения слота
+        win = Math.floor(win * (1 + G.slotBonus * 0.08));
+
+        // Минимальная ставка 2, умножаем на ставку
+        win = Math.floor(win * (G.bet / 2));
+
+        if (win > 0) {
+            G.balance += win;
+            G.totalEarned += win;
+            G.totalWins++;
+            G.lastWin = win;
+            if (win > G.biggestWin) G.biggestWin = win;
+
+            document.getElementById('slotMessage').textContent = `🎉 +${win}$ !!!`;
+            reels.forEach(r => r.classList.add('winner'));
+            setTimeout(() => reels.forEach(r => r.classList.remove('winner')), 1200);
+            launchConfetti();
+            notify(`🎉 Выигрыш ${win}$!`);
+        } else {
+            G.totalLosses++;
+            document.getElementById('slotMessage').textContent = '😔 Попробуй ещё!';
         }
 
-        // ============================================
-        //  ОБНОВЛЕНИЕ UI
-        // ============================================
+        G.history.push(`${results.join('')} ${win > 0 ? '+' + win : '—'}`);
+        if (G.history.length > 30) G.history.shift();
 
-        function updateUI() {
-            const job = jobs[game.currentJob];
-            const income = getIncome();
+        G.isSpinning = false;
+        save();
+        updateUI();
 
-            document.getElementById('balanceDisplay').textContent = Math.floor(game.balance);
-            document.getElementById('jobDisplay').textContent = job.name;
-            document.getElementById('incomeDisplay').textContent = income;
-            document.getElementById('levelDisplay').textContent = game.jobLevel + 1;
-            document.getElementById('totalEarnedDisplay').textContent = Math.floor(game.totalEarned);
-            document.getElementById('betDisplay').textContent = game.bet;
-
-            // Обновляем работу
-            renderJobs();
-
-            // Обновляем магазин
-            renderShop();
-
-            // Обновляем статистику
-            renderStats();
-
-            // Обновляем кнопку слота
-            const spinBtn = document.getElementById('spinBtn');
-            if (game.balance < game.bet || game.isSpinning) {
-                spinBtn.disabled = true;
-            } else {
-                spinBtn.disabled = false;
-            }
-        }
-
-        function getIncome() {
-            const job = jobs[game.currentJob];
-            let income = job.baseIncome * game.incomeMultiplier;
-            // Добавляем бонус от слота (каждый уровень даёт +2% к доходу)
-            income = income * (1 + game.slotBonus * 0.02);
-            return Math.floor(income);
-        }
-
-        // ============================================
-        //  РАБОТА
-        // ============================================
-
-        function renderJobs() {
-            const container = document.getElementById('jobList');
-            let html = '';
-
-            jobs.forEach((job, index) => {
-                const isCurrent = index === game.currentJob;
-                const isUnlocked = index <= game.jobLevel + 1;
-                const canUpgrade = index === game.jobLevel + 1 && game.balance >= job.cost;
-
-                html += `
-                    <div class="job-card" style="${isCurrent ? 'border-color: #ffd700;' : ''}">
-                        <div class="info">
-                            <div class="name">${job.name} ${isCurrent ? '⭐' : ''}</div>
-                            <div class="desc">Доход: ${job.baseIncome} $/сек</div>
-                            <div class="income">${isCurrent ? '✅ Текущая работа' : isUnlocked ? '🔓 Доступна' : '🔒 Заблокирована'}</div>
-                        </div>
-                        <div class="actions">
-                            ${isCurrent ? `
-                                <button class="work-btn" onclick="work()">💼 Работать (+${getIncome()}$)</button>
-                            ` : isUnlocked ? `
-                                <button class="upgrade-btn" onclick="changeJob(${index})" ${canUpgrade ? '' : 'disabled'}>
-                                    💼 Устроиться (${job.cost}$)
-                                </button>
-                            ` : ''}
-                        </div>
-                    </div>
-                `;
-            });
-
-            container.innerHTML = html;
-        }
-
-        function work() {
-            const income = getIncome();
-            game.balance += income;
-            game.totalEarned += income;
-            updateUI();
-            saveGame();
-
-            // Анимация дохода
-            const balanceEl = document.getElementById('balanceDisplay');
-            balanceEl.style.color = '#4caf50';
-            setTimeout(() => balanceEl.style.color = '', 300);
-        }
-
-        function changeJob(index) {
-            const job = jobs[index];
-            if (game.balance < job.cost) {
-                showNotification('❌ Недостаточно денег!', 'Нужно ' + job.cost + '$');
-                return;
-            }
-
-            game.balance -= job.cost;
-            game.currentJob = index;
-            game.jobLevel = index;
-            updateUI();
-            saveGame();
-            showNotification('💼 Новая работа!', 'Ты теперь ' + job.name + '!');
-        }
-
-        // ============================================
-        //  МАГАЗИН
-        // ============================================
-
-        function renderShop() {
-            const container = document.getElementById('shopGrid');
-            let html = '';
-
-            shopItems.forEach(item => {
-                const level = game[item.id + 'Level'] || 0;
-                const cost = Math.floor(item.baseCost * Math.pow(item.costMultiplier, level));
-                const maxed = level >= item.maxLevel;
-                const canBuy = game.balance >= cost && !maxed;
-
-                let bonusText = '';
-                if (item.id === 'income') bonusText = `+${level * 10}%`;
-                else if (item.id === 'slotBonus') bonusText = `+${level * 5}% к выигрышу`;
-                else if (item.id === 'luck') bonusText = `+${level * 2}% к удаче`;
-
-                html += `
-                    <div class="shop-item">
-                        <span class="icon">${item.icon}</span>
-                        <div class="name">${item.name}</div>
-                        <div class="desc">${item.desc}</div>
-                        <div class="level">Уровень: ${level}/${item.maxLevel}</div>
-                        <div class="price">💰 ${maxed ? 'MAX' : cost + '$'}</div>
-                        <div style="font-size: 12px; color: #4caf50;">${bonusText}</div>
-                        <button onclick="buyShopItem('${item.id}')" ${canBuy ? '' : 'disabled'}>
-                            ${maxed ? '✅ MAX' : '🛒 Купить'}
-                        </button>
-                    </div>
-                `;
-            });
-
-            container.innerHTML = html;
-        }
-
-        function buyShopItem(id) {
-            const item = shopItems.find(i => i.id === id);
-            const level = game[id + 'Level'] || 0;
-            const cost = Math.floor(item.baseCost * Math.pow(item.costMultiplier, level));
-
-            if (game.balance < cost) {
-                showNotification('❌ Недостаточно денег!', 'Нужно ' + cost + '$');
-                return;
-            }
-
-            if (level >= item.maxLevel) {
-                showNotification('⚠️ Максимальный уровень!', 'Ты уже всё прокачал');
-                return;
-            }
-
-            game.balance -= cost;
-            game[id + 'Level'] = (game[id + 'Level'] || 0) + 1;
-
-            // Применяем эффекты
-            if (id === 'income') {
-                game.incomeMultiplier = 1 + (game.incomeLevel || 0) * 0.1;
-            }
-
-            updateUI();
-            saveGame();
-            showNotification('✅ Улучшено!', item.name + ' теперь ' + (game[id + 'Level'] || 0) + ' уровень');
-        }
-
-        // ============================================
-        //  СЛОТ
-        // ============================================
-
-        function getWeightedSymbol() {
-            const totalWeight = Object.values(symbolWeights).reduce((a, b) => a + b, 0);
-            let random = Math.random() * totalWeight;
-            // Добавляем влияние удачи
-            const luckBonus = game.luck || 0;
-            const luckChance = Math.random() * 100 < luckBonus * 2;
-
-            if (luckChance) {
-                // При удаче выпадает редкий символ
-                const rareSymbols = ['7️⃣', '💎', '⭐', '🎰'];
-                return rareSymbols[Math.floor(Math.random() * rareSymbols.length)];
-            }
-
-            for (const [symbol, weight] of Object.entries(symbolWeights)) {
-                random -= weight;
-                if (random <= 0) return symbol;
-            }
-            return '🍒';
-        }
-
-        function spin() {
-            if (game.isSpinning) return;
-            if (game.balance < game.bet) {
-                document.getElementById('slotMessage').textContent = '❌ Недостаточно средств!';
-                return;
-            }
-
-            game.isSpinning = true;
+        if (G.balance <= 0) {
+            document.getElementById('slotMessage').textContent = '💸 Банкрот! Работай!';
             document.getElementById('spinBtn').disabled = true;
-            document.getElementById('slotMessage').textContent = '🎰 Крутим...';
-
-            game.balance -= game.bet;
-            game.spins++;
-
-            const reels = [
-                document.getElementById('reel1'),
-                document.getElementById('reel2'),
-                document.getElementById('reel3')
-            ];
-
-            reels.forEach(reel => {
-                reel.classList.add('spinning');
-                reel.classList.remove('winner');
-            });
-
-            const stopDelays = [600, 900, 1200];
-            let results = [];
-
-            stopDelays.forEach((delay, index) => {
-                setTimeout(() => {
-                    const symbol = getWeightedSymbol();
-                    results[index] = symbol;
-                    reels[index].textContent = symbol;
-                    reels[index].classList.remove('spinning');
-
-                    if (results.length === 3) {
-                        checkSlotResult(results, reels);
-                    }
-                }, delay);
-            });
         }
+    }
 
-        function checkSlotResult(results, reels) {
-            let winAmount = 0;
+    function changeBet(delta) {
+        if (G.isSpinning) return;
+        let newBet = G.bet + delta;
+        if (newBet < 1) newBet = 1;
+        if (newBet > G.balance) newBet = G.balance;
+        if (newBet > 200) newBet = 200;
+        G.bet = newBet;
+        document.getElementById('betDisplay').textContent = G.bet;
+    }
 
-            // Проверяем комбинации
-            if (results[0] === results[1] && results[1] === results[2]) {
-                winAmount = winTable[results[0]] * Math.ceil(game.bet / 10);
-            }
+    // ============================================================
+    //  КОНФЕТТИ
+    // ============================================================
 
-            if (results.includes('7️⃣') && results.includes('💎') && results.includes('⭐')) {
-                winAmount = Math.max(winAmount, game.bet * 5);
-            }
-
-            if (results.filter(s => s === '🎰').length === 2) {
-                winAmount = Math.max(winAmount, game.bet * 3);
-            }
-
-            // Добавляем бонус от слота
-            winAmount = Math.floor(winAmount * (1 + game.slotBonus * 0.05));
-
-            if (winAmount > 0) {
-                game.balance += winAmount;
-                game.totalEarned += winAmount;
-                game.totalWins++;
-                game.lastWin = winAmount;
-
-                if (winAmount > game.biggestWin) {
-                    game.biggestWin = winAmount;
-                }
-
-                document.getElementById('slotMessage').textContent = `🎉 ВЫИГРЫШ ${winAmount}$! 🎉`;
-
-                reels.forEach(reel => {
-                    reel.classList.add('winner');
-                    setTimeout(() => reel.classList.remove('winner'), 1800);
-                });
-
-                launchConfetti();
-                playWinSound();
-
-                showNotification('🎉 Выигрыш!', `+${winAmount}$! Удача на твоей стороне!`);
-
-            } else {
-                game.totalLosses++;
-                document.getElementById('slotMessage').textContent = '😔 Попробуй ещё!';
-            }
-
-            // Добавляем в историю
-            game.history.push(`${results.join(' ')} ${winAmount > 0 ? '💎+' + winAmount : '❌'}`);
-            if (game.history.length > 10) game.history.shift();
-
-            updateUI();
-            saveGame();
-
-            game.isSpinning = false;
-            document.getElementById('spinBtn').disabled = false;
-
-            if (game.balance <= 0) {
-                document.getElementById('slotMessage').textContent = '💸 Ты проиграл всё! Работай!';
-                document.getElementById('spinBtn').disabled = true;
-            }
-        }
-
-        function changeBet(amount) {
-            if (game.isSpinning) return;
-            let newBet = game.bet + amount;
-            if (newBet >= 1 && newBet <= game.balance) {
-                game.bet = newBet;
-                document.getElementById('betDisplay').textContent = game.bet;
-            }
-        }
-
-        // ============================================
-        //  КОНФЕТТИ
-        // ============================================
-
-        function launchConfetti() {
-            const container = document.getElementById('confettiContainer');
-            const colors = ['#ffd700', '#ff6b00', '#ff0040', '#00ff80', '#00bfff', '#ff00ff', '#ff4444', '#44ff44'];
-
-            for (let i = 0; i < 80; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.width = (Math.random() * 8 + 5) + 'px';
-                confetti.style.height = (Math.random() * 8 + 5) + 'px';
-                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                confetti.style.animationDelay = (Math.random() * 1.2) + 's';
-                container.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 4000);
-            }
-        }
-
-        // ============================================
-        //  ЗВУК
-        // ============================================
-
-        function playWinSound() {
-            try {
-                const ctx = new(window.AudioContext || window.webkitAudioContext)();
-                const notes = [523, 659, 784, 1047];
-                notes.forEach((freq, i) => {
-                    setTimeout(() => {
-                        const osc = ctx.createOscillator();
-                        const gain = ctx.createGain();
-                        osc.connect(gain);
-                        gain.connect(ctx.destination);
-                        osc.frequency.value = freq;
-                        osc.type = 'sine';
-                        gain.gain.value = 0.1;
-                        osc.start();
-                        setTimeout(() => osc.stop(), 150);
-                    }, i * 120);
-                });
-            } catch (e) {}
-        }
-
-        // ============================================
-        //  УВЕДОМЛЕНИЯ
-        // ============================================
-
-        function showNotification(title, text) {
+    function launchConfetti() {
+        const container = document.getElementById('confettiContainer');
+        const colors = ['#f5b342', '#eb5757', '#6fcf97', '#2d9cdb', '#bb6bd9', '#f2994a'];
+        for (let i = 0; i < 50; i++) {
             const el = document.createElement('div');
-            el.className = 'notification';
-            el.innerHTML = `
-                <div class="title">${title}</div>
-                <div class="text">${text}</div>
-            `;
-            document.body.appendChild(el);
-            setTimeout(() => el.remove(), 3000);
+            el.className = 'confetti';
+            el.style.left = Math.random() * 100 + '%';
+            el.style.background = colors[Math.floor(Math.random() * colors.length)];
+            el.style.width = (Math.random() * 6 + 4) + 'px';
+            el.style.height = (Math.random() * 6 + 4) + 'px';
+            el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+            el.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+            el.style.animationDelay = (Math.random() * 1) + 's';
+            container.appendChild(el);
+            setTimeout(() => el.remove(), 3500);
         }
+    }
 
-        // ============================================
-        //  СТАТИСТИКА
-        // ============================================
+    // ============================================================
+    //  ИДЛ-ДОХОД
+    // ============================================================
 
-        function renderStats() {
-            const container = document.getElementById('statsContent');
-            const job = jobs[game.currentJob];
+    let idleTimer = null;
 
-            container.innerHTML = `
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <div>🎯 Всего спинов: <strong style="color: #ffd700;">${game.spins}</strong></div>
-                    <div>🏆 Всего выигрышей: <strong style="color: #4caf50;">${game.totalWins}</strong></div>
-                    <div>😔 Всего проигрышей: <strong style="color: #ff4444;">${game.totalLosses}</strong></div>
-                    <div>💰 Крупнейший выигрыш: <strong style="color: #ffd700;">${game.biggestWin}$</strong></div>
-                    <div>💼 Текущая работа: <strong style="color: #4fc3f7;">${job.name}</strong></div>
-                    <div>📈 Доход в секунду: <strong style="color: #4caf50;">${getIncome()}$</strong></div>
-                    <div>📊 Множитель дохода: <strong style="color: #ffd700;">${game.incomeMultiplier.toFixed(1)}x</strong></div>
-                    <div>🎰 Бонус слота: <strong style="color: #ffd700;">+${(game.slotBonus || 0) * 5}%</strong></div>
-                    <div>🍀 Удача: <strong style="color: #4caf50;">+${(game.luck || 0) * 2}%</strong></div>
-                    <div>🔄 Всего заработано: <strong style="color: #4caf50;">${Math.floor(game.totalEarned)}$</strong></div>
-                </div>
-                <div style="margin-top: 15px; border-top: 1px solid #ffffff22; padding-top: 15px;">
-                    <div style="color: #888; font-size: 13px;">📜 История спинов:</div>
-                    <div style="font-size: 13px; color: #aaa; max-height: 80px; overflow-y: auto;">
-                        ${game.history.length > 0 ? game.history.join(' | ') : 'Пока нет истории'}
-                    </div>
-                </div>
-            `;
-        }
-
-        // ============================================
-        //  ВКЛАДКИ
-        // ============================================
-
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
-                document.getElementById('tab-' + this.dataset.tab).classList.add('active');
-            });
-        });
-
-        // ============================================
-        //  КЛАВИШИ
-        // ============================================
-
-        document.addEventListener('keydown', (e) => {
-            if (e.code === 'Space') { e.preventDefault(); spin(); }
-            if (e.code === 'ArrowUp') { e.preventDefault(); changeBet(5); }
-            if (e.code === 'ArrowDown') { e.preventDefault(); changeBet(-5); }
-            if (e.code === 'KeyW') { work(); }
-        });
-
-        // ============================================
-        //  КНОПКИ
-        // ============================================
-
-        document.getElementById('spinBtn').addEventListener('click', spin);
-        document.getElementById('betUp').addEventListener('click', () => changeBet(5));
-        document.getElementById('betDown').addEventListener('click', () => changeBet(-5));
-
-        // ============================================
-        //  ИДЛ-ДОХОД
-        // ============================================
-
-        let idleInterval = null;
-
-        function startIdleIncome() {
-            if (idleInterval) clearInterval(idleInterval);
-            idleInterval = setInterval(() => {
-                const income = getIncome();
-                if (income > 0 && game.balance < 999999999) {
-                    game.balance += income;
-                    game.totalEarned += income;
-                    updateUI();
-                    saveGame();
-                }
-            }, 1000);
-        }
-
-        // ============================================
-        //  ЗАПУСК
-        // ============================================
-
-        window.addEventListener('load', function() {
-            console.log('🚀 Idle Casino RPG загружена!');
-
-            // Загружаем игру
-            const loaded = loadGame();
-            if (loaded) {
-                console.log('💾 Прогресс загружен!');
-                showNotification('💾 Прогресс загружен!', 'Добро пожаловать обратно!');
-            } else {
-                console.log('🆕 Новая игра');
-                showNotification('🎰 Добро пожаловать!', 'Начни свой путь к миллиарду!');
+    function startIdle() {
+        if (idleTimer) clearInterval(idleTimer);
+        idleTimer = setInterval(() => {
+            const inc = getIncome();
+            if (inc > 0 && G.balance < 9999999) {
+                G.balance += inc;
+                G.totalEarned += inc;
+                save();
+                updateUI();
             }
+        }, 1000);
+    }
 
-            updateUI();
-            startIdleIncome();
+    // ============================================================
+    //  КНОПКИ И ВКЛАДКИ
+    // ============================================================
 
-            // Сохраняем каждые 10 секунд
-            setInterval(saveGame, 10000);
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+            document.getElementById('tab-' + this.dataset.tab).classList.add('active');
         });
+    });
 
-        // Сохраняем при закрытии
-        window.addEventListener('beforeunload', saveGame);
-    </script>
+    document.getElementById('spinBtn').addEventListener('click', spin);
+    document.getElementById('betUp').addEventListener('click', () => changeBet(1));
+    document.getElementById('betDown').addEventListener('click', () => changeBet(-1));
+
+    // Клавиши
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Space') { e.preventDefault(); spin(); }
+        if (e.code === 'ArrowUp') { e.preventDefault(); changeBet(1); }
+        if (e.code === 'ArrowDown') { e.preventDefault(); changeBet(-1); }
+        if (e.key === 'w' || e.key === 'W') { work(); }
+    });
+
+    // ============================================================
+    //  ЗАПУСК
+    // ============================================================
+
+    window.addEventListener('load', function() {
+        const loaded = load();
+        if (loaded) {
+            notify('💾 Прогресс загружен!');
+        } else {
+            notify('👋 Добро пожаловать в Idle Life!');
+        }
+        updateUI();
+        startIdle();
+
+        // Автосохранение
+        setInterval(save, 8000);
+    });
+
+    window.addEventListener('beforeunload', save);
+</script>
 </body>
 </html>
