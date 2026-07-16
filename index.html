@@ -10,6 +10,7 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             min-height: 100vh;
             background: #0a0e14;
@@ -18,17 +19,66 @@
             justify-content: center;
             align-items: center;
             padding: 12px;
+            position: relative;
+            overflow-x: hidden;
         }
+
+        /* ===== ФОН С ЭФФЕКТОМ ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(245, 179, 66, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(107, 107, 255, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(111, 207, 151, 0.05) 0%, transparent 40%),
+                linear-gradient(145deg, #0a0e14 0%, #111a24 40%, #0d1620 100%);
+            z-index: 0;
+        }
+
+        /* Плавающие частицы фона */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(1px 1px at 10% 20%, rgba(255, 215, 0, 0.15), transparent),
+                radial-gradient(1px 1px at 30% 70%, rgba(255, 215, 0, 0.10), transparent),
+                radial-gradient(1.5px 1.5px at 50% 10%, rgba(255, 215, 0, 0.12), transparent),
+                radial-gradient(1px 1px at 70% 80%, rgba(255, 215, 0, 0.08), transparent),
+                radial-gradient(1px 1px at 90% 40%, rgba(255, 215, 0, 0.10), transparent),
+                radial-gradient(1.2px 1.2px at 15% 90%, rgba(255, 215, 0, 0.06), transparent),
+                radial-gradient(1px 1px at 85% 15%, rgba(255, 215, 0, 0.09), transparent);
+            background-size: 200px 200px;
+            z-index: 0;
+            pointer-events: none;
+            animation: bgParticles 40s linear infinite;
+        }
+
+        @keyframes bgParticles {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-200px); }
+        }
+
         .app {
+            position: relative;
+            z-index: 1;
             max-width: 420px;
             width: 100%;
-            background: #131c26;
+            background: rgba(19, 28, 38, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 32px;
             padding: 20px 16px 28px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), inset 0 0 80px rgba(245, 179, 66, 0.03);
             color: #e8edf2;
-            position: relative;
-            border: 1px solid #26323f;
+            border: 1px solid rgba(38, 50, 63, 0.6);
         }
 
         /* ===== АВАТАР ===== */
@@ -36,15 +86,16 @@
             display: flex;
             align-items: center;
             gap: 14px;
-            background: #1a2632;
+            background: rgba(26, 38, 50, 0.7);
             border-radius: 24px;
             padding: 14px 18px;
             margin-bottom: 16px;
-            border: 1px solid #2f4050;
+            border: 1px solid rgba(47, 64, 80, 0.5);
+            backdrop-filter: blur(4px);
         }
         .avatar {
             font-size: 44px;
-            background: #263544;
+            background: rgba(38, 53, 68, 0.6);
             width: 64px;
             height: 64px;
             border-radius: 50%;
@@ -53,6 +104,7 @@
             justify-content: center;
             border: 2px solid #f5b342;
             flex-shrink: 0;
+            box-shadow: 0 0 30px rgba(245, 179, 66, 0.15);
         }
         .avatar-info {
             flex: 1;
@@ -72,16 +124,26 @@
             font-weight: 600;
         }
 
+        .skill-points-badge {
+            font-size: 13px;
+            color: #7e96ab;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid rgba(245, 179, 66, 0.2);
+        }
+
         /* ===== СТАТИСТИКА ===== */
         .stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 6px;
-            background: #1a2632;
+            background: rgba(26, 38, 50, 0.6);
             border-radius: 20px;
             padding: 12px 6px;
             margin-bottom: 16px;
-            border: 1px solid #26323f;
+            border: 1px solid rgba(38, 50, 63, 0.4);
+            backdrop-filter: blur(4px);
         }
         .stat-box {
             text-align: center;
@@ -104,13 +166,14 @@
             color: #5b9bd5;
         }
 
-        /* ===== ОПЫТ И УРОВЕНЬ ===== */
+        /* ===== ОПЫТ ===== */
         .exp-section {
-            background: #1a2632;
+            background: rgba(26, 38, 50, 0.6);
             border-radius: 16px;
             padding: 10px 16px;
             margin-bottom: 16px;
-            border: 1px solid #26323f;
+            border: 1px solid rgba(38, 50, 63, 0.4);
+            backdrop-filter: blur(4px);
         }
         .exp-row {
             display: flex;
@@ -128,7 +191,7 @@
         .exp-bar {
             width: 100%;
             height: 6px;
-            background: #263544;
+            background: rgba(38, 53, 68, 0.6);
             border-radius: 4px;
             margin-top: 6px;
             overflow: hidden;
@@ -145,10 +208,11 @@
         .tab-bar {
             display: flex;
             gap: 4px;
-            background: #1a2632;
+            background: rgba(26, 38, 50, 0.6);
             border-radius: 18px;
             padding: 4px;
             margin-bottom: 16px;
+            border: 1px solid rgba(38, 50, 63, 0.3);
         }
         .tab-btn {
             flex: 1;
@@ -165,14 +229,20 @@
         .tab-btn.active {
             background: #f5b342;
             color: #0b0e14;
+            box-shadow: 0 4px 20px rgba(245, 179, 66, 0.3);
         }
-        .tab-btn:hover {
-            background: #2f4050;
+        .tab-btn:hover:not(.active) {
+            background: rgba(47, 64, 80, 0.5);
             color: #e8edf2;
         }
 
         .tab-content {
             display: none;
+            animation: fadeTab 0.25s ease;
+        }
+        @keyframes fadeTab {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .tab-content.active {
             display: block;
@@ -180,18 +250,25 @@
 
         /* ===== РАБОТА ===== */
         .job-card {
-            background: #1a2632;
+            background: rgba(26, 38, 50, 0.6);
             border-radius: 18px;
             padding: 14px 16px;
             margin-bottom: 10px;
-            border: 1px solid #26323f;
+            border: 1px solid rgba(38, 50, 63, 0.4);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: 0.2s;
+            backdrop-filter: blur(4px);
         }
         .job-card.active {
             border-color: #f5b342;
-            background: #1f2d3d;
+            background: rgba(31, 45, 61, 0.8);
+            box-shadow: 0 0 30px rgba(245, 179, 66, 0.05);
+        }
+        .job-card .info {
+            flex: 1;
+            min-width: 0;
         }
         .job-card .info .name {
             font-weight: 600;
@@ -209,7 +286,11 @@
             display: flex;
             gap: 6px;
             align-items: center;
+            flex-shrink: 0;
+            margin-left: 10px;
         }
+
+        /* ===== КНОПКИ ===== */
         .btn {
             border: none;
             border-radius: 14px;
@@ -218,12 +299,16 @@
             font-size: 13px;
             cursor: pointer;
             transition: 0.15s;
-            background: #2f4050;
+            background: rgba(47, 64, 80, 0.6);
             color: #e8edf2;
         }
         .btn-primary {
             background: #f5b342;
             color: #0b0e14;
+        }
+        .btn-primary:hover:not(:disabled) {
+            transform: scale(1.03);
+            box-shadow: 0 4px 20px rgba(245, 179, 66, 0.3);
         }
         .btn-primary:disabled {
             opacity: 0.4;
@@ -254,8 +339,8 @@
         }
         .shop-tab {
             flex: 1;
-            background: #1a2632;
-            border: 1px solid #26323f;
+            background: rgba(26, 38, 50, 0.5);
+            border: 1px solid rgba(38, 50, 63, 0.3);
             border-radius: 12px;
             padding: 8px 0;
             color: #7e96ab;
@@ -270,22 +355,26 @@
             color: #0b0e14;
             border-color: #f5b342;
         }
+        .shop-tab:hover:not(.active) {
+            background: rgba(47, 64, 80, 0.4);
+        }
         .shop-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
         }
         .shop-item {
-            background: #1a2632;
+            background: rgba(26, 38, 50, 0.6);
             border-radius: 16px;
             padding: 14px 10px;
-            border: 1px solid #26323f;
+            border: 1px solid rgba(38, 50, 63, 0.3);
             text-align: center;
             transition: 0.2s;
+            backdrop-filter: blur(4px);
         }
         .shop-item.owned {
             border-color: #6fcf97;
-            background: #1a2a24;
+            background: rgba(26, 42, 36, 0.6);
         }
         .shop-item .icon {
             font-size: 30px;
@@ -313,10 +402,11 @@
 
         /* ===== СЛОТ ===== */
         .slot-machine {
-            background: #0f1720;
+            background: rgba(15, 23, 32, 0.8);
             border-radius: 24px;
             padding: 20px 14px;
-            border: 1px solid #26323f;
+            border: 1px solid rgba(38, 50, 63, 0.4);
+            backdrop-filter: blur(4px);
         }
         .reels {
             display: flex;
@@ -327,13 +417,13 @@
         .reel {
             width: 80px;
             height: 96px;
-            background: #1a2632;
+            background: rgba(26, 38, 50, 0.6);
             border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 48px;
-            border: 2px solid #2f4050;
+            border: 2px solid rgba(47, 64, 80, 0.5);
             transition: 0.15s;
         }
         .reel.spinning {
@@ -356,8 +446,8 @@
             flex-wrap: wrap;
         }
         .slot-controls .bet-input {
-            background: #0f1720;
-            border: 1px solid #2f4050;
+            background: rgba(15, 23, 32, 0.8);
+            border: 1px solid rgba(47, 64, 80, 0.5);
             border-radius: 12px;
             padding: 6px 12px;
             color: #e8edf2;
@@ -369,6 +459,7 @@
         }
         .slot-controls .bet-input:focus {
             border-color: #f5b342;
+            box-shadow: 0 0 20px rgba(245, 179, 66, 0.1);
         }
         .slot-controls .bet-label {
             font-size: 14px;
@@ -384,7 +475,7 @@
         }
 
         .history-box {
-            background: #0f1720;
+            background: rgba(15, 23, 32, 0.6);
             border-radius: 14px;
             padding: 10px 14px;
             margin-top: 14px;
@@ -394,9 +485,17 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            border: 1px solid #1a2632;
+            border: 1px solid rgba(26, 38, 50, 0.4);
         }
 
+        /* ===== НАВЫКИ ===== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        /* ===== КОНФЕТТИ ===== */
         .confetti-container {
             position: fixed;
             top: 0;
@@ -419,12 +518,13 @@
             100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
         }
 
+        /* ===== УВЕДОМЛЕНИЯ ===== */
         .toast {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: #1a2632;
+            background: rgba(26, 38, 50, 0.95);
             border: 1px solid #f5b342;
             color: #e8edf2;
             padding: 10px 24px;
@@ -434,16 +534,29 @@
             z-index: 1000;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
             animation: toastIn 0.3s ease;
+            backdrop-filter: blur(8px);
         }
         @keyframes toastIn {
             from { opacity: 0; transform: translateX(-50%) translateY(20px); }
             to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
+        /* ===== АДАПТАЦИЯ ===== */
         @media (max-width: 440px) {
             .reel { width: 64px; height: 78px; font-size: 38px; }
             .shop-grid { grid-template-columns: 1fr 1fr; }
             .slot-controls .bet-input { width: 60px; font-size: 14px; }
+            .skills-grid { grid-template-columns: 1fr 1fr; }
+            .app { padding: 16px 12px 20px; }
+            .avatar { width: 52px; height: 52px; font-size: 36px; }
+            .stats-grid .value { font-size: 16px; }
+        }
+
+        @media (max-width: 380px) {
+            .shop-grid { grid-template-columns: 1fr; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .job-card { flex-direction: column; align-items: stretch; gap: 8px; }
+            .job-card .actions { margin-left: 0; justify-content: flex-end; }
         }
     </style>
 </head>
@@ -455,11 +568,11 @@
     <div class="avatar-section">
         <div class="avatar" id="avatarEmoji">🧑‍💼</div>
         <div class="avatar-info">
-            <div class="name" id="playerName">Новичок</div>
-            <div class="title" id="playerTitle">Безработный</div>
+            <div class="name" id="playerName">Безработный</div>
+            <div class="title" id="playerTitle">Начинающий</div>
             <div class="level">🎯 Уровень <span id="levelDisplay">1</span></div>
         </div>
-        <div style="font-size:13px; color:#7e96ab;">
+        <div class="skill-points-badge">
             🎯 <span id="skillPointsDisplay">0</span>
         </div>
     </div>
@@ -484,7 +597,7 @@
     <div class="exp-section">
         <div class="exp-row">
             <span class="exp-label">⭐ Опыт</span>
-            <span class="exp-value" id="expDisplay">0 / 100</span>
+            <span class="exp-value" id="expDisplay">0 / 75</span>
         </div>
         <div class="exp-bar">
             <div class="fill" id="expBar" style="width:0%;"></div>
@@ -503,16 +616,16 @@
     <div class="tab-content active" id="tab-work">
         <div id="jobList"></div>
         <div style="text-align:center;font-size:12px;color:#7e96ab;margin-top:6px;">
-            💡 Для новой работы нужны: уровень, деньги и статус
+            💡 Для новой работы нужны: уровень, деньги и вещи
         </div>
     </div>
 
     <!-- МАГАЗИН -->
     <div class="tab-content" id="tab-shop">
         <div class="shop-tabs">
-            <button class="shop-tab active" data-shop="cars">🚗 Авто</button>
+            <button class="shop-tab active" data-shop="clothes">👔 Одежда</button>
+            <button class="shop-tab" data-shop="cars">🚗 Авто</button>
             <button class="shop-tab" data-shop="houses">🏠 Жильё</button>
-            <button class="shop-tab" data-shop="clothes">👔 Одежда</button>
         </div>
         <div class="shop-grid" id="shopGrid"></div>
     </div>
@@ -540,9 +653,9 @@
 
     <!-- НАВЫКИ -->
     <div class="tab-content" id="tab-skills">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;" id="skillsGrid"></div>
+        <div class="skills-grid" id="skillsGrid"></div>
         <div style="text-align:center;font-size:12px;color:#7e96ab;margin-top:10px;">
-            🎯 Очки прокачки: <span id="skillPointsDisplay2">0</span>
+            🎯 Очков прокачки: <span id="skillPointsDisplay2">0</span>
         </div>
     </div>
 
@@ -555,18 +668,19 @@
     //  ДАННЫЕ
     // ============================================================
 
+    // ПЕРВАЯ РАБОТА ДОСТУПНА СРАЗУ (reqLevel: 0, reqItems: [])
     const jobs = [
         { id: 0, name: 'Безработный', baseIncome: 0, cost: 0, reqLevel: 0, reqItems: [] },
-        { id: 1, name: 'Разносчик', baseIncome: 1, cost: 25, reqLevel: 1, reqItems: ['clothes_1'] },
-        { id: 2, name: 'Уборщик', baseIncome: 2, cost: 60, reqLevel: 2, reqItems: ['clothes_1', 'clothes_2'] },
-        { id: 3, name: 'Официант', baseIncome: 4, cost: 140, reqLevel: 3, reqItems: ['clothes_2', 'clothes_3'] },
-        { id: 4, name: 'Курьер', baseIncome: 7, cost: 300, reqLevel: 4, reqItems: ['clothes_3', 'car_1'] },
-        { id: 5, name: 'Продавец', baseIncome: 12, cost: 600, reqLevel: 5, reqItems: ['clothes_3', 'car_1', 'house_1'] },
-        { id: 6, name: 'Водитель', baseIncome: 20, cost: 1200, reqLevel: 6, reqItems: ['clothes_4', 'car_2'] },
-        { id: 7, name: 'Менеджер', baseIncome: 35, cost: 2500, reqLevel: 7, reqItems: ['clothes_4', 'car_2', 'house_2'] },
-        { id: 8, name: 'Директор', baseIncome: 60, cost: 5000, reqLevel: 8, reqItems: ['clothes_5', 'car_3', 'house_2'] },
-        { id: 9, name: 'Магнат', baseIncome: 110, cost: 12000, reqLevel: 9, reqItems: ['clothes_5', 'car_3', 'house_3'] },
-        { id: 10, name: 'Легенда', baseIncome: 220, cost: 30000, reqLevel: 10, reqItems: ['clothes_6', 'car_4', 'house_3'] }
+        { id: 1, name: 'Разносчик', baseIncome: 1, cost: 20, reqLevel: 1, reqItems: ['clothes_1'] },
+        { id: 2, name: 'Уборщик', baseIncome: 2, cost: 50, reqLevel: 2, reqItems: ['clothes_1', 'clothes_2'] },
+        { id: 3, name: 'Официант', baseIncome: 4, cost: 120, reqLevel: 3, reqItems: ['clothes_2', 'clothes_3'] },
+        { id: 4, name: 'Курьер', baseIncome: 7, cost: 280, reqLevel: 4, reqItems: ['clothes_3', 'car_1'] },
+        { id: 5, name: 'Продавец', baseIncome: 12, cost: 550, reqLevel: 5, reqItems: ['clothes_3', 'car_1', 'house_1'] },
+        { id: 6, name: 'Водитель', baseIncome: 20, cost: 1100, reqLevel: 6, reqItems: ['clothes_4', 'car_2'] },
+        { id: 7, name: 'Менеджер', baseIncome: 35, cost: 2300, reqLevel: 7, reqItems: ['clothes_4', 'car_2', 'house_2'] },
+        { id: 8, name: 'Директор', baseIncome: 60, cost: 4800, reqLevel: 8, reqItems: ['clothes_5', 'car_3', 'house_2'] },
+        { id: 9, name: 'Магнат', baseIncome: 110, cost: 11000, reqLevel: 9, reqItems: ['clothes_5', 'car_3', 'house_3'] },
+        { id: 10, name: 'Легенда', baseIncome: 220, cost: 28000, reqLevel: 10, reqItems: ['clothes_6', 'car_4', 'house_3'] }
     ];
 
     const shopItems = {
@@ -593,9 +707,9 @@
     };
 
     const skills = [
-        { id: 'workSpeed', name: '💼 Скорость работы', desc: '+10% доход', baseCost: 20, costMult: 1.5, maxLvl: 20 },
-        { id: 'slotLuck', name: '🍀 Удача в слоте', desc: '+5% шанс', baseCost: 25, costMult: 1.6, maxLvl: 15 },
-        { id: 'slotBonus', name: '🎰 Бонус слота', desc: '+10% выигрыш', baseCost: 30, costMult: 1.7, maxLvl: 15 },
+        { id: 'workSpeed', name: '💼 Скорость работы', desc: '+10% доход', baseCost: 15, costMult: 1.5, maxLvl: 20 },
+        { id: 'slotLuck', name: '🍀 Удача в слоте', desc: '+5% шанс', baseCost: 20, costMult: 1.6, maxLvl: 15 },
+        { id: 'slotBonus', name: '🎰 Бонус слота', desc: '+10% выигрыш', baseCost: 25, costMult: 1.7, maxLvl: 15 },
         { id: 'saveMoney', name: '💰 Экономия', desc: '-5% цена покупок', baseCost: 15, costMult: 1.4, maxLvl: 10 }
     ];
 
@@ -634,7 +748,10 @@
         return Math.floor(base * mult);
     }
 
-    function getExpToNext() { return 50 + G.level * 25; }
+    function getExpToNext() {
+        // 50 + уровень * 25, но первый уровень требует 75 опыта
+        return 50 + G.level * 25;
+    }
 
     function getDiscount() {
         const lvl = G.skillLevels.saveMoney || 0;
@@ -721,7 +838,7 @@
         document.getElementById('betInput').value = G.bet;
 
         renderJobs();
-        renderShop('cars');
+        renderShop('clothes');
         renderSkills();
         renderHistory();
         updateSlotButton();
@@ -733,20 +850,48 @@
         jobs.forEach((job, idx) => {
             const isCurrent = idx === G.jobId;
             const canAccess = canAccessJob(job);
-            const canBuy = canAccess && G.balance >= job.cost && !isCurrent;
-            const locked = !canAccess;
+            // Для первой работы (безработный) всегда доступна
+            const isFirstJob = idx === 0;
+            const canBuy = (canAccess || isFirstJob) && G.balance >= job.cost && !isCurrent && idx !== 0;
+            const locked = !canAccess && !isFirstJob && idx !== 0;
+
+            // Проверяем, что нужно для работы
+            let reqText = '';
+            if (idx === 0) reqText = '✅ Всегда доступна';
+            else if (locked) {
+                const parts = [];
+                if (G.level < job.reqLevel) parts.push(`ур. ${job.reqLevel}`);
+                const missingItems = job.reqItems.filter(id => !hasItem(id));
+                if (missingItems.length > 0) {
+                    const names = missingItems.map(id => {
+                        for (const cat of ['clothes', 'cars', 'houses']) {
+                            const found = shopItems[cat].find(i => i.id === id);
+                            if (found) return found.name;
+                        }
+                        return id;
+                    });
+                    parts.push(names.join(', '));
+                }
+                reqText = '🔒 Требует: ' + parts.join(', ');
+            } else if (isCurrent) {
+                reqText = '✅ Текущая работа';
+            } else {
+                reqText = '💰 Доступна';
+            }
 
             html += `
                 <div class="job-card ${isCurrent ? 'active' : ''}">
                     <div class="info">
                         <div class="name">${job.name} ${isCurrent ? '⭐' : ''}</div>
                         <div class="desc">💰 ${job.baseIncome}$/сек</div>
-                        <div class="req">${locked ? '🔒 Требует: ур.' + job.reqLevel + ' и вещи' : '✅ Доступна'}</div>
+                        <div class="req">${reqText}</div>
                     </div>
                     <div class="actions">
                         ${isCurrent ? `<span style="font-size:12px;color:#6fcf97;">✅</span>` :
-                         canBuy ? `<button class="btn btn-primary btn-sm" onclick="buyJob(${idx})">${getFinalCost(job.cost)}$</button>` :
-                         `<span style="font-size:11px;color:#7e96ab;">${locked ? '🔒' : '💰'}</span>`}
+                         (canBuy || idx === 0) ? `<button class="btn btn-primary btn-sm" onclick="buyJob(${idx})" ${(canBuy || idx === 0) ? '' : 'disabled'}>
+                             ${idx === 0 ? 'Выбрать' : getFinalCost(job.cost) + '$'}
+                         </button>` :
+                         `<span style="font-size:11px;color:#7e96ab;">🔒</span>`}
                     </div>
                 </div>
             `;
@@ -788,7 +933,7 @@
             const lvl = G.skillLevels[sk.id] || 0;
             const maxed = lvl >= sk.maxLvl;
             const cost = getSkillCost(sk.id);
-            const canBuy = G.skillPoints > 0 && !maxed;
+            const canBuy = G.skillPoints >= cost && !maxed;
 
             let bonus = '';
             if (sk.id === 'workSpeed') bonus = `+${lvl * 10}% доход`;
@@ -800,7 +945,7 @@
                 <div class="shop-item" style="${maxed ? 'border-color:#6fcf97;' : ''}">
                     <div class="sname">${sk.name}</div>
                     <div class="sdesc">${sk.desc}</div>
-                    <div class="slvl">Ур. ${lvl}/${sk.maxLvl}</div>
+                    <div style="font-size:12px;color:#f5b342;">Ур. ${lvl}/${sk.maxLvl}</div>
                     <div style="font-size:12px;color:#6fcf97;">${bonus}</div>
                     <div class="sprice">${maxed ? '✅ MAX' : cost + ' очков'}</div>
                     <button class="btn btn-primary btn-sm" onclick="buySkill('${sk.id}')" ${canBuy ? '' : 'disabled'}>
@@ -833,6 +978,14 @@
 
     function buyJob(idx) {
         const job = jobs[idx];
+        if (idx === 0) {
+            // Безработный — просто меняем работу
+            G.jobId = 0;
+            save();
+            updateUI();
+            notify('✅ Ты безработный');
+            return;
+        }
         const cost = getFinalCost(job.cost);
         if (G.balance < cost) { notify('❌ Не хватает денег!', false); return; }
         if (!canAccessJob(job)) { notify('❌ Нужен уровень и вещи!', false); return; }
@@ -861,9 +1014,8 @@
         const sk = skills.find(s => s.id === id);
         const lvl = G.skillLevels[id] || 0;
         if (lvl >= sk.maxLvl) { notify('⚠️ Максимальный уровень!', false); return; }
-        if (G.skillPoints <= 0) { notify('❌ Нет очков прокачки!', false); return; }
         const cost = getSkillCost(id);
-        if (G.skillPoints < cost) { notify('❌ Не хватает очков!', false); return; }
+        if (G.skillPoints < cost) { notify('❌ Не хватает очков прокачки!', false); return; }
 
         G.skillPoints -= cost;
         G.skillLevels[id] = (G.skillLevels[id] || 0) + 1;
@@ -872,18 +1024,8 @@
         notify(`✅ ${sk.name} улучшен до ${G.skillLevels[id]} уровня!`);
     }
 
-    function work() {
-        const inc = getIncome();
-        if (inc === 0) { notify('💤 У тебя нет работы!', false); return; }
-        G.balance += inc;
-        G.totalEarned += inc;
-        addExp(inc * 0.5);
-        save();
-        updateUI();
-    }
-
     // ============================================================
-    //  СЛОТ
+    //  СЛОТ (БЕЗ X1 ПОБЕД)
     // ============================================================
 
     function getWeightedSymbol() {
@@ -944,6 +1086,7 @@
     function finishSpin(results, reels, bet) {
         let win = 0;
 
+        // Только реальные выигрышные комбинации (без x1)
         if (results[0] === results[1] && results[1] === results[2]) {
             win = winMap[results[0]] || 0;
         }
@@ -953,14 +1096,25 @@
         if (results.filter(s => s === '🎰').length === 2) {
             win = Math.max(win, 20);
         }
-        if (results[0] === results[1] && results[0] !== results[2]) win = Math.max(win, 2);
-        if (results[1] === results[2] && results[1] !== results[0]) win = Math.max(win, 2);
+        // Два одинаковых — дают небольшой бонус (но это не x1)
+        if (results[0] === results[1] && results[0] !== results[2]) {
+            win = Math.max(win, 2);
+        }
+        if (results[1] === results[2] && results[1] !== results[0]) {
+            win = Math.max(win, 2);
+        }
+
+        // Если выигрыш меньше ставки — считаем что это проигрыш
+        // (убераем x1 победы: если win < bet * 1.5, то это не считается выигрышем)
+        if (win > 0 && win < bet * 1.5) {
+            win = 0; // Убираем мелкие победы
+        }
 
         // Бонус от навыка
         const bonusLvl = G.skillLevels.slotBonus || 0;
         win = Math.floor(win * (1 + bonusLvl * 0.1));
 
-        // Умножаем на ставку
+        // Умножаем на ставку (но не меньше 0)
         win = Math.floor(win * (bet / 2));
 
         if (win > 0) {
@@ -977,13 +1131,14 @@
             notify(`🎉 Выигрыш ${win}$!`);
         } else {
             G.totalLosses++;
-            document.getElementById('slotMessage').textContent = '😔 Попробуй ещё!';
+            document.getElementById('slotMessage').textContent = '😔 Проигрыш';
         }
 
         // Опыт за спин (даже если проиграл)
-        addExp(bet * 0.3 + 1);
+        addExp(Math.floor(bet * 0.3) + 1);
 
-        G.history.push(`${results.join('')} ${win > 0 ? '+' + win : '—'}`);
+        const display = results.join('');
+        G.history.push(`${display} ${win > 0 ? '+' + win : '—'}`);
         if (G.history.length > 30) G.history.shift();
 
         G.isSpinning = false;
