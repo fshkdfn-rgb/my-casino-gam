@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎰 CASINO ROYALE</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{min-height:100vh;background:#0a0a1a;font-family:'Segoe UI',Arial,sans-serif;overflow-x:hidden}
@@ -18,16 +17,6 @@
         .main-container{position:relative;z-index:1;max-width:800px;margin:20px auto;padding:0 15px}
         .casino{background:radial-gradient(ellipse at center,rgba(26,26,62,.95),rgba(13,13,26,.98));border:3px solid #ffd700;border-radius:30px;padding:30px;box-shadow:0 0 80px rgba(255,215,0,.2),inset 0 0 80px rgba(255,215,0,.05);backdrop-filter:blur(10px);margin-bottom:20px}
         h1{color:#ffd700;text-align:center;font-size:38px;text-shadow:0 0 30px rgba(255,215,0,.4),0 4px 0 #8b6914;letter-spacing:4px;margin-bottom:20px;font-weight:900}
-        
-        .auth-container{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;background:rgba(0,0,0,.4);padding:20px;border-radius:15px;border:1px solid #ffd70033}
-        .auth-container input{padding:12px 20px;border-radius:10px;border:2px solid #ffd700;background:rgba(0,0,0,.5);color:#fff;font-size:16px;outline:none;min-width:180px}
-        .auth-container input::placeholder{color:#888}
-        .auth-container button{background:#ffd700;border:none;padding:12px 30px;border-radius:10px;font-weight:700;font-size:16px;cursor:pointer;transition:.3s;color:#1a1a3e}
-        .auth-container button:hover{transform:scale(1.05);box-shadow:0 0 30px rgba(255,215,0,.4)}
-        .user-info{color:#ffd700;text-align:center;padding:10px;font-size:18px}
-        .user-info span{color:#fff}
-        .user-info button{margin-left:15px;padding:8px 25px;border:none;border-radius:10px;background:#ff4444;color:#fff;cursor:pointer;font-size:16px}
-        .user-info button:hover{background:#cc0000}
         
         .game-menu{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
         .game-menu button{background:linear-gradient(135deg,#ffd700,#ff6b00);border:none;padding:15px 35px;border-radius:15px;font-size:20px;font-weight:700;cursor:pointer;transition:.3s;color:#1a1a3e;box-shadow:0 4px 15px rgba(255,215,0,.3)}
@@ -105,20 +94,18 @@
         .bj-actions button:hover{transform:scale(1.05);box-shadow:0 0 30px rgba(255,215,0,.4)}
         .bj-actions button:disabled{opacity:.4;cursor:not-allowed}
         
-        .admin-panel{background:rgba(255,0,0,.1);border:2px solid #ff4444;border-radius:15px;padding:20px;margin-top:20px;display:none}
-        .admin-panel h3{color:#ff4444;text-align:center;margin-bottom:15px;font-size:22px}
-        .admin-panel .admin-row{display:flex;gap:15px;justify-content:center;flex-wrap:wrap}
-        .admin-panel input{padding:10px 15px;border-radius:10px;border:2px solid #ff4444;background:rgba(0,0,0,.5);color:#fff;font-size:16px;outline:none;min-width:150px}
-        .admin-panel input::placeholder{color:#888}
-        .admin-panel button{background:#ff4444;border:none;padding:10px 25px;border-radius:10px;font-weight:700;font-size:16px;cursor:pointer;transition:.3s;color:#fff}
-        .admin-panel button:hover{transform:scale(1.05);box-shadow:0 0 30px rgba(255,68,68,.4)}
-        .admin-status{color:#888;text-align:center;margin-top:10px;font-size:14px}
+        .reset-all-btn{background:0 0;border:1px solid #ff4444;color:#ff4444;padding:10px 25px;border-radius:10px;cursor:pointer;font-size:14px;transition:.3s;margin-top:15px}
+        .reset-all-btn:hover{background:#ff4444;color:#fff;box-shadow:0 0 30px rgba(255,68,68,.3)}
         
         .confetti-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden}
         .confetti{position:absolute;width:12px;height:12px;top:-20px;animation:confettiFall linear forwards}
         @keyframes confettiFall{0%{transform:translateY(0) rotate(0) scale(1);opacity:1}100%{transform:translateY(110vh) rotate(720deg) scale(0);opacity:0}}
         
         .game-hidden{display:none}
+        
+        .top-bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:15px}
+        .top-bar .balance-label{color:#ffd700;font-size:22px;font-weight:700}
+        .top-bar .balance-label span{color:#fff}
         
         @media(max-width:700px){
             .casino{padding:15px}
@@ -135,14 +122,13 @@
             .reels{gap:8px;padding:15px}
             .roulette-wheel{width:200px;height:200px}
             .slot-header-item .value{font-size:16px}
+            .top-bar .balance-label{font-size:18px}
         }
         @media(max-width:450px){
             .reel-wrapper{width:60px;height:80px}
             .reel{font-size:35px}
             .girl{font-size:80px!important}
             .girl:nth-child(2){display:none}
-            .auth-container{flex-direction:column;align-items:center}
-            .auth-container input{width:100%}
             .roulette-wheel{width:160px;height:160px}
             .slot-header{grid-template-columns:1fr 1fr}
         }
@@ -158,30 +144,16 @@
     <div class="confetti-container" id="confettiContainer"></div>
     <div class="main-container">
         
+        <!-- Верхняя панель -->
         <div class="casino">
-            <div id="authSection">
-                <div class="auth-container">
-                    <input type="text" id="regUsername" placeholder="👤 Имя пользователя" maxlength="20">
-                    <input type="email" id="regEmail" placeholder="📧 Email">
-                    <input type="password" id="regPassword" placeholder="🔒 Пароль (мин. 6 символов)">
-                    <button id="registerBtn">📝 Регистрация</button>
-                </div>
-                <div class="auth-container">
-                    <input type="email" id="loginEmail" placeholder="📧 Email">
-                    <input type="password" id="loginPassword" placeholder="🔒 Пароль">
-                    <button id="loginBtn">🔑 Вход</button>
-                </div>
-            </div>
-            <div id="userInfo" style="display:none">
-                <div class="user-info">
-                    👋 Привет, <span id="displayUsername"></span>!
-                    <span style="color:#ff6b00;font-size:14px;margin-left:10px;font-weight:700" id="adminBadge"></span>
-                    <button id="logoutBtn">🚪 Выйти</button>
-                </div>
+            <div class="top-bar">
+                <div class="balance-label">💰 БАЛАНС: <span id="mainBalance">1000</span>$</div>
+                <button class="reset-all-btn" onclick="resetAll()">🔄 Сбросить всё</button>
             </div>
         </div>
 
-        <div class="casino" id="gameMenu" style="display:none">
+        <!-- МЕНЮ -->
+        <div class="casino">
             <div class="game-menu">
                 <button id="menuSlots" class="active">🎰 Слоты</button>
                 <button id="menuRoulette">🎡 Рулетка</button>
@@ -189,6 +161,7 @@
             </div>
         </div>
 
+        <!-- СЛОТЫ -->
         <div class="casino" id="gameSlots">
             <h1>🎰 SLOT MACHINE</h1>
             <div class="slot-machine">
@@ -235,6 +208,7 @@
             </div>
         </div>
 
+        <!-- РУЛЕТКА -->
         <div class="casino game-hidden" id="gameRoulette">
             <h1>🎡 РУЛЕТКА</h1>
             <div class="stats">
@@ -305,6 +279,7 @@
             </div>
         </div>
 
+        <!-- БЛЭКДЖЕК -->
         <div class="casino game-hidden" id="gameBJ">
             <h1>🃏 БЛЭКДЖЕК (21)</h1>
             <div class="stats">
@@ -327,49 +302,54 @@
             </div>
         </div>
 
-        <div class="casino admin-panel" id="adminPanel">
-            <h3>🔐 АДМИН-ПАНЕЛЬ</h3>
-            <div class="admin-row">
-                <input type="text" id="adminUserEmail" placeholder="Email пользователя">
-                <input type="number" id="adminAmount" placeholder="Сумма" value="100">
-                <button id="adminAddMoney">➕ Добавить денег</button>
-                <button id="adminResetUser">🔄 Сбросить прогресс</button>
-            </div>
-            <div class="admin-status" id="adminStatus"></div>
-        </div>
-
     </div>
 
     <script>
         // ============================================
-        //  SUPABASE
+        //  СОХРАНЕНИЕ В LOCALSTORAGE
         // ============================================
         
-        var SB_URL = 'https://bxjuvzyxspcavnpcfytj.supabase.co';
-        var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ4anV2enl4c3BjYXZucGNmeXRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQyMDEyMzUsImV4cCI6MjA5OTc3NzIzNX0.SiPKhSu4_ytBX4iHrwmPl4vwJ6eUS_3fPS3w61RmoBM';
+        function loadGameData() {
+            try {
+                var data = localStorage.getItem('casinoRoyaleData');
+                if (data) {
+                    var parsed = JSON.parse(data);
+                    return parsed;
+                }
+            } catch(e) {}
+            return null;
+        }
         
-        var sb = window.supabase.createClient(SB_URL, SB_KEY);
+        function saveGameData() {
+            var data = {
+                balance: userBalance,
+                bet: bet,
+                rouletteBet: rouletteBet,
+                bjBet: bjBet,
+                history: history,
+                rouletteHistory: rouletteHistory
+            };
+            localStorage.setItem('casinoRoyaleData', JSON.stringify(data));
+        }
         
         // ============================================
         //  ПЕРЕМЕННЫЕ
         // ============================================
         
-        var currentUser = null;
-        var userBalance = 1000;
-        var username = '';
-        var isAdmin = false;
+        var savedData = loadGameData();
         
-        var bet = 10;
+        var userBalance = savedData ? savedData.balance : 1000;
+        var bet = savedData ? savedData.bet : 10;
         var spinning = false;
-        var history = [];
+        var history = savedData ? savedData.history : [];
         var lastWin = 0;
         
-        var rouletteBet = 10;
+        var rouletteBet = savedData ? savedData.rouletteBet : 10;
         var rouletteSpinning = false;
         var selectedNumber = null;
-        var rouletteHistory = [];
+        var rouletteHistory = savedData ? savedData.rouletteHistory : [];
         
-        var bjBet = 10;
+        var bjBet = savedData ? savedData.bjBet : 10;
         var deck = [];
         var playerCards = [];
         var dealerCards = [];
@@ -408,27 +388,25 @@
         }
         
         function updateUI() {
-            var balEl = document.getElementById('balanceDisplay');
-            var betEl = document.getElementById('betDisplay');
-            var totalEl = document.getElementById('totalBetDisplay');
-            var winEl = document.getElementById('winDisplay');
-            var betValEl = document.getElementById('betValue');
-            var rouletteBalEl = document.getElementById('rouletteBalance');
-            var rouletteBetEl = document.getElementById('rouletteBetDisplay');
-            var rouletteBetEl2 = document.getElementById('rouletteBet');
-            var bjBalEl = document.getElementById('bjBalance');
-            var bjBetEl = document.getElementById('bjBet');
+            document.getElementById('mainBalance').textContent = userBalance;
+            document.getElementById('balanceDisplay').textContent = userBalance;
+            document.getElementById('betDisplay').textContent = bet;
+            document.getElementById('totalBetDisplay').textContent = bet;
+            document.getElementById('betValue').textContent = bet;
+            document.getElementById('winDisplay').textContent = lastWin;
+            document.getElementById('rouletteBalance').textContent = userBalance;
+            document.getElementById('rouletteBetDisplay').textContent = rouletteBet;
+            document.getElementById('rouletteBet').textContent = rouletteBet;
+            document.getElementById('bjBalance').textContent = userBalance;
+            document.getElementById('bjBet').textContent = bjBet;
             
-            if (balEl) balEl.textContent = userBalance;
-            if (betEl) betEl.textContent = bet;
-            if (totalEl) totalEl.textContent = bet;
-            if (winEl) winEl.textContent = lastWin;
-            if (betValEl) betValEl.textContent = bet;
-            if (rouletteBalEl) rouletteBalEl.textContent = userBalance;
-            if (rouletteBetEl) rouletteBetEl.textContent = rouletteBet;
-            if (rouletteBetEl2) rouletteBetEl2.textContent = rouletteBet;
-            if (bjBalEl) bjBalEl.textContent = userBalance;
-            if (bjBetEl) bjBetEl.textContent = bjBet;
+            // Обновляем историю
+            if (history.length > 0) {
+                var histText = history.join(' | ');
+                document.getElementById('history').textContent = 'История: ' + histText;
+            }
+            
+            saveGameData();
         }
         
         // ============================================
@@ -476,134 +454,6 @@
         }
         
         // ============================================
-        //  АВТОРИЗАЦИЯ
-        // ============================================
-        
-        function register() {
-            var name = document.getElementById('regUsername').value.trim();
-            var email = document.getElementById('regEmail').value.trim();
-            var pass = document.getElementById('regPassword').value.trim();
-            if (!name || !email || !pass) { alert('⚠️ Заполните все поля!'); return; }
-            if (pass.length < 6) { alert('⚠️ Пароль должен быть не менее 6 символов!'); return; }
-            
-            sb.auth.signUp({ 
-                email: email, 
-                password: pass, 
-                options: { data: { username: name } } 
-            }).then(function(result) {
-                if (result.error) throw result.error;
-                if (result.data.user) {
-                    return sb.from('users').insert([{ 
-                        id: result.data.user.id, 
-                        username: name, 
-                        email: email, 
-                        balance: 1000
-                    }]);
-                }
-                return null;
-            }).then(function() {
-                alert('✅ Регистрация успешна! Теперь войдите.');
-                document.getElementById('regUsername').value = '';
-                document.getElementById('regEmail').value = '';
-                document.getElementById('regPassword').value = '';
-            }).catch(function(err) {
-                alert('❌ Ошибка: ' + err.message);
-            });
-        }
-        
-        function login() {
-            var email = document.getElementById('loginEmail').value.trim();
-            var pass = document.getElementById('loginPassword').value.trim();
-            if (!email || !pass) { alert('⚠️ Введите email и пароль!'); return; }
-            
-            sb.auth.signInWithPassword({ email: email, password: pass }).then(function(result) {
-                if (result.error) throw result.error;
-                if (result.data.user) {
-                    currentUser = result.data.user;
-                    return loadUserData();
-                }
-                return null;
-            }).then(function() {
-                if (currentUser) {
-                    showGame();
-                    document.getElementById('loginEmail').value = '';
-                    document.getElementById('loginPassword').value = '';
-                }
-            }).catch(function(err) {
-                alert('❌ Неверный email или пароль!');
-                console.error('Ошибка входа:', err);
-            });
-        }
-        
-        function logout() {
-            sb.auth.signOut().then(function() {
-                currentUser = null;
-                isAdmin = false;
-                document.getElementById('authSection').style.display = 'block';
-                document.getElementById('userInfo').style.display = 'none';
-                document.getElementById('gameMenu').style.display = 'none';
-                document.getElementById('gameSlots').style.display = 'none';
-                document.getElementById('gameRoulette').style.display = 'none';
-                document.getElementById('gameBJ').style.display = 'none';
-                document.getElementById('adminPanel').style.display = 'none';
-            });
-        }
-        
-        function loadUserData() {
-            if (!currentUser) return Promise.reject('No user');
-            return sb.from('users').select('*').eq('id', currentUser.id).single().then(function(result) {
-                if (result.error) {
-                    // Если пользователь не найден в таблице users, создаём его
-                    console.log('Пользователь не найден в таблице, создаём...');
-                    return sb.from('users').insert([{ 
-                        id: currentUser.id, 
-                        username: currentUser.user_metadata?.username || 'Player',
-                        email: currentUser.email, 
-                        balance: 1000
-                    }]).then(function() {
-                        return sb.from('users').select('*').eq('id', currentUser.id).single();
-                    });
-                }
-                return result;
-            }).then(function(result) {
-                if (result.error) throw result.error;
-                if (result.data) {
-                    userBalance = result.data.balance || 1000;
-                    username = result.data.username || 'Игрок';
-                    document.getElementById('displayUsername').textContent = username;
-                    
-                    if (currentUser.email === 'test@player.com') {
-                        isAdmin = true;
-                        document.getElementById('adminBadge').textContent = '👑 АДМИН';
-                        document.getElementById('adminPanel').style.display = 'block';
-                    }
-                    updateUI();
-                }
-            });
-        }
-        
-        function saveUserData() {
-            if (!currentUser) return Promise.resolve();
-            return sb.from('users').update({ balance: userBalance }).eq('id', currentUser.id).then(function() {
-                console.log('✅ Баланс сохранён:', userBalance);
-            }).catch(function(e) {
-                console.error('❌ Ошибка сохранения:', e);
-            });
-        }
-        
-        function showGame() {
-            document.getElementById('authSection').style.display = 'none';
-            document.getElementById('userInfo').style.display = 'block';
-            document.getElementById('gameMenu').style.display = 'block';
-            document.getElementById('gameSlots').style.display = 'block';
-            document.getElementById('gameRoulette').style.display = 'none';
-            document.getElementById('gameBJ').style.display = 'none';
-            updateUI();
-            switchGame('slots');
-            drawRoulette(0);
-        }
-        
-        // ============================================
         //  МЕНЮ
         // ============================================
         
@@ -615,6 +465,33 @@
             document.getElementById('menuRoulette').className = game === 'roulette' ? 'active' : '';
             document.getElementById('menuBJ').className = game === 'bj' ? 'active' : '';
             updateUI();
+        }
+        
+        // ============================================
+        //  СБРОС ВСЕГО
+        // ============================================
+        
+        function resetAll() {
+            if (!confirm('⚠️ Вы уверены? Весь прогресс будет сброшен!')) return;
+            userBalance = 1000;
+            bet = 10;
+            rouletteBet = 10;
+            bjBet = 10;
+            history = [];
+            rouletteHistory = [];
+            lastWin = 0;
+            selectedNumber = null;
+            document.getElementById('history').textContent = 'История: ';
+            document.getElementById('rouletteHistory').textContent = 'История: ';
+            document.getElementById('message').textContent = '💃 Нажми SPIN!';
+            document.getElementById('bjMessage').textContent = 'Начни новую игру!';
+            document.getElementById('reel1').textContent = '🍒';
+            document.getElementById('reel2').textContent = '🍒';
+            document.getElementById('reel3').textContent = '🍒';
+            document.getElementById('spinBtn').disabled = false;
+            updateUI();
+            drawRoulette(0);
+            saveGameData();
         }
         
         // ============================================
@@ -632,7 +509,6 @@
         
         function spin() {
             if (spinning) return;
-            if (!currentUser) { alert('⚠️ Войдите в аккаунт!'); return; }
             if (userBalance < bet) { 
                 document.getElementById('message').textContent = '❌ Недостаточно средств!'; 
                 return; 
@@ -725,7 +601,6 @@
             }
             
             updateUI();
-            saveUserData();
             
             var historyText = results.join(' ') + (win > 0 ? ' 💎+' + win : ' ❌');
             history.push(historyText);
@@ -738,6 +613,7 @@
                 document.getElementById('message').textContent = '💸 ТЫ ПРОИГРАЛ ВСЁ!';
                 document.getElementById('spinBtn').disabled = true;
             }
+            saveGameData();
         }
         
         // ============================================
@@ -829,7 +705,6 @@
         
         function rouletteSpin() {
             if (rouletteSpinning) return;
-            if (!currentUser) { alert('⚠️ Войдите в аккаунт!'); return; }
             if (selectedNumber === null) {
                 document.getElementById('rouletteResult').textContent = '⚠️ Выберите число или тип ставки!';
                 return;
@@ -891,7 +766,6 @@
                     }
                     
                     updateUI();
-                    saveUserData();
                     
                     rouletteHistory.push('' + finalNumber);
                     if (rouletteHistory.length > 12) rouletteHistory.shift();
@@ -899,6 +773,7 @@
                     
                     rouletteSpinning = false;
                     document.getElementById('rouletteSpinBtn').disabled = false;
+                    saveGameData();
                 }
             }
             
@@ -1041,6 +916,7 @@
             document.getElementById('bjNewGame').disabled = true;
             if (getHandValue(playerCards) === 21) bjStand();
             updateUI();
+            saveGameData();
         }
         
         function bjHit() {
@@ -1054,7 +930,7 @@
                 document.getElementById('bjStand').disabled = true;
                 document.getElementById('bjNewGame').disabled = false;
                 updateUI();
-                saveUserData();
+                saveGameData();
             }
         }
         
@@ -1089,7 +965,7 @@
             }
             
             updateUI();
-            saveUserData();
+            saveGameData();
             document.getElementById('bjNewGame').disabled = false;
         }
         
@@ -1112,51 +988,6 @@
                 return;
             }
             startBJGame();
-        }
-        
-        // ============================================
-        //  АДМИН
-        // ============================================
-        
-        function adminAddMoney() {
-            if (!isAdmin) return;
-            var email = document.getElementById('adminUserEmail').value.trim();
-            var amount = parseInt(document.getElementById('adminAmount').value) || 100;
-            if (!email) { document.getElementById('adminStatus').textContent = '⚠️ Введите email'; return; }
-            
-            sb.from('users').select('*').eq('email', email).single().then(function(result) {
-                if (result.error || !result.data) {
-                    document.getElementById('adminStatus').textContent = '❌ Пользователь не найден';
-                    return;
-                }
-                var newBalance = (result.data.balance || 0) + amount;
-                return sb.from('users').update({ balance: newBalance }).eq('email', email);
-            }).then(function() {
-                document.getElementById('adminStatus').textContent = '✅ Добавлено ' + amount + '$ пользователю ' + email;
-                if (currentUser && currentUser.email === email) {
-                    userBalance = userBalance + amount;
-                    updateUI();
-                }
-            }).catch(function(err) {
-                document.getElementById('adminStatus').textContent = '❌ Ошибка: ' + err.message;
-            });
-        }
-        
-        function adminResetUser() {
-            if (!isAdmin) return;
-            var email = document.getElementById('adminUserEmail').value.trim();
-            if (!email) { document.getElementById('adminStatus').textContent = '⚠️ Введите email'; return; }
-            if (!confirm('Сбросить прогресс пользователя ' + email + '?')) return;
-            
-            sb.from('users').update({ balance: 1000 }).eq('email', email).then(function() {
-                document.getElementById('adminStatus').textContent = '✅ Прогресс сброшен для ' + email;
-                if (currentUser && currentUser.email === email) {
-                    userBalance = 1000;
-                    updateUI();
-                }
-            }).catch(function(err) {
-                document.getElementById('adminStatus').textContent = '❌ Ошибка: ' + err.message;
-            });
         }
         
         // ============================================
@@ -1188,7 +1019,10 @@
         // ============================================
         
         document.addEventListener('keydown', function(e) {
-            if (e.code === 'Space') { e.preventDefault(); if (document.getElementById('gameSlots').style.display !== 'none') spin(); }
+            if (e.code === 'Space') { 
+                e.preventDefault(); 
+                if (document.getElementById('gameSlots').style.display !== 'none') spin(); 
+            }
             if (e.code === 'ArrowUp') { e.preventDefault(); changeBet(5); }
             if (e.code === 'ArrowDown') { e.preventDefault(); changeBet(-5); }
         });
@@ -1198,10 +1032,6 @@
         // ============================================
         
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('registerBtn').onclick = register;
-            document.getElementById('loginBtn').onclick = login;
-            document.getElementById('logoutBtn').onclick = logout;
-            
             document.getElementById('menuSlots').onclick = function() { switchGame('slots'); };
             document.getElementById('menuRoulette').onclick = function() { switchGame('roulette'); setTimeout(function(){ drawRoulette(); }, 100); };
             document.getElementById('menuBJ').onclick = function() { switchGame('bj'); };
@@ -1226,30 +1056,16 @@
             document.getElementById('bjStand').onclick = bjStand;
             document.getElementById('bjNewGame').onclick = bjNewGame;
             
-            document.getElementById('adminAddMoney').onclick = adminAddMoney;
-            document.getElementById('adminResetUser').onclick = adminResetUser;
-        });
-        
-        // ============================================
-        //  ЗАГРУЗКА
-        // ============================================
-        
-        window.addEventListener('load', function() {
-            sb.auth.getSession().then(function(result) {
-                if (result.data && result.data.session) {
-                    currentUser = result.data.session.user;
-                    return loadUserData();
-                }
-                return Promise.resolve();
-            }).then(function() {
-                if (currentUser) {
-                    showGame();
-                }
-                setTimeout(function(){ drawRoulette(0); }, 200);
-            }).catch(function(err) {
-                console.error('Ошибка загрузки:', err);
-                setTimeout(function(){ drawRoulette(0); }, 200);
-            });
+            updateUI();
+            drawRoulette(0);
+            
+            // Восстанавливаем историю
+            if (history.length > 0) {
+                document.getElementById('history').textContent = 'История: ' + history.join(' | ');
+            }
+            if (rouletteHistory.length > 0) {
+                document.getElementById('rouletteHistory').textContent = 'История: ' + rouletteHistory.join(' ');
+            }
         });
     </script>
 </body>
