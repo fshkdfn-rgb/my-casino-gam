@@ -15,8 +15,6 @@
             --mana: #3498db;
             --exp: #2ecc71;
             --text: #e0e0e0;
-            --button: #0f3460;
-            --button-hover: #1a508b;
             --rare: #9b59b6;
             --epic: #e67e22;
             --legendary: #f1c40f;
@@ -63,7 +61,6 @@
             flex-shrink: 0;
         }
 
-        /* 3D сцена */
         .scene-container {
             width: 100%;
             height: 400px;
@@ -92,14 +89,12 @@
             z-index: 10;
         }
 
-        /* Панели */
         .panel {
             background: var(--panel);
             border-radius: 16px;
             padding: 20px;
         }
 
-        /* Ресурсы */
         .resources {
             display: flex;
             gap: 10px;
@@ -137,7 +132,6 @@
             color: var(--exp);
         }
 
-        /* Статы */
         .stat-row {
             display: flex;
             justify-content: space-between;
@@ -170,7 +164,6 @@
             transition: width 0.3s;
         }
 
-        /* Экипировка */
         .equipment-slots {
             display: flex;
             gap: 8px;
@@ -191,7 +184,6 @@
             font-size: 22px;
             cursor: pointer;
             transition: all 0.2s;
-            position: relative;
         }
 
         .equip-slot.equipped {
@@ -215,7 +207,6 @@
             }
         }
 
-        /* Кнопки */
         .btn {
             padding: 10px 18px;
             border: none;
@@ -277,9 +268,6 @@
             }
         }
 
-        .btn-nav {
-            padding: 10px 18px;
-        }
         .btn-prev {
             background: #555;
             color: white;
@@ -299,7 +287,6 @@
             flex-wrap: wrap;
         }
 
-        /* Лог */
         .log {
             background: rgba(0, 0, 0, 0.4);
             border-radius: 12px;
@@ -311,7 +298,6 @@
             line-height: 1.5;
         }
 
-        /* Локации */
         .locations {
             display: flex;
             gap: 6px;
@@ -345,7 +331,6 @@
             color: #2ecc71;
         }
 
-        /* Попапы */
         .popup-overlay {
             display: none;
             position: fixed;
@@ -385,13 +370,6 @@
             }
         }
 
-        .popup-content h2 {
-            text-align: center;
-            margin-bottom: 15px;
-            font-size: 1.4em;
-        }
-
-        /* Магазин */
         .shop-item {
             display: flex;
             align-items: center;
@@ -434,7 +412,6 @@
             cursor: not-allowed;
         }
 
-        /* Достижения */
         .achieve-item {
             display: flex;
             align-items: center;
@@ -449,37 +426,7 @@
         .achieve-item.locked {
             color: #555;
         }
-        .achieve-emoji {
-            font-size: 1.5em;
-        }
-        .achieve-progress {
-            font-size: 0.7em;
-            color: #888;
-        }
 
-        /* Вкладки */
-        .tabs {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 10px;
-        }
-        .tab-btn {
-            padding: 6px 14px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            background: transparent;
-            color: #aaa;
-            cursor: pointer;
-            font-size: 0.8em;
-            transition: all 0.2s;
-        }
-        .tab-btn.active {
-            background: rgba(255, 255, 255, 0.15);
-            color: #fff;
-            border-color: #fff;
-        }
-
-        /* Уведомление */
         .toast {
             position: fixed;
             top: 20px;
@@ -514,7 +461,6 @@
             }
         }
 
-        /* Адаптив */
         @media (max-width: 900px) {
             .main-layout {
                 flex-direction: column;
@@ -536,14 +482,11 @@
 <body>
 
     <div class="main-layout">
-        <!-- Левая колонка -->
         <div class="game-left">
-            <!-- 3D Сцена -->
             <div class="scene-container" id="sceneContainer">
                 <div class="scene-label" id="sceneLabel">📍 Тёмный лес</div>
             </div>
 
-            <!-- Ресурсы -->
             <div class="resources panel">
                 <div class="resource-item">
                     <div class="resource-label">💰 Золото</div>
@@ -567,18 +510,16 @@
                 </div>
             </div>
 
-            <!-- Локации -->
             <div class="panel">
                 <div style="font-size:0.8em;color:#888;margin-bottom:8px;">📍 Локация <span id="locIndex">1</span>/40 | Зачищено: <span id="clearedCount">0</span> | Босс: <span id="bossStatus">❌ жив</span></div>
                 <div class="locations" id="locationsContainer"></div>
             </div>
 
-            <!-- Кнопки действий -->
             <div class="panel">
                 <div class="actions" style="margin-bottom:8px;">
-                    <button class="btn btn-prev btn-nav" id="btnPrev" onclick="travelPrev()">◀</button>
+                    <button class="btn btn-prev" id="btnPrev" onclick="travelPrev()">◀</button>
                     <button class="btn btn-attack" id="btnAttack" onclick="attack()">⚔️ Атака</button>
-                    <button class="btn btn-next btn-nav" id="btnNext" onclick="travelNext()">▶</button>
+                    <button class="btn btn-next" id="btnNext" onclick="travelNext()">▶</button>
                 </div>
                 <div class="actions" style="margin-bottom:8px;">
                     <button class="btn btn-skill" id="btnSkill1" onclick="useSkill(0)">🔥 Огонь (10)</button>
@@ -592,15 +533,12 @@
                 </div>
             </div>
 
-            <!-- Лог -->
             <div class="log" id="logContainer">
                 <div>⚔️ Добро пожаловать! Убивайте монстров, открывайте лутбоксы и зачищайте локации!</div>
             </div>
         </div>
 
-        <!-- Правая колонка -->
         <div class="game-right">
-            <!-- Статы персонажа -->
             <div class="panel" id="heroPanel">
                 <h3 style="text-align:center;" id="heroName">🦸 Герой (ур.1)</h3>
                 <div class="stat-row"><span>❤️ HP</span><span id="heroHpText">100/100</span></div>
@@ -620,7 +558,6 @@
                 </div>
             </div>
 
-            <!-- Монстр -->
             <div class="panel" id="monsterPanel">
                 <h3 style="text-align:center;" id="monsterName">🐺 Лесной волк</h3>
                 <div class="stat-row"><span>❤️ HP</span><span id="monsterHpText">30/30</span></div>
@@ -630,20 +567,16 @@
                 <div class="stat-row"><span>💰 Награда</span><span id="monsterReward" style="color:#f1c40f;">8💰</span></div>
             </div>
 
-            <!-- Достижения (компактно) -->
             <div class="panel">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
                     <span style="font-weight:bold;">🏆 Достижения</span>
                     <button class="btn btn-shop" style="padding:4px 10px;font-size:0.7em;" onclick="openAchievements()">Все</button>
                 </div>
-                <div id="recentAchievements" style="font-size:0.75em;color:#888;">
-                    Убивайте монстров и открывайте лутбоксы!
-                </div>
+                <div id="recentAchievements" style="font-size:0.75em;color:#888;"></div>
             </div>
         </div>
     </div>
 
-    <!-- Попап магазина -->
     <div class="popup-overlay" id="shopPopup">
         <div class="popup-content">
             <h2>🏪 Магазин</h2>
@@ -652,7 +585,6 @@
         </div>
     </div>
 
-    <!-- Попап достижений -->
     <div class="popup-overlay" id="achievePopup">
         <div class="popup-content">
             <h2>🏆 Достижения</h2>
@@ -661,95 +593,129 @@
         </div>
     </div>
 
-    <!-- Попап лутбокса -->
     <div class="popup-overlay" id="lootboxPopup" onclick="closeLootboxPopup()">
         <div class="popup-content" id="lootboxContent" style="text-align:center;"></div>
     </div>
 
     <script>
-        // ==================== 3D СЦЕНА (Three.js) ====================
-        let scene, camera, renderer, heroModel, monsterModel, groundPlane;
+        // ==================== 3D СЦЕНА С НОРМАЛЬНЫМИ МОДЕЛЯМИ ====================
+        let scene, camera, renderer, heroGroup, monsterGroup, groundPlane;
         let sceneParticles = [];
         let animationTime = 0;
+        let currentMonsterType = 'wolf';
 
         function init3DScene() {
             const container = document.getElementById('sceneContainer');
-
             scene = new THREE.Scene();
+            scene.fog = new THREE.Fog(0x1a1a2e, 3, 15);
 
-            // Камера
             camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 100);
-            camera.position.set(0, 3, 8);
-            camera.lookAt(0, 0, 0);
+            camera.position.set(0, 3.5, 9);
+            camera.lookAt(0, 0.5, 0);
 
-            // Рендерер
             renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
             renderer.setSize(container.clientWidth, container.clientHeight);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
             container.appendChild(renderer.domElement);
 
             // Освещение
-            const ambientLight = new THREE.AmbientLight(0x404060, 0.6);
+            const ambientLight = new THREE.AmbientLight(0x8899bb, 0.5);
             scene.add(ambientLight);
 
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-            directionalLight.position.set(5, 10, 5);
-            directionalLight.castShadow = true;
-            scene.add(directionalLight);
+            const sunLight = new THREE.DirectionalLight(0xffeedd, 0.9);
+            sunLight.position.set(5, 8, 3);
+            sunLight.castShadow = true;
+            sunLight.shadow.mapSize.width = 1024;
+            sunLight.shadow.mapSize.height = 1024;
+            sunLight.shadow.camera.near = 0.5;
+            sunLight.shadow.camera.far = 30;
+            sunLight.shadow.camera.left = -10;
+            sunLight.shadow.camera.right = 10;
+            sunLight.shadow.camera.top = 10;
+            sunLight.shadow.camera.bottom = -10;
+            scene.add(sunLight);
 
-            const pointLight = new THREE.PointLight(0xff9944, 0.5, 15);
-            pointLight.position.set(0, 2, 0);
+            const pointLight = new THREE.PointLight(0xff8844, 0.6, 12);
+            pointLight.position.set(0, 2, 2);
             scene.add(pointLight);
 
-            // Пол
-            const groundGeometry = new THREE.CircleGeometry(4, 32);
-            const groundMaterial = new THREE.MeshStandardMaterial({
-                color: 0x2a2a3a,
-                roughness: 0.8,
-                metalness: 0.2
-            });
-            groundPlane = new THREE.Mesh(groundGeometry, groundMaterial);
+            // Пол с текстурой
+            const groundGeo = new THREE.CircleGeometry(5, 48);
+            const groundCanvas = document.createElement('canvas');
+            groundCanvas.width = 256;
+            groundCanvas.height = 256;
+            const gctx = groundCanvas.getContext('2d');
+            gctx.fillStyle = '#3a3a4a';
+            gctx.fillRect(0, 0, 256, 256);
+            for (let i = 0; i < 100; i++) {
+                gctx.fillStyle = Math.random() < 0.5 ? '#444455' : '#333344';
+                gctx.fillRect(Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), 4, 4);
+            }
+            const groundTex = new THREE.CanvasTexture(groundCanvas);
+            groundTex.wrapS = THREE.RepeatWrapping;
+            groundTex.wrapT = THREE.RepeatWrapping;
+            groundTex.repeat.set(4, 4);
+            const groundMat = new THREE.MeshStandardMaterial({ map: groundTex, roughness: 0.9, metalness: 0.1, color: 0x555566 });
+            groundPlane = new THREE.Mesh(groundGeo, groundMat);
             groundPlane.rotation.x = -Math.PI / 2;
-            groundPlane.position.y = -2;
+            groundPlane.position.y = -2.2;
             groundPlane.receiveShadow = true;
             scene.add(groundPlane);
 
-            // Сетка на полу
-            const gridHelper = new THREE.PolarGridHelper(4, 16, 8, 64, 0x444466, 0x333355);
-            gridHelper.position.y = -1.99;
-            scene.add(gridHelper);
-
-            // Модель героя (стилизованный воин)
-            heroModel = createHeroModel();
-            heroModel.position.set(-1.5, -0.5, 0);
-            scene.add(heroModel);
-
-            // Модель монстра
-            monsterModel = createMonsterModel('wolf');
-            monsterModel.position.set(1.5, -0.5, 0);
-            scene.add(monsterModel);
-
-            // Частицы окружения
-            for (let i = 0; i < 20; i++) {
-                const particleGeo = new THREE.SphereGeometry(0.03, 4, 4);
-                const particleMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.4 });
-                const particle = new THREE.Mesh(particleGeo, particleMat);
-                particle.position.set(
-                    (Math.random() - 0.5) * 6,
-                    Math.random() * 3 - 1,
-                    (Math.random() - 0.5) * 4
-                );
-                particle.userData = {
-                    speed: Math.random() * 0.5 + 0.2,
-                    amplitude: Math.random() * 1 + 0.5,
-                    offset: Math.random() * Math.PI * 2
-                };
-                scene.add(particle);
-                sceneParticles.push(particle);
+            // Декорации
+            for (let i = 0; i < 8; i++) {
+                const rockGeo = new THREE.DodecahedronGeometry(Math.random() * 0.3 + 0.1, 1);
+                const rockMat = new THREE.MeshStandardMaterial({ color: 0x666677, roughness: 0.8 });
+                const rock = new THREE.Mesh(rockGeo, rockMat);
+                const angle = (i / 8) * Math.PI * 2;
+                const dist = 3.5 + Math.random();
+                rock.position.set(Math.cos(angle) * dist, -2.1 + Math.random() * 0.2, Math.sin(angle) * dist);
+                rock.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
+                rock.castShadow = true;
+                rock.receiveShadow = true;
+                scene.add(rock);
             }
 
-            // Обработка ресайза
+            // Кристаллы
+            for (let i = 0; i < 5; i++) {
+                const crystalGeo = new THREE.ConeGeometry(0.08, Math.random() * 0.4 + 0.2, 6);
+                const crystalMat = new THREE.MeshStandardMaterial({
+                    color: [0x8844ff, 0x44aaff, 0x44ff88, 0xff44aa][i % 4],
+                    roughness: 0.2,
+                    metalness: 0.3,
+                    emissive: [0x220044, 0x002244, 0x004422, 0x440022][i % 4],
+                    emissiveIntensity: 0.5
+                });
+                const crystal = new THREE.Mesh(crystalGeo, crystalMat);
+                const angle = Math.random() * Math.PI * 2;
+                const dist = 2.5 + Math.random() * 2;
+                crystal.position.set(Math.cos(angle) * dist, -2.1, Math.sin(angle) * dist);
+                scene.add(crystal);
+            }
+
+            // Парящие частицы
+            for (let i = 0; i < 25; i++) {
+                const pGeo = new THREE.SphereGeometry(0.04, 4, 4);
+                const pMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.5 });
+                const p = new THREE.Mesh(pGeo, pMat);
+                p.position.set((Math.random() - 0.5) * 7, Math.random() * 4 - 1, (Math.random() - 0.5) * 5);
+                p.userData = { speed: Math.random() * 0.8 + 0.3, amp: Math.random() * 1.5 + 0.3, offset: Math.random() * Math.PI * 2 };
+                scene.add(p);
+                sceneParticles.push(p);
+            }
+
+            // Герой
+            heroGroup = createHeroModel();
+            heroGroup.position.set(-2, -0.5, 0);
+            scene.add(heroGroup);
+
+            // Монстр
+            monsterGroup = createMonsterModel('wolf');
+            monsterGroup.position.set(2, -0.5, 0);
+            scene.add(monsterGroup);
+
             window.addEventListener('resize', () => {
                 if (container.clientWidth > 0) {
                     camera.aspect = container.clientWidth / container.clientHeight;
@@ -764,55 +730,143 @@
         function createHeroModel() {
             const group = new THREE.Group();
 
-            // Тело (доспех)
-            const bodyGeo = new THREE.CylinderGeometry(0.3, 0.35, 1.2, 8);
-            const bodyMat = new THREE.MeshStandardMaterial({ color: 0x4488cc, roughness: 0.3, metalness: 0.7 });
-            const body = new THREE.Mesh(bodyGeo, bodyMat);
-            body.position.y = 0.1;
-            body.castShadow = true;
-            group.add(body);
+            // Материалы
+            const skinMat = new THREE.MeshStandardMaterial({ color: 0xffcc99, roughness: 0.6 });
+            const armorMat = new THREE.MeshStandardMaterial({ color: 0x4488cc, roughness: 0.3, metalness: 0.7 });
+            const darkMetalMat = new THREE.MeshStandardMaterial({ color: 0x777788, roughness: 0.2, metalness: 0.9 });
+            const goldMat = new THREE.MeshStandardMaterial({ color: 0xffcc00, roughness: 0.2, metalness: 0.8, emissive: 0x332200,
+                emissiveIntensity: 0.3 });
+            const leatherMat = new THREE.MeshStandardMaterial({ color: 0x8B4513, roughness: 0.5 });
 
-            // Голова
-            const headGeo = new THREE.SphereGeometry(0.25, 16, 16);
-            const headMat = new THREE.MeshStandardMaterial({ color: 0xffcc99, roughness: 0.6 });
-            const head = new THREE.Mesh(headGeo, headMat);
-            head.position.y = 0.85;
-            head.castShadow = true;
-            group.add(head);
+            // Ноги
+            for (let side = -1; side <= 1; side += 2) {
+                const legGeo = new THREE.CylinderGeometry(0.12, 0.14, 0.6, 8);
+                const leg = new THREE.Mesh(legGeo, armorMat);
+                leg.position.set(side * 0.15, -0.3, 0);
+                leg.castShadow = true;
+                group.add(leg);
 
-            // Шлем
-            const helmetGeo = new THREE.SphereGeometry(0.27, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2);
-            const helmetMat = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.2, metalness: 0.9 });
-            const helmet = new THREE.Mesh(helmetGeo, helmetMat);
-            helmet.position.y = 0.85;
-            group.add(helmet);
+                // Сапоги
+                const bootGeo = new THREE.BoxGeometry(0.2, 0.15, 0.28);
+                const boot = new THREE.Mesh(bootGeo, darkMetalMat);
+                boot.position.set(side * 0.15, -0.65, 0.05);
+                boot.castShadow = true;
+                group.add(boot);
+            }
 
-            // Меч
+            // Торс (нагрудник)
+            const torsoGeo = new THREE.CylinderGeometry(0.28, 0.32, 0.9, 8);
+            const torso = new THREE.Mesh(torsoGeo, armorMat);
+            torso.position.y = 0.15;
+            torso.castShadow = true;
+            group.add(torso);
+
+            // Пояс
+            const beltGeo = new THREE.TorusGeometry(0.3, 0.05, 8, 16);
+            const belt = new THREE.Mesh(beltGeo, leatherMat);
+            belt.position.y = -0.1;
+            belt.rotation.x = Math.PI / 2;
+            group.add(belt);
+
+            // Руки
+            for (let side = -1; side <= 1; side += 2) {
+                const upperArmGeo = new THREE.CylinderGeometry(0.08, 0.1, 0.5, 8);
+                const upperArm = new THREE.Mesh(upperArmGeo, armorMat);
+                upperArm.position.set(side * 0.4, 0.4, 0);
+                upperArm.rotation.z = side * 0.3;
+                upperArm.castShadow = true;
+                group.add(upperArm);
+
+                const forearmGeo = new THREE.CylinderGeometry(0.07, 0.08, 0.45, 8);
+                const forearm = new THREE.Mesh(forearmGeo, skinMat);
+                forearm.position.set(side * 0.45, 0.05, 0);
+                forearm.castShadow = true;
+                group.add(forearm);
+
+                // Наплечники
+                const shoulderGeo = new THREE.SphereGeometry(0.13, 8, 8);
+                const shoulder = new THREE.Mesh(shoulderGeo, darkMetalMat);
+                shoulder.position.set(side * 0.38, 0.7, 0);
+                shoulder.scale.set(0.7, 0.7, 1);
+                group.add(shoulder);
+            }
+
+            // Меч (правая рука)
             const swordGroup = new THREE.Group();
-            const bladeGeo = new THREE.BoxGeometry(0.06, 0.8, 0.04);
-            const bladeMat = new THREE.MeshStandardMaterial({ color: 0xcccccc, roughness: 0.1, metalness: 0.9,
-            emissive: 0x222222 });
+            const bladeGeo = new THREE.BoxGeometry(0.05, 0.9, 0.03);
+            const bladeMat = new THREE.MeshStandardMaterial({ color: 0xdddddd, roughness: 0.1, metalness: 0.95, emissive: 0x111111,
+                emissiveIntensity: 0.5 });
             const blade = new THREE.Mesh(bladeGeo, bladeMat);
             blade.position.y = 0.4;
             swordGroup.add(blade);
 
-            const handleGeo = new THREE.CylinderGeometry(0.04, 0.04, 0.2, 8);
-            const handleMat = new THREE.MeshStandardMaterial({ color: 0x8B4513, roughness: 0.5 });
-            const handle = new THREE.Mesh(handleGeo, handleMat);
+            const guardGeo = new THREE.BoxGeometry(0.18, 0.04, 0.08);
+            const guard = new THREE.Mesh(guardGeo, goldMat);
+            swordGroup.add(guard);
+
+            const handleGeo = new THREE.CylinderGeometry(0.03, 0.04, 0.2, 8);
+            const handle = new THREE.Mesh(handleGeo, leatherMat);
+            handle.position.y = -0.15;
             swordGroup.add(handle);
 
-            swordGroup.position.set(0.35, 0.3, 0);
-            swordGroup.rotation.z = -0.3;
+            const pommelGeo = new THREE.SphereGeometry(0.05, 8, 8);
+            const pommel = new THREE.Mesh(pommelGeo, goldMat);
+            pommel.position.y = -0.25;
+            swordGroup.add(pommel);
+
+            swordGroup.position.set(0.45, 0.35, 0.1);
+            swordGroup.rotation.z = -0.4;
+            swordGroup.rotation.x = 0.2;
             group.add(swordGroup);
 
-            // Щит (слева)
-            const shieldGeo = new THREE.CylinderGeometry(0.25, 0.25, 0.05, 16);
-            const shieldMat = new THREE.MeshStandardMaterial({ color: 0xcc4444, roughness: 0.3, metalness: 0.5,
-            emissive: 0x110000 });
-            const shield = new THREE.Mesh(shieldGeo, shieldMat);
-            shield.position.set(-0.4, 0.1, 0);
-            shield.rotation.z = Math.PI / 2;
-            group.add(shield);
+            // Щит (левая рука)
+            const shieldGroup = new THREE.Group();
+            const shieldBodyGeo = new THREE.CylinderGeometry(0.28, 0.28, 0.04, 24);
+            const shieldMat = new THREE.MeshStandardMaterial({ color: 0xcc3333, roughness: 0.3, metalness: 0.6, emissive: 0x110000,
+                emissiveIntensity: 0.3 });
+            const shieldBody = new THREE.Mesh(shieldBodyGeo, shieldMat);
+            shieldGroup.add(shieldBody);
+
+            const shieldRimGeo = new THREE.TorusGeometry(0.28, 0.03, 8, 24);
+            const shieldRim = new THREE.Mesh(shieldRimGeo, goldMat);
+            shieldGroup.add(shieldRim);
+
+            const shieldBossGeo = new THREE.SphereGeometry(0.06, 8, 8);
+            const shieldBoss = new THREE.Mesh(shieldBossGeo, goldMat);
+            shieldBoss.position.z = 0.03;
+            shieldGroup.add(shieldBoss);
+
+            shieldGroup.position.set(-0.48, 0.3, 0.05);
+            shieldGroup.rotation.x = Math.PI / 2;
+            shieldGroup.rotation.y = -0.3;
+            group.add(shieldGroup);
+
+            // Голова
+            const headGeo = new THREE.SphereGeometry(0.22, 16, 16);
+            const head = new THREE.Mesh(headGeo, skinMat);
+            head.position.y = 0.75;
+            head.castShadow = true;
+            group.add(head);
+
+            // Шлем
+            const helmetGeo = new THREE.SphereGeometry(0.24, 16, 8, 0, Math.PI * 2, 0, Math.PI * 0.55);
+            const helmetMat = new THREE.MeshStandardMaterial({ color: 0x888899, roughness: 0.15, metalness: 0.9 });
+            const helmet = new THREE.Mesh(helmetGeo, helmetMat);
+            helmet.position.y = 0.78;
+            group.add(helmet);
+
+            // Гребень шлема
+            const crestGeo = new THREE.BoxGeometry(0.04, 0.2, 0.2);
+            const crest = new THREE.Mesh(crestGeo, goldMat);
+            crest.position.y = 0.95;
+            group.add(crest);
+
+            // Плюмаж
+            const plumeGeo = new THREE.ConeGeometry(0.06, 0.3, 6);
+            const plumeMat = new THREE.MeshStandardMaterial({ color: 0xff4444, roughness: 0.6 });
+            const plume = new THREE.Mesh(plumeGeo, plumeMat);
+            plume.position.y = 1.08;
+            group.add(plume);
 
             return group;
         }
@@ -820,134 +874,328 @@
         function createMonsterModel(type) {
             const group = new THREE.Group();
 
-            const colors = {
-                wolf: { body: 0x666666, eyes: 0xff0000, size: 0.35 },
-                boss: { body: 0x8B0000, eyes: 0xff4400, size: 0.55 },
-                goblin: { body: 0x4a7c3f, eyes: 0xffff00, size: 0.3 },
-                skeleton: { body: 0xddddcc, eyes: 0x000000, size: 0.32 },
-                dragon: { body: 0xcc4400, eyes: 0xff8800, size: 0.6 },
-            };
+            if (type === 'boss') {
+                // Большой демон/дракон-босс
+                const bodyMat = new THREE.MeshStandardMaterial({ color: 0x8B0000, roughness: 0.3, metalness: 0.5, emissive: 0x220000,
+                    emissiveIntensity: 0.5 });
 
-            const config = colors[type] || colors.wolf;
+                // Тело
+                const bodyGeo = new THREE.SphereGeometry(0.5, 16, 16);
+                bodyGeo.scale(1, 0.7, 0.9);
+                const body = new THREE.Mesh(bodyGeo, bodyMat);
+                body.position.y = 0.1;
+                body.castShadow = true;
+                group.add(body);
 
-            // Тело
-            const bodyGeo = new THREE.SphereGeometry(config.size, 12, 12);
-            bodyGeo.scale(1, 0.7, 0.8);
-            const bodyMat = new THREE.MeshStandardMaterial({ color: config.body, roughness: 0.4, metalness: 0.3 });
-            const body = new THREE.Mesh(bodyGeo, bodyMat);
-            body.position.y = 0.1;
-            body.castShadow = true;
-            group.add(body);
+                // Грудь
+                const chestGeo = new THREE.SphereGeometry(0.35, 12, 12);
+                const chestMat = new THREE.MeshStandardMaterial({ color: 0xaa3333, roughness: 0.2, metalness: 0.6, emissive: 0x330000,
+                    emissiveIntensity: 0.4 });
+                const chest = new THREE.Mesh(chestGeo, chestMat);
+                chest.position.set(0, 0.2, 0.35);
+                chest.scale.set(0.9, 0.7, 0.5);
+                group.add(chest);
 
-            // Голова
-            const headGeo = new THREE.SphereGeometry(config.size * 0.7, 10, 10);
-            const headMat = new THREE.MeshStandardMaterial({ color: config.body, roughness: 0.4, metalness: 0.3 });
-            const head = new THREE.Mesh(headGeo, headMat);
-            head.position.set(0, config.size * 0.6, config.size * 0.5);
-            group.add(head);
+                // Голова
+                const headGeo = new THREE.SphereGeometry(0.35, 14, 14);
+                headGeo.scale(1, 0.9, 1.1);
+                const head = new THREE.Mesh(headGeo, new THREE.MeshStandardMaterial({ color: 0x992222, roughness: 0.25,
+                    metalness: 0.5, emissive: 0x220000, emissiveIntensity: 0.4 }));
+                head.position.set(0, 0.6, 0.55);
+                head.castShadow = true;
+                group.add(head);
 
-            // Глаза
-            const eyeGeo = new THREE.SphereGeometry(0.06, 6, 6);
-            const eyeMat = new THREE.MeshBasicMaterial({ color: config.eyes });
-            const leftEye = new THREE.Mesh(eyeGeo, eyeMat);
-            leftEye.position.set(-0.1, config.size * 0.7, config.size * 0.8);
-            group.add(leftEye);
-            const rightEye = new THREE.Mesh(eyeGeo, eyeMat);
-            rightEye.position.set(0.1, config.size * 0.7, config.size * 0.8);
-            group.add(rightEye);
+                // Глаза (светящиеся)
+                const eyeGeo = new THREE.SphereGeometry(0.08, 8, 8);
+                const eyeMat = new THREE.MeshBasicMaterial({ color: 0xff4400 });
+                for (let sx = -1; sx <= 1; sx += 2) {
+                    const eye = new THREE.Mesh(eyeGeo, eyeMat);
+                    eye.position.set(sx * 0.12, 0.72, 0.82);
+                    group.add(eye);
+                }
 
-            // Шипы/рога
-            if (type === 'boss' || type === 'dragon') {
-                for (let i = -1; i <= 1; i += 2) {
-                    const hornGeo = new THREE.ConeGeometry(0.08, 0.3, 6);
-                    const hornMat = new THREE.MeshStandardMaterial({ color: 0x333333, roughness: 0.2, metalness: 0.8 });
-                    const horn = new THREE.Mesh(hornGeo, hornMat);
-                    horn.position.set(i * 0.12, config.size * 0.9, config.size * 0.4);
-                    horn.rotation.x = -0.3;
+                // Рога
+                for (let sx = -1; sx <= 1; sx += 2) {
+                    const hornGeo = new THREE.ConeGeometry(0.08, 0.4, 8);
+                    hornGeo.translate(0, 0.2, 0);
+                    const horn = new THREE.Mesh(hornGeo, new THREE.MeshStandardMaterial({ color: 0x333333, roughness: 0.3,
+                        metalness: 0.8 }));
+                    horn.position.set(sx * 0.15, 0.8, 0.55);
+                    horn.rotation.x = -0.5;
+                    horn.rotation.z = sx * 0.3;
                     group.add(horn);
                 }
+
+                // Крылья
+                for (let sx = -1; sx <= 1; sx += 2) {
+                    const wingGeo = new THREE.ConeGeometry(0.3, 0.8, 8);
+                    wingGeo.scale(1, 1, 0.2);
+                    const wingMat = new THREE.MeshStandardMaterial({ color: 0x660000, roughness: 0.5, metalness: 0.3,
+                        transparent: true, opacity: 0.85, side: THREE.DoubleSide });
+                    const wing = new THREE.Mesh(wingGeo, wingMat);
+                    wing.position.set(sx * 0.5, 0.3, -0.1);
+                    wing.rotation.z = sx * 0.8;
+                    wing.rotation.y = sx * 0.3;
+                    wing.castShadow = true;
+                    group.add(wing);
+                }
+
+                // Хвост
+                const tailGeo = new THREE.CylinderGeometry(0.04, 0.1, 0.7, 8);
+                const tail = new THREE.Mesh(tailGeo, bodyMat);
+                tail.position.set(0, -0.1, -0.6);
+                tail.rotation.x = 0.5;
+                group.add(tail);
+            } else if (type === 'goblin') {
+                // Гоблин
+                const skinMat = new THREE.MeshStandardMaterial({ color: 0x5a8a3c, roughness: 0.5 });
+
+                const bodyGeo = new THREE.SphereGeometry(0.28, 10, 10);
+                bodyGeo.scale(1, 0.7, 0.8);
+                const body = new THREE.Mesh(bodyGeo, skinMat);
+                body.position.y = 0.1;
+                body.castShadow = true;
+                group.add(body);
+
+                const headGeo = new THREE.SphereGeometry(0.22, 10, 10);
+                const head = new THREE.Mesh(headGeo, skinMat);
+                head.position.set(0, 0.5, 0.2);
+                head.castShadow = true;
+                group.add(head);
+
+                const eyeGeo = new THREE.SphereGeometry(0.06, 6, 6);
+                const eyeMat = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+                for (let sx = -1; sx <= 1; sx += 2) {
+                    const eye = new THREE.Mesh(eyeGeo, eyeMat);
+                    eye.position.set(sx * 0.08, 0.55, 0.4);
+                    group.add(eye);
+                }
+
+                // Уши
+                for (let sx = -1; sx <= 1; sx += 2) {
+                    const earGeo = new THREE.ConeGeometry(0.07, 0.15, 6);
+                    const ear = new THREE.Mesh(earGeo, skinMat);
+                    ear.position.set(sx * 0.18, 0.6, 0.2);
+                    ear.rotation.z = sx * 0.7;
+                    ear.rotation.x = 0.3;
+                    group.add(ear);
+                }
+
+                // Маленький нож
+                const knifeGeo = new THREE.BoxGeometry(0.03, 0.25, 0.02);
+                const knife = new THREE.Mesh(knifeGeo, new THREE.MeshStandardMaterial({ color: 0xcccccc, roughness: 0.1,
+                    metalness: 0.9 }));
+                knife.position.set(0.3, 0.2, 0.15);
+                knife.rotation.z = -0.5;
+                group.add(knife);
+            } else if (type === 'skeleton') {
+                // Скелет
+                const boneMat = new THREE.MeshStandardMaterial({ color: 0xe8e0d0, roughness: 0.4, metalness: 0.1 });
+
+                const bodyGeo = new THREE.CylinderGeometry(0.15, 0.18, 0.7, 8);
+                const body = new THREE.Mesh(bodyGeo, boneMat);
+                body.position.y = 0.1;
+                body.castShadow = true;
+                group.add(body);
+
+                const headGeo = new THREE.SphereGeometry(0.2, 10, 10);
+                const head = new THREE.Mesh(headGeo, boneMat);
+                head.position.y = 0.6;
+                head.castShadow = true;
+                group.add(head);
+
+                const eyeGeo = new THREE.SphereGeometry(0.05, 6, 6);
+                const eyeMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
+                for (let sx = -1; sx <= 1; sx += 2) {
+                    const eye = new THREE.Mesh(eyeGeo, eyeMat);
+                    eye.position.set(sx * 0.07, 0.65, 0.17);
+                    group.add(eye);
+                }
+
+                // Рёбра
+                for (let i = 0; i < 3; i++) {
+                    const ribGeo = new THREE.TorusGeometry(0.16, 0.02, 6, 8);
+                    const rib = new THREE.Mesh(ribGeo, boneMat);
+                    rib.position.y = -0.05 + i * 0.15;
+                    rib.rotation.x = Math.PI / 2;
+                    group.add(rib);
+                }
+            } else if (type === 'dragon') {
+                // Дракон поменьше
+                const dragMat = new THREE.MeshStandardMaterial({ color: 0xcc6622, roughness: 0.3, metalness: 0.4, emissive: 0x220000,
+                    emissiveIntensity: 0.2 });
+
+                const bodyGeo = new THREE.SphereGeometry(0.4, 12, 12);
+                bodyGeo.scale(1, 0.6, 1.1);
+                const body = new THREE.Mesh(bodyGeo, dragMat);
+                body.position.y = 0.1;
+                body.castShadow = true;
+                group.add(body);
+
+                const headGeo = new THREE.SphereGeometry(0.22, 10, 10);
+                headGeo.scale(1, 0.9, 1.2);
+                const head = new THREE.Mesh(headGeo, dragMat);
+                head.position.set(0, 0.35, 0.5);
+                head.castShadow = true;
+                group.add(head);
+
+                const eyeGeo = new THREE.SphereGeometry(0.06, 6, 6);
+                const eyeMat = new THREE.MeshBasicMaterial({ color: 0xff8800 });
+                for (let sx = -1; sx <= 1; sx += 2) {
+                    const eye = new THREE.Mesh(eyeGeo, eyeMat);
+                    eye.position.set(sx * 0.08, 0.42, 0.65);
+                    group.add(eye);
+                }
+
+                // Шипы на спине
+                for (let i = 0; i < 4; i++) {
+                    const spikeGeo = new THREE.ConeGeometry(0.04, 0.15, 6);
+                    const spike = new THREE.Mesh(spikeGeo, new THREE.MeshStandardMaterial({ color: 0x884400, roughness: 0.3,
+                        metalness: 0.6 }));
+                    spike.position.set(0, -0.05 + i * 0.1, -0.3);
+                    spike.rotation.x = -0.5;
+                    group.add(spike);
+                }
+            } else {
+                // Волк (по умолчанию)
+                const furMat = new THREE.MeshStandardMaterial({ color: 0x777777, roughness: 0.7, metalness: 0.1 });
+                const darkFurMat = new THREE.MeshStandardMaterial({ color: 0x555555, roughness: 0.6, metalness: 0.1 });
+
+                // Тело
+                const bodyGeo = new THREE.SphereGeometry(0.3, 12, 12);
+                bodyGeo.scale(1, 0.6, 0.9);
+                const body = new THREE.Mesh(bodyGeo, furMat);
+                body.position.y = 0.05;
+                body.castShadow = true;
+                group.add(body);
+
+                // Голова
+                const headGeo = new THREE.SphereGeometry(0.2, 10, 10);
+                headGeo.scale(1, 0.85, 1.1);
+                const head = new THREE.Mesh(headGeo, furMat);
+                head.position.set(0, 0.3, 0.35);
+                head.castShadow = true;
+                group.add(head);
+
+                // Морда
+                const snoutGeo = new THREE.ConeGeometry(0.12, 0.2, 8);
+                const snout = new THREE.Mesh(snoutGeo, darkFurMat);
+                snout.position.set(0, 0.25, 0.5);
+                snout.rotation.x = Math.PI / 2;
+                group.add(snout);
+
+                // Нос
+                const noseGeo = new THREE.SphereGeometry(0.05, 6, 6);
+                const nose = new THREE.Mesh(noseGeo, new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.3 }));
+                nose.position.set(0, 0.27, 0.58);
+                group.add(nose);
+
+                // Глаза
+                const eyeGeo = new THREE.SphereGeometry(0.05, 6, 6);
+                const eyeMat = new THREE.MeshBasicMaterial({ color: 0xffcc00 });
+                for (let sx = -1; sx <= 1; sx += 2) {
+                    const eye = new THREE.Mesh(eyeGeo, eyeMat);
+                    eye.position.set(sx * 0.08, 0.35, 0.48);
+                    group.add(eye);
+                }
+
+                // Уши
+                for (let sx = -1; sx <= 1; sx += 2) {
+                    const earGeo = new THREE.ConeGeometry(0.08, 0.2, 6);
+                    const ear = new THREE.Mesh(earGeo, furMat);
+                    ear.position.set(sx * 0.1, 0.48, 0.3);
+                    ear.rotation.z = sx * 0.5;
+                    ear.rotation.x = -0.2;
+                    group.add(ear);
+                }
+
+                // Лапы
+                for (let sx = -1; sx <= 1; sx += 2) {
+                    const legGeo = new THREE.CylinderGeometry(0.07, 0.08, 0.25, 8);
+                    const leg = new THREE.Mesh(legGeo, furMat);
+                    leg.position.set(sx * 0.15, -0.2, 0.05);
+                    group.add(leg);
+                }
+
+                // Хвост
+                const tailGeo = new THREE.CylinderGeometry(0.03, 0.07, 0.4, 8);
+                const tail = new THREE.Mesh(tailGeo, furMat);
+                tail.position.set(0, 0.0, -0.4);
+                tail.rotation.x = 0.6;
+                group.add(tail);
             }
 
             return group;
         }
 
         function updateMonsterModel(isBoss, monsterName) {
-            if (!monsterModel) return;
+            if (!monsterGroup) return;
 
-            const type = isBoss ? 'boss' :
-                monsterName.includes('Гоблин') ? 'goblin' :
-                monsterName.includes('Скелет') || monsterName.includes('Кост') ? 'skeleton' :
-                monsterName.includes('Дракон') ? 'dragon' : 'wolf';
+            let type = 'wolf';
+            if (isBoss) type = 'boss';
+            else if (monsterName.includes('Гоблин')) type = 'goblin';
+            else if (monsterName.includes('Скелет') || monsterName.includes('Костя')) type = 'skeleton';
+            else if (monsterName.includes('Дракон')) type = 'dragon';
 
             const newModel = createMonsterModel(type);
-            newModel.position.copy(monsterModel.position);
-            scene.remove(monsterModel);
-            monsterModel = newModel;
-            scene.add(monsterModel);
+            newModel.position.copy(monsterGroup.position);
+            scene.remove(monsterGroup);
+            monsterGroup = newModel;
+            scene.add(monsterGroup);
+            currentMonsterType = type;
         }
 
         function animate3D() {
             requestAnimationFrame(animate3D);
-
             animationTime += 0.016;
 
-            // Анимация героя (лёгкое покачивание)
-            if (heroModel) {
-                heroModel.position.y = -0.5 + Math.sin(animationTime * 1.5) * 0.1;
-                heroModel.rotation.y = Math.sin(animationTime * 0.7) * 0.1;
+            // Анимация героя
+            if (heroGroup) {
+                heroGroup.position.y = -0.5 + Math.sin(animationTime * 1.5) * 0.08;
+                heroGroup.rotation.y = Math.sin(animationTime * 0.5) * 0.08;
             }
 
             // Анимация монстра
-            if (monsterModel && gameState.currentMonster) {
-                monsterModel.position.y = -0.5 + Math.sin(animationTime * 2) * 0.15;
-                monsterModel.rotation.y = Math.sin(animationTime * 1.3) * 0.2;
-                // Пульсация при низком HP
-                const hpPercent = gameState.currentMonster.hp / gameState.currentMonster.maxHp;
-                if (hpPercent < 0.3) {
-                    const pulse = 1 + Math.sin(animationTime * 8) * 0.1;
-                    monsterModel.scale.setScalar(pulse);
+            if (monsterGroup && gameState.currentMonster) {
+                monsterGroup.position.y = -0.5 + Math.sin(animationTime * 2) * 0.12;
+                monsterGroup.rotation.y += 0.005;
+                const hpPct = gameState.currentMonster.hp / gameState.currentMonster.maxHp;
+                if (hpPct < 0.3) {
+                    monsterGroup.scale.setScalar(1 + Math.sin(animationTime * 10) * 0.06);
                 } else {
-                    monsterModel.scale.setScalar(1);
+                    monsterGroup.scale.lerp(new THREE.Vector3(1, 1, 1), 0.1);
                 }
             }
 
-            // Анимация частиц
+            // Частицы
             sceneParticles.forEach(p => {
                 p.position.y += Math.sin(animationTime * p.userData.speed + p.userData.offset) * 0.003;
                 p.position.x += Math.cos(animationTime * p.userData.speed * 0.7 + p.userData.offset) * 0.002;
             });
 
-            // Вращение точечного света
-            const pointLight = scene.children.find(c => c instanceof THREE.PointLight);
-            if (pointLight) {
-                pointLight.intensity = 0.4 + Math.sin(animationTime * 2) * 0.15;
-            }
-
             renderer.render(scene, camera);
         }
 
         function triggerHitAnimation(target) {
-            const model = target === 'hero' ? heroModel : monsterModel;
+            const model = target === 'hero' ? heroGroup : monsterGroup;
             if (!model) return;
-
-            const originalX = model.position.x;
-            const shakeAmount = 0.3;
-            const shakeDuration = 200;
+            const origX = model.position.x;
             const startTime = Date.now();
+            const duration = 200;
+            const amount = 0.25;
 
             function shake() {
                 const elapsed = Date.now() - startTime;
-                if (elapsed < shakeDuration) {
-                    model.position.x = originalX + Math.sin(elapsed * 0.05) * shakeAmount * (1 - elapsed / shakeDuration);
+                if (elapsed < duration) {
+                    model.position.x = origX + Math.sin(elapsed * 0.06) * amount * (1 - elapsed / duration);
                     requestAnimationFrame(shake);
                 } else {
-                    model.position.x = originalX;
+                    model.position.x = origX;
                 }
             }
             shake();
 
-            // Вспышка
-            const flash = new THREE.PointLight(target === 'hero' ? 0xff0000 : 0xffffff, 2, 3);
+            const flash = new THREE.PointLight(target === 'hero' ? 0xff0000 : 0xffffff, 3, 4);
             flash.position.copy(model.position);
             flash.position.y += 1;
             scene.add(flash);
@@ -967,10 +1215,11 @@
                 maxMana: 50,
                 baseAtk: 10,
                 weaponUpgrades: 0,
+                reviveScrolls: 0,
                 equipment: { weapon: null, armor: null, helmet: null, ring: null },
                 skills: [
-                    { name: 'Огненный удар', manaCost: 10, damage: 25, cooldown: 0, maxCooldown: 2, emoji: '🔥' },
-                    { name: 'Ледяная стрела', manaCost: 15, damage: 40, cooldown: 0, maxCooldown: 3, emoji: '❄️' },
+                    { name: 'Огненный удар', manaCost: 10, damage: 25, cooldown: 0, maxCooldown: 3, emoji: '🔥' },
+                    { name: 'Ледяная стрела', manaCost: 15, damage: 40, cooldown: 0, maxCooldown: 4, emoji: '❄️' },
                 ],
                 potions: 3
             },
@@ -986,7 +1235,6 @@
             totalBosses: 0,
             autoBattle: false,
             autoBattleInterval: null,
-            // Отслеживание достижений
             achievements: {
                 firstKill: false,
                 hunter10: false,
@@ -1010,9 +1258,8 @@
                 explorer40: false,
             },
             skillUses: { fire: 0, ice: 0 },
+            cooldownTimers: { skill0: 0, skill1: 0 },
         };
-
-        // ... (остальные данные: locations, monsterTypes, bossNames, lootTable, shopItems остаются те же)
 
         const locations = [];
         const locationNames = [
@@ -1054,8 +1301,7 @@
                 ];
                 const theme = themes[i] || 'Таинственный';
                 const suffixes = ['воин', 'маг', 'страж', 'дух', 'голем', 'зверь', 'призрак', 'элементаль', 'рыцарь',
-                    'дракон', 'паук', 'змей', 'ворон', 'титан', 'демон', 'ангел', 'химера', 'фантом', 'лорд',
-                    'владыка'
+                    'дракон', 'паук', 'змей', 'ворон', 'титан', 'демон', 'ангел', 'химера', 'фантом', 'лорд', 'владыка'
                 ];
                 return Array(20).fill(null).map((_, j) =>
                     `${theme} ${suffixes[j % suffixes.length]}${j >= suffixes.length ? ' ' + (Math.floor(j/suffixes.length)+1) : ''}`
@@ -1085,8 +1331,7 @@
             { name: 'Броня титана', type: 'armor', emoji: '🔰', hpBonus: 100, rarity: 'legendary', chance: 0.02 },
             { name: 'Капюшон', type: 'helmet', emoji: '⛑️', hpBonus: 10, atkBonus: 2, rarity: 'common', chance: 0.20 },
             { name: 'Шлем рыцаря', type: 'helmet', emoji: '🪖', hpBonus: 25, atkBonus: 5, rarity: 'rare', chance: 0.10 },
-            { name: 'Корона мудрости', type: 'helmet', emoji: '👑', hpBonus: 40, atkBonus: 10, rarity: 'epic',
-            chance: 0.04 },
+            { name: 'Корона мудрости', type: 'helmet', emoji: '👑', hpBonus: 40, atkBonus: 10, rarity: 'epic', chance: 0.04 },
             { name: 'Шлем небес', type: 'helmet', emoji: '👑', hpBonus: 70, atkBonus: 18, rarity: 'legendary', chance: 0.01 },
             { name: 'Кольцо силы', type: 'ring', emoji: '💍', atkBonus: 5, rarity: 'common', chance: 0.25 },
             { name: 'Кольцо защиты', type: 'ring', emoji: '💍', hpBonus: 20, rarity: 'rare', chance: 0.12 },
@@ -1104,7 +1349,7 @@
             { id: 'weaponUpgrade', name: 'Улучшение оружия', emoji: '🔧', desc: '+5 к атаке (макс 10)', price: 200,
                 action: 'buyWeaponUpgrade' },
             { id: 'resetCooldowns', name: 'Сброс кулдаунов', emoji: '⚡', desc: 'Мгновенно', price: 30,
-            action: 'buyResetCooldowns' },
+                action: 'buyResetCooldowns' },
         ];
 
         // ==================== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ====================
@@ -1113,8 +1358,8 @@
             Object.values(gameState.hero.equipment).forEach(item => {
                 if (item && item.atkBonus) bonus += item.atkBonus;
             });
-            return gameState.hero.baseAtk + Math.floor(gameState.hero.level * 2) + bonus + gameState.hero
-            .weaponUpgrades * 5;
+            return gameState.hero.baseAtk + Math.floor(gameState.hero.level * 2) + bonus + gameState.hero.weaponUpgrades *
+                5;
         }
 
         function getHeroMaxHp() {
@@ -1130,13 +1375,10 @@
         }
 
         function getEquipBonusText() {
-            let atk = 0;
-            let hp = 0;
+            let atk = 0,
+                hp = 0;
             Object.values(gameState.hero.equipment).forEach(item => {
-                if (item) {
-                    if (item.atkBonus) atk += item.atkBonus;
-                    if (item.hpBonus) hp += item.hpBonus;
-                }
+                if (item) { if (item.atkBonus) atk += item.atkBonus; if (item.hpBonus) hp += item.hpBonus; }
             });
             return `+${atk} атк, +${hp} HP`;
         }
@@ -1151,8 +1393,7 @@
 
         function spawnMonster() {
             const monsterList = monsterTypes[gameState.currentLocationIndex];
-            const shouldSpawnBoss = !gameState.bossKilled && gameState.monstersKilledInLocation >= 5 && Math.random() <
-                0.3;
+            const shouldSpawnBoss = !gameState.bossKilled && gameState.monstersKilledInLocation >= 5 && Math.random() < 0.3;
             const isBoss = shouldSpawnBoss;
             const level = gameState.currentLocationIndex + 1;
             const baseHp = 20 + level * 25;
@@ -1194,10 +1435,6 @@
         function addLog(msg) {
             gameState.logMessages.unshift(msg);
             if (gameState.logMessages.length > 60) gameState.logMessages.pop();
-            renderLog();
-        }
-
-        function renderLog() {
             document.getElementById('logContainer').innerHTML =
                 gameState.logMessages.slice(0, 20).map(m => `<div>${m}</div>`).join('');
         }
@@ -1228,7 +1465,6 @@
             document.getElementById('heroName').textContent = `🦸 ${h.name} (ур.${h.level})`;
             document.getElementById('equipBonus').textContent = getEquipBonusText();
 
-            // Слоты
             ['weapon', 'armor', 'helmet', 'ring'].forEach(slot => {
                 const el = document.getElementById('slot' + slot.charAt(0).toUpperCase() + slot.slice(1));
                 if (h.equipment[slot]) {
@@ -1238,12 +1474,10 @@
                     el.title = h.equipment[slot].name;
                 } else {
                     el.classList.remove('equipped', 'legendary');
-                    el.title = slot === 'weapon' ? 'Оружие' : slot === 'armor' ? 'Броня' : slot === 'helmet' ? 'Шлем' :
-                        'Кольцо';
+                    el.title = slot === 'weapon' ? 'Оружие' : slot === 'armor' ? 'Броня' : 'helmet' ? 'Шлем' : 'Кольцо';
                 }
             });
 
-            // Монстр
             if (m) {
                 document.getElementById('monsterName').textContent = `${m.isBoss ? '👹' : '👾'} ${m.name}`;
                 document.getElementById('monsterHpText').textContent = `${m.hp}/${m.maxHp}`;
@@ -1256,35 +1490,32 @@
                 document.getElementById('monsterPanel').style.display = 'none';
             }
 
-            // Навигация
-            const btnNext = document.getElementById('btnNext');
-            btnNext.disabled = !canTravelToNext() && gameState.currentLocationIndex < locations.length - 1;
-            btnNext.textContent = gameState.currentLocationIndex >= locations.length - 1 ? '🏆' :
+            document.getElementById('btnNext').disabled = !canTravelToNext() && gameState.currentLocationIndex < locations
+                .length - 1;
+            document.getElementById('btnNext').textContent = gameState.currentLocationIndex >= locations.length - 1 ? '🏆' :
                 canTravelToNext() ? '▶' : '🔒';
             document.getElementById('btnPrev').disabled = !canTravelToPrev();
             document.getElementById('btnPrev').style.opacity = canTravelToPrev() ? '1' : '0.4';
 
-            // Прогресс
             document.getElementById('locIndex').textContent = gameState.currentLocationIndex + 1;
             document.getElementById('clearedCount').textContent = gameState.clearedLocations.size;
             document.getElementById('bossStatus').textContent = gameState.bossKilled ? '✅ убит' : '❌ жив';
             document.getElementById('sceneLabel').textContent =
                 `📍 ${locations[gameState.currentLocationIndex]?.name || 'Тёмный лес'}`;
 
-            // Кнопки
+            // Кулдауны с проверкой
+            const cd0 = gameState.hero.skills[0].cooldown;
+            const cd1 = gameState.hero.skills[1].cooldown;
             document.getElementById('btnSkill1').textContent =
-                `${h.skills[0].emoji} Огонь${h.skills[0].cooldown>0?' ['+h.skills[0].cooldown+'с]':''}`;
+                `${h.skills[0].emoji} Огонь${cd0 > 0 ? ' [' + cd0 + 'с]' : ' (10)'}`;
             document.getElementById('btnSkill2').textContent =
-                `${h.skills[1].emoji} Лёд${h.skills[1].cooldown>0?' ['+h.skills[1].cooldown+'с]':''}`;
-            document.getElementById('btnSkill1').disabled = h.skills[0].cooldown > 0 || h.mana < h.skills[0].manaCost || !
-                m;
-            document.getElementById('btnSkill2').disabled = h.skills[1].cooldown > 0 || h.mana < h.skills[1].manaCost || !
-                m;
+                `${h.skills[1].emoji} Лёд${cd1 > 0 ? ' [' + cd1 + 'с]' : ' (15)'}`;
+            document.getElementById('btnSkill1').disabled = cd0 > 0 || h.mana < h.skills[0].manaCost || !m;
+            document.getElementById('btnSkill2').disabled = cd1 > 0 || h.mana < h.skills[1].manaCost || !m;
             document.getElementById('btnAttack').disabled = !m;
             document.getElementById('btnHeal').disabled = h.potions <= 0 || h.hp >= maxHp;
             document.getElementById('btnLootbox').disabled = gameState.gold < 50;
 
-            // Авто-бой
             const autoBtn = document.getElementById('btnAuto');
             if (gameState.autoBattle) {
                 autoBtn.classList.add('active');
@@ -1316,7 +1547,6 @@
                 else if (cleared || i <= gameState.currentLocationIndex) cls += ' unlocked';
                 else cls += ' locked';
                 if (cleared) cls += ' cleared';
-
                 html +=
                     `<button class="${cls}" onclick="travelTo(${i})" ${!cleared && i>gameState.currentLocationIndex ? 'disabled' : ''}>${i+1}. ${locations[i].name.substring(0,10)}${cleared?' ✓':''}</button>`;
             }
@@ -1333,7 +1563,7 @@
 
             m.hp -= dmg;
             triggerHitAnimation('monster');
-            addLog(`⚔️ Вы нанесли <span style="color:#e74c3c;">${dmg} урона</span>${crit?' 💥КРИТ!':''} по ${m.name}!`);
+            addLog(`⚔️ <span style="color:#e74c3c;">-${dmg}</span>${crit?' 💥КРИТ!':''} → ${m.name}`);
 
             if (m.hp <= 0) monsterDefeated();
             else monsterTurn();
@@ -1343,17 +1573,25 @@
         function useSkill(index) {
             if (!gameState.currentMonster || gameState.hero.hp <= 0) return;
             const skill = gameState.hero.skills[index];
-            if (skill.cooldown > 0 || gameState.hero.mana < skill.manaCost) return;
+            // ПРОВЕРЯЕМ КУЛДАУН КОРРЕКТНО
+            if (skill.cooldown > 0) {
+                addLog(`⏳ Способность перезаряжается: ${skill.cooldown}с`);
+                return;
+            }
+            if (gameState.hero.mana < skill.manaCost) {
+                addLog(`💙 Недостаточно маны! Нужно ${skill.manaCost}`);
+                return;
+            }
 
             gameState.hero.mana -= skill.manaCost;
-            skill.cooldown = skill.maxCooldown;
+            skill.cooldown = skill.maxCooldown; // Устанавливаем КД на 3 или 4 секунды
             if (index === 0) gameState.skillUses.fire++;
             else gameState.skillUses.ice++;
 
             const m = gameState.currentMonster;
             m.hp -= skill.damage;
             triggerHitAnimation('monster');
-            addLog(`${skill.emoji} <b>${skill.name}</b>! <span style="color:#e74c3c;">-${skill.damage}</span>!`);
+            addLog(`${skill.emoji} <b>${skill.name}!</b> <span style="color:#e74c3c;">-${skill.damage}</span>! (КД: ${skill.maxCooldown}с)`);
 
             if (m.hp <= 0) monsterDefeated();
             else monsterTurn();
@@ -1367,14 +1605,14 @@
             const dmg = Math.max(1, m.atk + Math.floor(Math.random() * 5) - Math.floor(h.level * 0.5));
             h.hp -= dmg;
             triggerHitAnimation('hero');
-            addLog(`💢 ${m.name} атакует! <span style="color:#e74c3c;">-${dmg} HP</span>`);
+            addLog(`💢 ${m.name} → <span style="color:#e74c3c;">-${dmg} HP</span>`);
 
             if (h.hp <= 0) {
                 h.hp = 0;
                 if (h.reviveScrolls > 0) {
                     h.reviveScrolls--;
                     h.hp = Math.floor(getHeroMaxHp() * 0.7);
-                    addLog('📜 <b>Свиток воскрешения</b> использован! Вы возрождены!');
+                    addLog('📜 <b>Свиток воскрешения!</b> Вы возрождены!');
                 } else {
                     addLog('💀 <b>Вы погибли!</b> Потеряно 20% золота...');
                     gameState.gold = Math.floor(gameState.gold * 0.8);
@@ -1396,6 +1634,7 @@
                 gameState.clearedLocations.add(gameState.currentLocationIndex);
                 gameState.totalBosses++;
                 addLog(`👑 <b>БОСС ПОВЕРЖЕН!</b> +${m.goldReward}💰 +${m.expReward} опыта! Путь открыт!`);
+                showToast(`👑 Босс повержен! Локация ${gameState.currentLocationIndex+1} зачищена!`);
             } else {
                 addLog(`🎉 ${m.name} убит! +${m.goldReward}💰 +${m.expReward} опыта`);
             }
@@ -1421,7 +1660,7 @@
             if (gameState.hero.potions <= 0) return;
             gameState.hero.potions--;
             gameState.hero.hp = Math.min(getHeroMaxHp(), gameState.hero.hp + 30);
-            addLog('🧪 +30 HP (зелье)');
+            addLog('🧪 +30 HP');
             updateUI();
         }
 
@@ -1432,32 +1671,18 @@
                 clearInterval(gameState.autoBattleInterval);
                 addLog('⚡ Авто-бой остановлен');
             } else {
-                if (gameState.hero.hp <= 0) {
-                    addLog('Нельзя включить авто-бой, пока вы мертвы!');
-                    return;
-                }
+                if (gameState.hero.hp <= 0) { addLog('Нельзя: вы мертвы!'); return; }
                 gameState.autoBattle = true;
                 addLog('⚡ Авто-бой активирован!');
                 gameState.autoBattleInterval = setInterval(() => {
-                    if (!gameState.autoBattle) return;
-                    if (gameState.hero.hp <= 0) {
-                        toggleAutoBattle();
-                        return;
-                    }
-                    if (!gameState.currentMonster) return;
-
-                    // Приоритет: использовать способности если мана есть и кулдаун готов
+                    if (!gameState.autoBattle || !gameState.currentMonster) return;
+                    if (gameState.hero.hp <= 0) { toggleAutoBattle(); return; }
                     if (gameState.hero.skills[1].cooldown === 0 && gameState.hero.mana >= gameState.hero.skills[
-                            1].manaCost) {
-                        useSkill(1);
-                    } else if (gameState.hero.skills[0].cooldown === 0 && gameState.hero.mana >= gameState.hero.skills[
-                            0].manaCost) {
-                        useSkill(0);
-                    } else if (gameState.hero.hp < getHeroMaxHp() * 0.4 && gameState.hero.potions > 0) {
-                        heal();
-                    } else {
-                        attack();
-                    }
+                            1].manaCost) useSkill(1);
+                    else if (gameState.hero.skills[0].cooldown === 0 && gameState.hero.mana >= gameState.hero.skills[
+                            0].manaCost) useSkill(0);
+                    else if (gameState.hero.hp < getHeroMaxHp() * 0.4 && gameState.hero.potions > 0) heal();
+                    else attack();
                 }, 1800);
             }
             updateUI();
@@ -1465,23 +1690,14 @@
 
         // ==================== МАГАЗИН ====================
         function openShop() {
-            const shopDiv = document.getElementById('shopItems');
-            shopDiv.innerHTML = shopItems.map(item => {
-                let disabled = false;
-                if (item.id === 'weaponUpgrade' && gameState.hero.weaponUpgrades >= 10) disabled = true;
-                if (gameState.gold < item.price) disabled = true;
-
-                return `
-                <div class="shop-item">
-                  <div class="shop-item-emoji">${item.emoji}</div>
-                  <div class="shop-item-info">
-                    <div class="shop-item-name">${item.name}</div>
-                    <div class="shop-item-desc">${item.desc} ${item.id==='weaponUpgrade'?`(${gameState.hero.weaponUpgrades}/10)` : ''}</div>
-                  </div>
-                  <div class="shop-item-price">${item.price}💰</div>
-                  <button class="btn-buy" onclick="${item.action}()" ${disabled?'disabled':''}>Купить</button>
-                </div>
-              `;
+            document.getElementById('shopItems').innerHTML = shopItems.map(item => {
+                let disabled = (item.id === 'weaponUpgrade' && gameState.hero.weaponUpgrades >= 10) || gameState
+                    .gold < item.price;
+                return `<div class="shop-item">
+              <div class="shop-item-emoji">${item.emoji}</div>
+              <div class="shop-item-info"><div class="shop-item-name">${item.name}</div><div class="shop-item-desc">${item.desc} ${item.id==='weaponUpgrade'?`(${gameState.hero.weaponUpgrades}/10)`:''}</div></div>
+              <div class="shop-item-price">${item.price}💰</div>
+              <button class="btn-buy" onclick="${item.action}()" ${disabled?'disabled':''}>Купить</button></div>`;
             }).join('');
             document.getElementById('shopPopup').classList.add('show');
         }
@@ -1489,52 +1705,41 @@
         function closeShop() { document.getElementById('shopPopup').classList.remove('show');
             updateUI(); }
 
-        function buyPotion() {
-            if (gameState.gold >= 10) { gameState.gold -= 10;
+        function buyPotion() { if (gameState.gold >= 10) { gameState.gold -= 10;
                 gameState.hero.potions++;
-                addLog('🧪 Куплено зелье здоровья!');
+                addLog('🧪 Куплено зелье!');
                 updateUI();
-                openShop(); }
-        }
+                openShop(); } }
 
-        function buyManaPotion() {
-            if (gameState.gold >= 15) { gameState.gold -= 15;
+        function buyManaPotion() { if (gameState.gold >= 15) { gameState.gold -= 15;
                 gameState.hero.mana = Math.min(getHeroMaxMana(), gameState.hero.mana + 25);
                 addLog('🔮 Мана восстановлена!');
                 updateUI();
-                openShop(); }
-        }
+                openShop(); } }
 
-        function buyRevive() {
-            if (gameState.gold >= 100) { gameState.gold -= 100; if (!gameState.hero.reviveScrolls) gameState.hero
-                    .reviveScrolls = 0;
-                gameState.hero.reviveScrolls++;
-                addLog('📜 Куплен свиток воскрешения!');
+        function buyRevive() { if (gameState.gold >= 100) { gameState.gold -= 100;
+                gameState.hero.reviveScrolls = (gameState.hero.reviveScrolls || 0) + 1;
+                addLog('📜 Свиток воскрешения куплен!');
                 updateUI();
-                openShop(); }
-        }
+                openShop(); } }
 
-        function buyWeaponUpgrade() {
-            if (gameState.gold >= 200 && gameState.hero.weaponUpgrades < 10) { gameState.gold -= 200;
+        function buyWeaponUpgrade() { if (gameState.gold >= 200 && gameState.hero.weaponUpgrades < 10) { gameState.gold -=
+                    200;
                 gameState.hero.weaponUpgrades++;
-                addLog('🔧 Оружие улучшено! +5 к атаке');
+                addLog('🔧 Оружие улучшено! +5 атк');
                 updateUI();
-                openShop(); }
-        }
+                openShop(); } }
 
-        function buyResetCooldowns() {
-            if (gameState.gold >= 30) { gameState.gold -= 30;
+        function buyResetCooldowns() { if (gameState.gold >= 30) { gameState.gold -= 30;
                 gameState.hero.skills.forEach(s => s.cooldown = 0);
                 addLog('⚡ Кулдауны сброшены!');
                 updateUI();
-                openShop(); }
-        }
+                openShop(); } }
 
         // ==================== ДОСТИЖЕНИЯ ====================
         function checkAchievements() {
             const a = gameState.achievements;
             const newUnlocks = [];
-
             if (!a.firstKill && gameState.totalKills >= 1) { a.firstKill = true;
                 newUnlocks.push('🗡️ Первая кровь'); }
             if (!a.hunter10 && gameState.totalKills >= 10) { a.hunter10 = true;
@@ -1571,61 +1776,47 @@
                 newUnlocks.push('🌍 Исследователь (20)'); }
             if (!a.explorer40 && gameState.clearedLocations.size >= 40) { a.explorer40 = true;
                 newUnlocks.push('🏆 Покоритель (40!)'); }
-
-            // Проверка полной экипировки
-            const allSlots = Object.values(gameState.hero.equipment).every(e => e !== null);
+            const allSlots = Object.values(gameState.hero.equipment).every(e => e);
             if (!a.fullEquip && allSlots) { a.fullEquip = true;
                 newUnlocks.push('🛡️ Полная экипировка'); }
             const allLegendary = Object.values(gameState.hero.equipment).every(e => e && e.rarity === 'legendary');
             if (!a.fullLegendary && allLegendary) { a.fullLegendary = true;
                 newUnlocks.push('👑 Все легендарки!'); }
-
-            newUnlocks.forEach(name => showToast(`🏆 Достижение: ${name}!`));
+            newUnlocks.forEach(n => showToast(`🏆 ${n}!`));
             updateAchievementsUI();
         }
 
         function updateAchievementsUI() {
-            const unlocked = Object.entries(gameState.achievements).filter(([_, v]) => v).length;
-            const total = Object.keys(gameState.achievements).length;
+            const unlocked = Object.values(gameState.achievements).filter(v => v).length;
             document.getElementById('recentAchievements').textContent =
-                `Разблокировано: ${unlocked}/${total}`;
+                `Разблокировано: ${unlocked}/${Object.keys(gameState.achievements).length}`;
         }
 
         function openAchievements() {
-            const list = document.getElementById('achieveList');
-            const allAchievements = [
+            const all = [
                 { key: 'firstKill', name: '🗡️ Первая кровь', desc: 'Убить 1 монстра' },
-                { key: 'hunter10', name: '🎯 Охотник', desc: 'Убить 10 монстров' },
-                { key: 'hunter50', name: '💀 Истребитель', desc: 'Убить 50 монстров' },
-                { key: 'hunter100', name: '⚔️ Машина смерти', desc: 'Убить 100 монстров' },
-                { key: 'bossSlayer5', name: '👑 Убийца боссов', desc: 'Убить 5 боссов' },
-                { key: 'bossSlayer10', name: '💀 Палач боссов', desc: 'Убить 10 боссов' },
-                { key: 'rich100', name: '💰 Богач', desc: 'Накопить 100 золота' },
-                { key: 'rich500', name: '💎 Толстосум', desc: 'Накопить 500 золота' },
-                { key: 'rich1000', name: '👑 Миллионер', desc: 'Накопить 1000 золота' },
-                { key: 'lootbox10', name: '🎁 Лутбоксер', desc: 'Открыть 10 лутбоксов' },
-                { key: 'lootbox50', name: '🎰 Зависимый', desc: 'Открыть 50 лутбоксов' },
-                { key: 'level10', name: '⭐ Ветеран', desc: 'Достичь 10 уровня' },
-                { key: 'level20', name: '🌟 Легенда', desc: 'Достичь 20 уровня' },
-                { key: 'fireMaster', name: '🔥 Мастер огня', desc: 'Использовать Огненный удар 20 раз' },
-                { key: 'iceMaster', name: '❄️ Мастер льда', desc: 'Использовать Ледяную стрелу 20 раз' },
-                { key: 'explorer5', name: '🗺️ Путешественник', desc: 'Зачистить 5 локаций' },
-                { key: 'explorer20', name: '🌍 Исследователь', desc: 'Зачистить 20 локаций' },
-                { key: 'explorer40', name: '🏆 Покоритель', desc: 'Зачистить все 40 локаций' },
-                { key: 'fullEquip', name: '🛡️ Полная экипировка', desc: 'Надеть предметы во все слоты' },
-                { key: 'fullLegendary', name: '👑 Все легендарки', desc: 'Надеть легендарки во все слоты' },
+                { key: 'hunter10', name: '🎯 Охотник', desc: '10 монстров' }, { key: 'hunter50', name: '💀 Истребитель',
+                    desc: '50 монстров' }, { key: 'hunter100', name: '⚔️ Машина смерти', desc: '100 монстров' },
+                { key: 'bossSlayer5', name: '👑 Убийца боссов', desc: '5 боссов' }, { key: 'bossSlayer10',
+                    name: '💀 Палач боссов', desc: '10 боссов' },
+                { key: 'rich100', name: '💰 Богач', desc: '100 золота' }, { key: 'rich500', name: '💎 Толстосум',
+                    desc: '500 золота' }, { key: 'rich1000', name: '👑 Миллионер', desc: '1000 золота' },
+                { key: 'lootbox10', name: '🎁 Лутбоксер', desc: '10 лутбоксов' }, { key: 'lootbox50', name: '🎰 Зависимый',
+                    desc: '50 лутбоксов' },
+                { key: 'level10', name: '⭐ Ветеран', desc: '10 уровень' }, { key: 'level20', name: '🌟 Легенда',
+                    desc: '20 уровень' },
+                { key: 'fireMaster', name: '🔥 Мастер огня', desc: '20 раз' }, { key: 'iceMaster', name: '❄️ Мастер льда',
+                    desc: '20 раз' },
+                { key: 'explorer5', name: '🗺️ Путешественник', desc: '5 локаций' }, { key: 'explorer20',
+                    name: '🌍 Исследователь', desc: '20 локаций' }, { key: 'explorer40', name: '🏆 Покоритель',
+                    desc: '40 локаций' },
+                { key: 'fullEquip', name: '🛡️ Полная экипировка', desc: 'Все слоты' }, { key: 'fullLegendary',
+                    name: '👑 Все легендарки', desc: 'Легендарки во всех слотах' },
             ];
-
-            list.innerHTML = allAchievements.map(a => `
+            document.getElementById('achieveList').innerHTML = all.map(a => `
             <div class="achieve-item ${gameState.achievements[a.key] ? 'unlocked' : 'locked'}">
-              <div class="achieve-emoji">${gameState.achievements[a.key] ? '✅' : '🔒'}</div>
-              <div>
-                <div>${a.name}</div>
-                <div class="achieve-progress">${a.desc}</div>
-              </div>
-            </div>
-          `).join('');
-
+              <span>${gameState.achievements[a.key] ? '✅' : '🔒'}</span>
+              <div><div>${a.name}</div><div style="font-size:0.7em;color:#888;">${a.desc}</div></div></div>`).join('');
             document.getElementById('achievePopup').classList.add('show');
         }
 
@@ -1636,40 +1827,25 @@
             if (gameState.gold < 50) return;
             gameState.gold -= 50;
             gameState.totalLootboxes++;
-
             const roll = Math.random();
-            let cumulative = 0;
-            let selectedItem = lootTable[0];
-            for (const item of lootTable) {
-                cumulative += item.chance;
-                if (roll <= cumulative) { selectedItem = item; break; }
+            let cum = 0,
+                item = lootTable[0];
+            for (const i of lootTable) { cum += i.chance; if (roll <= cum) { item = i; break; } }
+            if (item.type === 'potion') { gameState.hero.potions++;
+                addLog(`🎁 ${item.emoji} ${item.name}!`); } else {
+                const cur = gameState.hero.equipment[item.type];
+                const cv = cur ? (cur.atkBonus || 0) + (cur.hpBonus || 0) : -1;
+                const nv = (item.atkBonus || 0) + (item.hpBonus || 0);
+                if (nv > cv) { gameState.hero.equipment[item.type] = item;
+                    addLog(`🎁 <span style="color:var(--${item.rarity})">${item.emoji} ${item.name}</span> — экипировано!`); } else
+                    addLog(`🎁 ${item.emoji} ${item.name} (текущее лучше)`);
             }
-
-            if (selectedItem.type === 'potion') {
-                gameState.hero.potions++;
-                addLog(`🎁 ${selectedItem.emoji} ${selectedItem.name}!`);
-            } else {
-                const current = gameState.hero.equipment[selectedItem.type];
-                const curVal = current ? (current.atkBonus || 0) + (current.hpBonus || 0) : -1;
-                const newVal = (selectedItem.atkBonus || 0) + (selectedItem.hpBonus || 0);
-                if (newVal > curVal) {
-                    gameState.hero.equipment[selectedItem.type] = selectedItem;
-                    addLog(`🎁 <span style="color:var(--${selectedItem.rarity})">${selectedItem.emoji} ${selectedItem.name}</span> — экипировано!`);
-                } else {
-                    addLog(`🎁 ${selectedItem.emoji} ${selectedItem.name} (текущее лучше)`);
-                }
-            }
-
-            const popup = document.getElementById('lootboxPopup');
             document.getElementById('lootboxContent').innerHTML = `
-            <div style="font-size:60px;animation:bounce 0.6s ease-in-out;">${selectedItem.emoji}</div>
-            <h2 style="color:var(--${selectedItem.rarity})">${selectedItem.name}</h2>
-            <p>${selectedItem.rarity.toUpperCase()}</p>
-            ${selectedItem.atkBonus?`<p>⚔️ +${selectedItem.atkBonus} атаки</p>`:''}
-            ${selectedItem.hpBonus?`<p>❤️ +${selectedItem.hpBonus} HP</p>`:''}
-            <p style="font-size:0.7em;color:#666;">Нажмите чтобы закрыть</p>
-          `;
-            popup.classList.add('show');
+            <div style="font-size:60px;animation:bounce 0.6s ease-in-out;">${item.emoji}</div>
+            <h2 style="color:var(--${item.rarity})">${item.name}</h2><p>${item.rarity.toUpperCase()}</p>
+            ${item.atkBonus?`<p>⚔️ +${item.atkBonus} атаки</p>`:''}${item.hpBonus?`<p>❤️ +${item.hpBonus} HP</p>`:''}
+            <p style="font-size:0.7em;color:#666;">Нажмите чтобы закрыть</p>`;
+            document.getElementById('lootboxPopup').classList.add('show');
             checkAchievements();
             updateUI();
         }
@@ -1678,20 +1854,17 @@
 
         // ==================== ПЕРЕМЕЩЕНИЕ ====================
         function travelTo(index) {
-            const unlocked = index <= gameState.currentLocationIndex || gameState.clearedLocations.has(index - 1);
-            if (!unlocked && index > gameState.currentLocationIndex) {
-                addLog('🔒 Локация закрыта! Убейте босса.');
-                return;
+            if (index > gameState.currentLocationIndex && !gameState.clearedLocations.has(index - 1) && index !==
+                gameState.currentLocationIndex + 1) {
+                addLog('🔒 Локация закрыта!'); return;
+            }
+            if (index > gameState.currentLocationIndex + 1 && !gameState.clearedLocations.has(index - 1)) {
+                addLog('🔒 Локация закрыта! Убейте босса.'); return;
             }
             gameState.currentLocationIndex = index;
             gameState.currentMonster = null;
-            if (!gameState.clearedLocations.has(index)) {
-                gameState.bossKilled = false;
-                gameState.monstersKilledInLocation = 0;
-            } else {
-                gameState.bossKilled = true;
-                gameState.monstersKilledInLocation = 10;
-            }
+            gameState.bossKilled = gameState.clearedLocations.has(index);
+            gameState.monstersKilledInLocation = gameState.bossKilled ? 10 : 0;
             addLog(`🗺️ ${locations[index].name} (ур.${index+1})`);
             spawnMonster();
             updateUI();
@@ -1700,20 +1873,16 @@
         function travelPrev() { if (canTravelToPrev()) travelTo(gameState.currentLocationIndex - 1); }
 
         function travelNext() {
-            if (!canTravelToNext()) {
-                if (!gameState.bossKilled) addLog('🔒 Убейте босса чтобы пройти!');
-                return;
-            }
+            if (!canTravelToNext()) { if (!gameState.bossKilled) addLog('🔒 Убейте босса!'); return; }
             travelTo(gameState.currentLocationIndex + 1);
         }
 
-        // ==================== УВЕДОМЛЕНИЯ ====================
         function showToast(msg) {
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.textContent = msg;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.textContent = msg;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 3000);
         }
 
         // ==================== СОХРАНЕНИЕ ====================
@@ -1730,44 +1899,49 @@
                 totalBosses: gameState.totalBosses,
                 achievements: gameState.achievements,
                 skillUses: gameState.skillUses,
-                timestamp: Date.now()
             };
-            localStorage.setItem('rpg3dSave', JSON.stringify(data));
+            localStorage.setItem('rpg3dv2', JSON.stringify(data));
         }
 
         function loadGame() {
-            const saved = localStorage.getItem('rpg3dSave');
-            if (saved) {
+            const s = localStorage.getItem('rpg3dv2');
+            if (s) {
                 try {
-                    const data = JSON.parse(saved);
-                    gameState.hero = data.hero;
-                    gameState.currentLocationIndex = data.currentLocationIndex || 0;
-                    gameState.gold = data.gold || 0;
-                    gameState.clearedLocations = new Set(data.clearedLocations || []);
-                    gameState.monstersKilledInLocation = data.monstersKilledInLocation || 0;
-                    gameState.bossKilled = data.bossKilled || false;
-                    gameState.totalKills = data.totalKills || 0;
-                    gameState.totalLootboxes = data.totalLootboxes || 0;
-                    gameState.totalBosses = data.totalBosses || 0;
-                    gameState.achievements = data.achievements || {};
-                    gameState.skillUses = data.skillUses || { fire: 0, ice: 0 };
+                    const d = JSON.parse(s);
+                    gameState.hero = d.hero;
+                    gameState.currentLocationIndex = d.currentLocationIndex || 0;
+                    gameState.gold = d.gold || 0;
+                    gameState.clearedLocations = new Set(d.clearedLocations || []);
+                    gameState.monstersKilledInLocation = d.monstersKilledInLocation || 0;
+                    gameState.bossKilled = d.bossKilled || false;
+                    gameState.totalKills = d.totalKills || 0;
+                    gameState.totalLootboxes = d.totalLootboxes || 0;
+                    gameState.totalBosses = d.totalBosses || 0;
+                    gameState.achievements = d.achievements || {};
+                    gameState.skillUses = d.skillUses || { fire: 0, ice: 0 };
                     gameState.currentMonster = null;
+                    // Сбрасываем кулдауны при загрузке
+                    gameState.hero.skills.forEach(s => s.cooldown = 0);
                     return true;
-                } catch (e) { console.error('Ошибка загрузки:', e); }
+                } catch (e) { console.error(e); }
             }
             return false;
         }
 
         function resetGame() {
-            if (confirm('Сбросить ВЕСЬ прогресс?')) {
-                localStorage.removeItem('rpg3dSave');
-                location.reload();
-            }
+            if (confirm('Сбросить ВЕСЬ прогресс?')) { localStorage.removeItem('rpg3dv2');
+                location.reload(); }
         }
 
-        // ==================== ТАЙМЕР ====================
+        // ==================== ТАЙМЕР КУЛДАУНОВ (ИСПРАВЛЕННЫЙ) ====================
         function tickCooldowns() {
-            gameState.hero.skills.forEach(s => { if (s.cooldown > 0) s.cooldown--; });
+            // Уменьшаем кулдауны на 1 каждую секунду, но не ниже 0
+            gameState.hero.skills.forEach(skill => {
+                if (skill.cooldown > 0) {
+                    skill.cooldown = Math.max(0, skill.cooldown - 1);
+                }
+            });
+            // Регенерация маны
             if (gameState.hero.mana < getHeroMaxMana()) {
                 gameState.hero.mana = Math.min(getHeroMaxMana(), gameState.hero.mana + 1);
             }
@@ -1776,10 +1950,8 @@
 
         // ==================== ИНИЦИАЛИЗАЦИЯ ====================
         function initGame() {
-            for (let i = 0; i < 40; i++) {
-                locations.push({ name: locationNames[i], level: i + 1, monsterPool: monsterTypes[i],
-                    boss: bossNames[i] });
-            }
+            for (let i = 0; i < 40; i++) locations.push({ name: locationNames[i], level: i + 1,
+                monsterPool: monsterTypes[i], boss: bossNames[i] });
 
             const loaded = loadGame();
             if (!loaded) {
@@ -1794,9 +1966,10 @@
             init3DScene();
             spawnMonster();
             updateUI();
+
+            // Таймер кулдаунов — каждую секунду
             setInterval(tickCooldowns, 1000);
 
-            // Клавиши
             document.addEventListener('keydown', e => {
                 if (e.target.tagName === 'INPUT') return;
                 switch (e.key.toLowerCase()) {
@@ -1830,16 +2003,15 @@
                 }
             });
 
-            // Кнопка сброса
             const resetBtn = document.createElement('button');
             resetBtn.textContent = '🔄';
             resetBtn.style.cssText =
                 'position:fixed;bottom:10px;right:10px;width:40px;height:40px;border-radius:50%;background:#333;color:#888;border:1px solid #555;cursor:pointer;font-size:1.2em;z-index:50;';
             resetBtn.onclick = resetGame;
-            resetBtn.title = 'Сбросить прогресс';
+            resetBtn.title = 'Сброс';
             document.body.appendChild(resetBtn);
 
-            console.log('🎮 3D RPG готова! Управление: A-атака, 1/2-способности, H-зелье, L-лутбокс, F-авто-бой, S-магазин');
+            console.log('🎮 3D RPG v2 готова! A-атака, 1/2-скиллы, H-хил, L-лутбокс, F-авто, S-магазин');
         }
 
         initGame();
