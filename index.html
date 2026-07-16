@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎰 CASINO ROYALE</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             min-height: 100vh;
             background: #0a0a1a;
@@ -41,12 +46,34 @@
             animation: floatGirl 6s ease-in-out infinite;
             text-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
         }
-        .girl:nth-child(1) { left: 2%; animation-delay: 0s; font-size: 200px; opacity: 0.7; }
-        .girl:nth-child(2) { right: 2%; animation-delay: 2s; font-size: 220px; opacity: 0.7; }
-        .girl:nth-child(3) { left: 50%; transform: translateX(-50%); animation-delay: 4s; font-size: 160px; opacity: 0.5; bottom: -20px; }
+        .girl:nth-child(1) {
+            left: 2%;
+            animation-delay: 0s;
+            font-size: 200px;
+            opacity: 0.7;
+        }
+        .girl:nth-child(2) {
+            right: 2%;
+            animation-delay: 2s;
+            font-size: 220px;
+            opacity: 0.7;
+        }
+        .girl:nth-child(3) {
+            left: 50%;
+            transform: translateX(-50%);
+            animation-delay: 4s;
+            font-size: 160px;
+            opacity: 0.5;
+            bottom: -20px;
+        }
         @keyframes floatGirl {
-            0%, 100% { transform: translateY(0px) rotate(-2deg); }
-            50% { transform: translateY(-15px) rotate(2deg); }
+            0%,
+            100% {
+                transform: translateY(0px) rotate(-2deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(2deg);
+            }
         }
         .main-container {
             position: relative;
@@ -79,7 +106,7 @@
             justify-content: center;
             flex-wrap: wrap;
             margin-bottom: 20px;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0, 0, 0, 0.4);
             padding: 20px;
             border-radius: 15px;
             border: 1px solid #ffd70033;
@@ -88,13 +115,15 @@
             padding: 12px 20px;
             border-radius: 10px;
             border: 2px solid #ffd700;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             color: white;
             font-size: 16px;
             outline: none;
             min-width: 180px;
         }
-        .auth-container input::placeholder { color: #888; }
+        .auth-container input::placeholder {
+            color: #888;
+        }
         .auth-container button {
             background: #ffd700;
             border: none;
@@ -116,7 +145,9 @@
             padding: 10px;
             font-size: 18px;
         }
-        .user-info span { color: #fff; }
+        .user-info span {
+            color: #fff;
+        }
         .user-info button {
             margin-left: 15px;
             padding: 8px 25px;
@@ -127,7 +158,9 @@
             cursor: pointer;
             font-size: 16px;
         }
-        .user-info button:hover { background: #cc0000; }
+        .user-info button:hover {
+            background: #cc0000;
+        }
         .stats {
             display: flex;
             justify-content: space-between;
@@ -183,11 +216,21 @@
             animation: reelSpin 0.12s linear infinite;
         }
         @keyframes reelSpin {
-            0% { transform: rotateX(0deg) scale(1); }
-            25% { transform: rotateX(90deg) scale(1.05); }
-            50% { transform: rotateX(180deg) scale(1); }
-            75% { transform: rotateX(270deg) scale(1.05); }
-            100% { transform: rotateX(360deg) scale(1); }
+            0% {
+                transform: rotateX(0deg) scale(1);
+            }
+            25% {
+                transform: rotateX(90deg) scale(1.05);
+            }
+            50% {
+                transform: rotateX(180deg) scale(1);
+            }
+            75% {
+                transform: rotateX(270deg) scale(1.05);
+            }
+            100% {
+                transform: rotateX(360deg) scale(1);
+            }
         }
         .reel.winner {
             animation: winGlow 0.6s ease 3;
@@ -195,8 +238,16 @@
             box-shadow: 0 0 60px rgba(255, 215, 0, 0.8), inset 0 0 60px rgba(255, 215, 0, 0.3);
         }
         @keyframes winGlow {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); border-color: #ffd700; }
-            50% { box-shadow: 0 0 80px rgba(255, 215, 0, 1), 0 0 120px rgba(255, 215, 0, 0.6); border-color: #ff6b00; transform: scale(1.08); }
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+                border-color: #ffd700;
+            }
+            50% {
+                box-shadow: 0 0 80px rgba(255, 215, 0, 1), 0 0 120px rgba(255, 215, 0, 0.6);
+                border-color: #ff6b00;
+                transform: scale(1.08);
+            }
         }
         .controls {
             display: flex;
@@ -296,7 +347,7 @@
             white-space: nowrap;
         }
         .leaderboard-section {
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 15px;
             padding: 20px;
             border: 1px solid #ffd70044;
@@ -316,7 +367,9 @@
             border-bottom: 1px solid #ffffff22;
             font-size: 16px;
         }
-        .leaderboard-section li:last-child { border-bottom: none; }
+        .leaderboard-section li:last-child {
+            border-bottom: none;
+        }
         .confetti-container {
             position: fixed;
             top: 0;
@@ -335,32 +388,90 @@
             animation: confettiFall linear forwards;
         }
         @keyframes confettiFall {
-            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(720deg) scale(0); opacity: 0; }
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg) scale(0);
+                opacity: 0;
+            }
         }
         @media (max-width: 700px) {
-            .casino { padding: 15px; }
-            .reel-wrapper { width: 90px; height: 120px; }
-            .reel { font-size: 55px; }
-            h1 { font-size: 26px; }
-            .spin-btn { font-size: 20px; padding: 14px 30px; max-width: 250px; }
-            .stats { font-size: 14px; padding: 10px 15px; }
-            .stats span { font-size: 18px; }
-            .girl { font-size: 120px !important; }
-            .girl:nth-child(3) { display: none; }
-            .bet-control button { width: 35px; height: 35px; font-size: 20px; }
-            .bet-control span { font-size: 20px; min-width: 60px; }
-            .reels { gap: 10px; }
-            .auth-container input { min-width: 140px; font-size: 14px; padding: 10px 15px; }
-            .auth-container button { padding: 10px 20px; font-size: 14px; }
+            .casino {
+                padding: 15px;
+            }
+            .reel-wrapper {
+                width: 90px;
+                height: 120px;
+            }
+            .reel {
+                font-size: 55px;
+            }
+            h1 {
+                font-size: 26px;
+            }
+            .spin-btn {
+                font-size: 20px;
+                padding: 14px 30px;
+                max-width: 250px;
+            }
+            .stats {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+            .stats span {
+                font-size: 18px;
+            }
+            .girl {
+                font-size: 120px !important;
+            }
+            .girl:nth-child(3) {
+                display: none;
+            }
+            .bet-control button {
+                width: 35px;
+                height: 35px;
+                font-size: 20px;
+            }
+            .bet-control span {
+                font-size: 20px;
+                min-width: 60px;
+            }
+            .reels {
+                gap: 10px;
+            }
+            .auth-container input {
+                min-width: 140px;
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+            .auth-container button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
         }
         @media (max-width: 450px) {
-            .reel-wrapper { width: 70px; height: 95px; }
-            .reel { font-size: 40px; }
-            .girl { font-size: 80px !important; }
-            .girl:nth-child(2) { display: none; }
-            .auth-container { flex-direction: column; align-items: center; }
-            .auth-container input { width: 100%; }
+            .reel-wrapper {
+                width: 70px;
+                height: 95px;
+            }
+            .reel {
+                font-size: 40px;
+            }
+            .girl {
+                font-size: 80px !important;
+            }
+            .girl:nth-child(2) {
+                display: none;
+            }
+            .auth-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .auth-container input {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -442,506 +553,515 @@
 
     <script>
         // ============================================
-        //  ПОДКЛЮЧЕНИЕ К SUPABASE
+        //  ВСЁ В ОДНОЙ ФУНКЦИИ, ЧТОБЫ ИЗБЕЖАТЬ КОНФЛИКТОВ
         // ============================================
         
-        const SUPABASE_URL = 'https://bxjuvzyxspcavnpcfytj.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_qsUmLkXOfCa6359Ywg5sUQ-_MOTJ_';
-        
-        // СОЗДАЁМ КЛИЕНТ ТОЛЬКО ОДИН РАЗ!
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
-        // ============================================
-        //  ПЕРЕМЕННЫЕ
-        // ============================================
-        
-        let currentUser = null;
-        let userBalance = 1000;
-        let userSpins = 0;
-        let currentUsername = '';
-        let bet = 10;
-        let isSpinning = false;
-        let history = [];
-        let lastWin = 0;
-
-        const symbols = ['🍒', '🍋', '🍊', '🍇', '💎', '7️⃣', '⭐', '🎰'];
-        const winTable = {
-            '🍒': 12, '🍋': 18, '🍊': 25, '🍇': 30,
-            '💎': 60, '7️⃣': 120, '⭐': 90, '🎰': 250
-        };
-        const symbolWeights = {
-            '🍒': 20, '🍋': 18, '🍊': 16, '🍇': 14,
-            '💎': 12, '⭐': 10, '7️⃣': 6, '🎰': 4
-        };
-
-        // ============================================
-        //  ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
-        // ============================================
-
-        function getWeightedSymbol() {
-            const totalWeight = Object.values(symbolWeights).reduce((a, b) => a + b, 0);
-            let random = Math.random() * totalWeight;
-            for (const [symbol, weight] of Object.entries(symbolWeights)) {
-                random -= weight;
-                if (random <= 0) return symbol;
-            }
-            return '🍒';
-        }
-
-        function updateUI() {
-            document.getElementById('balance').textContent = userBalance;
-            document.getElementById('bet').textContent = bet;
-            document.getElementById('spins').textContent = userSpins;
-            document.getElementById('lastWin').textContent = lastWin;
-        }
-
-        // ============================================
-        //  АВТОРИЗАЦИЯ
-        // ============================================
-        
-        async function register() {
-            console.log('🔄 Регистрация начата...');
+        (function() {
+            'use strict';
             
-            const username = document.getElementById('regUsername').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const password = document.getElementById('regPassword').value.trim();
+            console.log('🚀 ИГРА ЗАГРУЖАЕТСЯ...');
             
-            if (!username || !email || !password) {
-                alert('⚠️ Заполните все поля!');
-                return;
-            }
-            if (password.length < 6) {
-                alert('⚠️ Пароль должен быть не менее 6 символов!');
-                return;
-            }
+            // ============================================
+            //  ПОДКЛЮЧЕНИЕ К SUPABASE
+            // ============================================
             
-            try {
-                console.log('📝 Создаём пользователя...');
-                const { data: authData, error: authError } = await supabaseClient.auth.signUp({
-                    email: email,
-                    password: password,
-                    options: { data: { username: username } }
-                });
-                
-                if (authError) throw authError;
-                
-                console.log('✅ Пользователь создан в Auth');
-                
-                if (authData.user) {
-                    console.log('💾 Сохраняем в таблицу users...');
-                    const { error: userError } = await supabaseClient
-                        .from('users')
-                        .insert([{
-                            id: authData.user.id,
-                            username: username,
-                            email: email,
-                            balance: 1000,
-                            total_spins: 0,
-                            total_wins: 0,
-                            total_losses: 0
-                        }]);
-                    
-                    if (userError) throw userError;
-                    
-                    console.log('✅ Данные сохранены!');
-                    alert('✅ Регистрация успешна! Теперь войдите в аккаунт.');
-                    document.getElementById('regUsername').value = '';
-                    document.getElementById('regEmail').value = '';
-                    document.getElementById('regPassword').value = '';
+            const SUPABASE_URL = 'https://bxjuvzyxspcavnpcfytj.supabase.co';
+            const SUPABASE_ANON_KEY = 'sb_publishable_qsUmLkXOfCa6359Ywg5sUQ-_MOTJ_';
+            
+            // СОЗДАЁМ КЛИЕНТ
+            const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            
+            // ============================================
+            //  ПЕРЕМЕННЫЕ
+            // ============================================
+            
+            let currentUser = null;
+            let userBalance = 1000;
+            let userSpins = 0;
+            let currentUsername = '';
+            let bet = 10;
+            let isSpinning = false;
+            let history = [];
+            let lastWin = 0;
+
+            const symbols = ['🍒', '🍋', '🍊', '🍇', '💎', '7️⃣', '⭐', '🎰'];
+            const winTable = {
+                '🍒': 12,
+                '🍋': 18,
+                '🍊': 25,
+                '🍇': 30,
+                '💎': 60,
+                '7️⃣': 120,
+                '⭐': 90,
+                '🎰': 250
+            };
+            const symbolWeights = {
+                '🍒': 20,
+                '🍋': 18,
+                '🍊': 16,
+                '🍇': 14,
+                '💎': 12,
+                '⭐': 10,
+                '7️⃣': 6,
+                '🎰': 4
+            };
+
+            // ============================================
+            //  ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+            // ============================================
+
+            function getWeightedSymbol() {
+                const totalWeight = Object.values(symbolWeights).reduce((a, b) => a + b, 0);
+                let random = Math.random() * totalWeight;
+                for (const [symbol, weight] of Object.entries(symbolWeights)) {
+                    random -= weight;
+                    if (random <= 0) return symbol;
                 }
-            } catch (error) {
-                console.error('❌ Ошибка:', error);
-                alert('❌ Ошибка регистрации: ' + error.message);
+                return '🍒';
             }
-        }
-        
-        async function login() {
-            console.log('🔄 Вход начат...');
+
+            function updateUI() {
+                document.getElementById('balance').textContent = userBalance;
+                document.getElementById('bet').textContent = bet;
+                document.getElementById('spins').textContent = userSpins;
+                document.getElementById('lastWin').textContent = lastWin;
+            }
+
+            // ============================================
+            //  АВТОРИЗАЦИЯ
+            // ============================================
             
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
-            
-            if (!email || !password) {
-                alert('⚠️ Введите email и пароль!');
-                return;
-            }
-            
-            try {
-                console.log('🔑 Вход в систему...');
-                const { data, error } = await supabaseClient.auth.signInWithPassword({
-                    email: email,
-                    password: password
-                });
+            async function register() {
+                console.log('🔄 Регистрация начата...');
                 
-                if (error) throw error;
+                const username = document.getElementById('regUsername').value.trim();
+                const email = document.getElementById('regEmail').value.trim();
+                const password = document.getElementById('regPassword').value.trim();
                 
-                if (data.user) {
-                    console.log('✅ Вход успешен!');
-                    currentUser = data.user;
-                    await loadUserData();
-                    showGame();
-                    document.getElementById('loginEmail').value = '';
-                    document.getElementById('loginPassword').value = '';
+                if (!username || !email || !password) {
+                    alert('⚠️ Заполните все поля!');
+                    return;
                 }
-            } catch (error) {
-                console.error('❌ Ошибка:', error);
-                alert('❌ Неверный email или пароль!');
-            }
-        }
-        
-        async function logout() {
-            console.log('🚪 Выход...');
-            await supabaseClient.auth.signOut();
-            currentUser = null;
-            document.getElementById('authSection').style.display = 'block';
-            document.getElementById('userInfo').style.display = 'none';
-            document.getElementById('gameSection').style.display = 'none';
-        }
-        
-        async function loadUserData() {
-            if (!currentUser) return;
-            try {
-                console.log('📊 Загрузка данных пользователя...');
-                const { data, error } = await supabaseClient
-                    .from('users')
-                    .select('*')
-                    .eq('id', currentUser.id)
-                    .single();
-                
-                if (error) throw error;
-                if (data) {
-                    userBalance = data.balance || 1000;
-                    userSpins = data.total_spins || 0;
-                    currentUsername = data.username || 'Игрок';
-                    document.getElementById('displayUsername').textContent = currentUsername;
-                    updateUI();
-                    console.log('✅ Данные загружены, баланс:', userBalance);
-                }
-            } catch (error) {
-                console.error('❌ Ошибка загрузки данных:', error);
-            }
-        }
-        
-        async function saveUserData() {
-            if (!currentUser) return;
-            try {
-                console.log('💾 Сохранение данных...');
-                await supabaseClient
-                    .from('users')
-                    .update({ balance: userBalance, total_spins: userSpins })
-                    .eq('id', currentUser.id);
-                console.log('✅ Данные сохранены');
-            } catch (error) {
-                console.error('❌ Ошибка сохранения:', error);
-            }
-        }
-        
-        function showGame() {
-            document.getElementById('authSection').style.display = 'none';
-            document.getElementById('userInfo').style.display = 'block';
-            document.getElementById('gameSection').style.display = 'block';
-            updateUI();
-            fetchLeaderboard();
-            console.log('🎮 Игра открыта!');
-        }
-
-        // ============================================
-        //  ИГРА
-        // ============================================
-        
-        function changeBet(amount) {
-            if (isSpinning) return;
-            let newBet = bet + amount;
-            if (newBet >= 1 && newBet <= userBalance) {
-                bet = newBet;
-                updateUI();
-            }
-        }
-
-        async function spin() {
-            if (isSpinning) return;
-            if (!currentUser) {
-                alert('⚠️ Войдите в аккаунт, чтобы играть!');
-                return;
-            }
-            if (userBalance < bet) {
-                document.getElementById('message').textContent = '❌ Недостаточно средств!';
-                return;
-            }
-
-            isSpinning = true;
-            document.getElementById('spinBtn').disabled = true;
-            document.getElementById('message').textContent = '🎰 Крутим...';
-
-            userBalance -= bet;
-            userSpins++;
-
-            const reels = [
-                document.getElementById('reel1'),
-                document.getElementById('reel2'),
-                document.getElementById('reel3')
-            ];
-
-            reels.forEach(reel => {
-                reel.classList.add('spinning');
-                reel.classList.remove('winner');
-            });
-
-            const stopDelays = [600, 900, 1200];
-            let results = [];
-
-            stopDelays.forEach((delay, index) => {
-                setTimeout(() => {
-                    const symbol = getWeightedSymbol();
-                    results[index] = symbol;
-                    reels[index].textContent = symbol;
-                    reels[index].classList.remove('spinning');
-
-                    if (results.length === 3) {
-                        checkResult(results, reels);
-                    }
-                }, delay);
-            });
-        }
-
-        async function checkResult(results, reels) {
-            let winAmount = 0;
-
-            if (results[0] === results[1] && results[1] === results[2]) {
-                winAmount = winTable[results[0]] * Math.ceil(bet / 10);
-            }
-            if (results.includes('7️⃣') && results.includes('💎') && results.includes('⭐')) {
-                winAmount = Math.max(winAmount, bet * 8);
-            }
-            if (results.filter(s => s === '🎰').length === 2) {
-                winAmount = Math.max(winAmount, bet * 5);
-            }
-            if (results[0] === results[1] && results[0] !== results[2]) {
-                winAmount = Math.max(winAmount, Math.floor(bet * 1.5));
-            }
-            if (results[1] === results[2] && results[1] !== results[0]) {
-                winAmount = Math.max(winAmount, Math.floor(bet * 1.5));
-            }
-
-            if (winAmount > 0) {
-                userBalance += winAmount;
-                lastWin = winAmount;
-                document.getElementById('message').textContent = `🎉 ВЫИГРЫШ ${winAmount}$! 🎉`;
-
-                reels.forEach(reel => {
-                    reel.classList.add('winner');
-                    setTimeout(() => reel.classList.remove('winner'), 1800);
-                });
-
-                launchConfetti();
-                playWinSound();
-
-                if (currentUser && currentUsername) {
-                    try {
-                        console.log('🏆 Сохранение рекорда...');
-                        await supabaseClient
-                            .from('leaderboard')
-                            .insert([{
-                                user_id: currentUser.id,
-                                player_name: currentUsername,
-                                score: winAmount
-                            }]);
-                        console.log('✅ Рекорд сохранён!');
-                        await fetchLeaderboard();
-                    } catch (e) {
-                        console.error('❌ Ошибка сохранения рекорда:', e);
-                    }
-                }
-            } else {
-                lastWin = 0;
-                document.getElementById('message').textContent = '😔 Попробуй ещё!';
-            }
-
-            updateUI();
-            await saveUserData();
-
-            history.push(`${results.join(' ')} ${winAmount > 0 ? '💎+' + winAmount : '❌'}`);
-            if (history.length > 12) history.shift();
-            document.getElementById('history').textContent = 'История: ' + history.join(' | ');
-
-            isSpinning = false;
-            document.getElementById('spinBtn').disabled = false;
-
-            if (userBalance <= 0) {
-                document.getElementById('message').textContent = '💸 ТЫ ПРОИГРАЛ ВСЁ! Используй "Сбросить прогресс"';
-                document.getElementById('spinBtn').disabled = true;
-            }
-        }
-
-        // ============================================
-        //  КОНФЕТТИ И ЗВУК
-        // ============================================
-
-        function launchConfetti() {
-            const container = document.getElementById('confettiContainer');
-            const colors = ['#ffd700', '#ff6b00', '#ff0040', '#00ff80', '#00bfff', '#ff00ff', '#ff4444', '#44ff44'];
-            for (let i = 0; i < 120; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.width = (Math.random() * 10 + 6) + 'px';
-                confetti.style.height = (Math.random() * 10 + 6) + 'px';
-                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                confetti.style.animationDelay = (Math.random() * 1.5) + 's';
-                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-                container.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 4500);
-            }
-        }
-
-        function playWinSound() {
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const notes = [523, 659, 784, 1047];
-                notes.forEach((freq, i) => {
-                    setTimeout(() => {
-                        const osc = ctx.createOscillator();
-                        const gain = ctx.createGain();
-                        osc.connect(gain);
-                        gain.connect(ctx.destination);
-                        osc.frequency.value = freq;
-                        osc.type = 'sine';
-                        gain.gain.value = 0.15;
-                        osc.start();
-                        setTimeout(() => osc.stop(), 150);
-                    }, i * 150);
-                });
-            } catch(e) {}
-        }
-
-        // ============================================
-        //  ТАБЛИЦА ЛИДЕРОВ
-        // ============================================
-
-        async function fetchLeaderboard() {
-            try {
-                console.log('📊 Загрузка таблицы лидеров...');
-                const { data, error } = await supabaseClient
-                    .from('leaderboard')
-                    .select('player_name, score')
-                    .order('score', { ascending: false })
-                    .limit(10);
-                    
-                if (error) throw error;
-                
-                const leaderboardDiv = document.getElementById('leaderboard');
-                if (!data || data.length === 0) {
-                    leaderboardDiv.innerHTML = '<p style="color: #888; text-align: center;">Пока нет рекордов. Стань первым! 🎯</p>';
+                if (password.length < 6) {
+                    alert('⚠️ Пароль должен быть не менее 6 символов!');
                     return;
                 }
                 
-                let html = '<ol>';
-                data.forEach((entry, index) => {
-                    const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}.`;
-                    html += `<li>${medal} <strong>${entry.player_name}</strong>: ${entry.score}$</li>`;
-                });
-                html += '</ol>';
-                leaderboardDiv.innerHTML = html;
-                console.log('✅ Таблица лидеров загружена');
-            } catch (error) {
-                console.error('❌ Ошибка загрузки:', error);
-                document.getElementById('leaderboard').innerHTML = 
-                    '<p style="color: #ff4444; text-align: center;">❌ Ошибка загрузки рейтинга</p>';
-            }
-        }
-
-        // ============================================
-        //  СБРОС
-        // ============================================
-
-        async function resetGame() {
-            if (isSpinning) return;
-            if (!currentUser) {
-                alert('⚠️ Войдите в аккаунт!');
-                return;
-            }
-            if (!confirm('⚠️ Вы уверены, что хотите сбросить прогресс? Баланс станет 1000$, а спины обнулятся!')) return;
-            
-            userBalance = 1000;
-            userSpins = 0;
-            history = [];
-            lastWin = 0;
-            await saveUserData();
-            updateUI();
-            document.getElementById('message').textContent = '🔄 Прогресс сброшен!';
-            document.getElementById('history').textContent = 'История: ';
-            document.getElementById('spinBtn').disabled = false;
-            document.getElementById('reel1').textContent = '🍒';
-            document.getElementById('reel2').textContent = '🍒';
-            document.getElementById('reel3').textContent = '🍒';
-            document.getElementById('confettiContainer').innerHTML = '';
-        }
-
-        // ============================================
-        //  КЛАВИШИ
-        // ============================================
-
-        document.addEventListener('keydown', (e) => {
-            if (e.code === 'Space') { e.preventDefault(); spin(); }
-            if (e.code === 'ArrowUp') { e.preventDefault(); changeBet(5); }
-            if (e.code === 'ArrowDown') { e.preventDefault(); changeBet(-5); }
-        });
-
-        // ============================================
-        //  ПРИВЯЗКА КНОПОК
-        // ============================================
-
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🔗 Привязка кнопок...');
-            
-            document.getElementById('registerBtn').addEventListener('click', register);
-            document.getElementById('loginBtn').addEventListener('click', login);
-            document.getElementById('logoutBtn').addEventListener('click', logout);
-            document.getElementById('spinBtn').addEventListener('click', spin);
-            document.getElementById('betUpBtn').addEventListener('click', function() { changeBet(5); });
-            document.getElementById('betDownBtn').addEventListener('click', function() { changeBet(-5); });
-            document.getElementById('resetBtn').addEventListener('click', resetGame);
-            
-            console.log('✅ Все кнопки привязаны!');
-        });
-
-        // ============================================
-        //  ЗАГРУЗКА ПРИ СТАРТЕ
-        // ============================================
-
-        window.addEventListener('load', async function() {
-            console.log('🚀 Игра загружена!');
-            console.log('🔗 Подключение к Supabase:', SUPABASE_URL);
-            
-            try {
-                const { data: { session } } = await supabaseClient.auth.getSession();
-                if (session) {
-                    console.log('👤 Сессия найдена');
-                    currentUser = session.user;
-                    await loadUserData();
-                    showGame();
-                } else {
-                    console.log('👤 Нет активной сессии');
+                try {
+                    const { data: authData, error: authError } = await _supabase.auth.signUp({
+                        email: email,
+                        password: password,
+                        options: { data: { username: username } }
+                    });
+                    
+                    if (authError) throw authError;
+                    
+                    if (authData.user) {
+                        const { error: userError } = await _supabase
+                            .from('users')
+                            .insert([{
+                                id: authData.user.id,
+                                username: username,
+                                email: email,
+                                balance: 1000,
+                                total_spins: 0,
+                                total_wins: 0,
+                                total_losses: 0
+                            }]);
+                        
+                        if (userError) throw userError;
+                        
+                        alert('✅ Регистрация успешна! Теперь войдите в аккаунт.');
+                        document.getElementById('regUsername').value = '';
+                        document.getElementById('regEmail').value = '';
+                        document.getElementById('regPassword').value = '';
+                    }
+                } catch (error) {
+                    console.error('❌ Ошибка:', error);
+                    alert('❌ Ошибка регистрации: ' + error.message);
                 }
+            }
+            
+            async function login() {
+                console.log('🔄 Вход начат...');
+                
+                const email = document.getElementById('loginEmail').value.trim();
+                const password = document.getElementById('loginPassword').value.trim();
+                
+                if (!email || !password) {
+                    alert('⚠️ Введите email и пароль!');
+                    return;
+                }
+                
+                try {
+                    const { data, error } = await _supabase.auth.signInWithPassword({
+                        email: email,
+                        password: password
+                    });
+                    
+                    if (error) throw error;
+                    
+                    if (data.user) {
+                        currentUser = data.user;
+                        await loadUserData();
+                        showGame();
+                        document.getElementById('loginEmail').value = '';
+                        document.getElementById('loginPassword').value = '';
+                    }
+                } catch (error) {
+                    console.error('❌ Ошибка:', error);
+                    alert('❌ Неверный email или пароль!');
+                }
+            }
+            
+            async function logout() {
+                await _supabase.auth.signOut();
+                currentUser = null;
+                document.getElementById('authSection').style.display = 'block';
+                document.getElementById('userInfo').style.display = 'none';
+                document.getElementById('gameSection').style.display = 'none';
+            }
+            
+            async function loadUserData() {
+                if (!currentUser) return;
+                try {
+                    const { data, error } = await _supabase
+                        .from('users')
+                        .select('*')
+                        .eq('id', currentUser.id)
+                        .single();
+                    
+                    if (error) throw error;
+                    if (data) {
+                        userBalance = data.balance || 1000;
+                        userSpins = data.total_spins || 0;
+                        currentUsername = data.username || 'Игрок';
+                        document.getElementById('displayUsername').textContent = currentUsername;
+                        updateUI();
+                    }
+                } catch (error) {
+                    console.error('❌ Ошибка загрузки данных:', error);
+                }
+            }
+            
+            async function saveUserData() {
+                if (!currentUser) return;
+                try {
+                    await _supabase
+                        .from('users')
+                        .update({ balance: userBalance, total_spins: userSpins })
+                        .eq('id', currentUser.id);
+                } catch (error) {
+                    console.error('❌ Ошибка сохранения:', error);
+                }
+            }
+            
+            function showGame() {
+                document.getElementById('authSection').style.display = 'none';
+                document.getElementById('userInfo').style.display = 'block';
+                document.getElementById('gameSection').style.display = 'block';
+                updateUI();
                 fetchLeaderboard();
-            } catch (error) {
-                console.error('❌ Ошибка при загрузке:', error);
             }
-        });
 
-        // Реалтайм обновление таблицы
-        supabaseClient
-            .channel('leaderboard-changes')
-            .on('postgres_changes', 
-                { event: 'INSERT', schema: 'public', table: 'leaderboard' },
-                () => {
-                    console.log('🔄 Обновление таблицы лидеров...');
-                    fetchLeaderboard();
+            // ============================================
+            //  ИГРА
+            // ============================================
+            
+            function changeBet(amount) {
+                if (isSpinning) return;
+                let newBet = bet + amount;
+                if (newBet >= 1 && newBet <= userBalance) {
+                    bet = newBet;
+                    updateUI();
                 }
-            )
-            .subscribe();
+            }
+
+            async function spin() {
+                if (isSpinning) return;
+                if (!currentUser) {
+                    alert('⚠️ Войдите в аккаунт, чтобы играть!');
+                    return;
+                }
+                if (userBalance < bet) {
+                    document.getElementById('message').textContent = '❌ Недостаточно средств!';
+                    return;
+                }
+
+                isSpinning = true;
+                document.getElementById('spinBtn').disabled = true;
+                document.getElementById('message').textContent = '🎰 Крутим...';
+
+                userBalance -= bet;
+                userSpins++;
+
+                const reels = [
+                    document.getElementById('reel1'),
+                    document.getElementById('reel2'),
+                    document.getElementById('reel3')
+                ];
+
+                reels.forEach(reel => {
+                    reel.classList.add('spinning');
+                    reel.classList.remove('winner');
+                });
+
+                const stopDelays = [600, 900, 1200];
+                let results = [];
+
+                stopDelays.forEach((delay, index) => {
+                    setTimeout(() => {
+                        const symbol = getWeightedSymbol();
+                        results[index] = symbol;
+                        reels[index].textContent = symbol;
+                        reels[index].classList.remove('spinning');
+
+                        if (results.length === 3) {
+                            checkResult(results, reels);
+                        }
+                    }, delay);
+                });
+            }
+
+            async function checkResult(results, reels) {
+                let winAmount = 0;
+
+                if (results[0] === results[1] && results[1] === results[2]) {
+                    winAmount = winTable[results[0]] * Math.ceil(bet / 10);
+                }
+                if (results.includes('7️⃣') && results.includes('💎') && results.includes('⭐')) {
+                    winAmount = Math.max(winAmount, bet * 8);
+                }
+                if (results.filter(s => s === '🎰').length === 2) {
+                    winAmount = Math.max(winAmount, bet * 5);
+                }
+                if (results[0] === results[1] && results[0] !== results[2]) {
+                    winAmount = Math.max(winAmount, Math.floor(bet * 1.5));
+                }
+                if (results[1] === results[2] && results[1] !== results[0]) {
+                    winAmount = Math.max(winAmount, Math.floor(bet * 1.5));
+                }
+
+                if (winAmount > 0) {
+                    userBalance += winAmount;
+                    lastWin = winAmount;
+                    document.getElementById('message').textContent = `🎉 ВЫИГРЫШ ${winAmount}$! 🎉`;
+
+                    reels.forEach(reel => {
+                        reel.classList.add('winner');
+                        setTimeout(() => reel.classList.remove('winner'), 1800);
+                    });
+
+                    launchConfetti();
+                    playWinSound();
+
+                    if (currentUser && currentUsername) {
+                        try {
+                            await _supabase
+                                .from('leaderboard')
+                                .insert([{
+                                    user_id: currentUser.id,
+                                    player_name: currentUsername,
+                                    score: winAmount
+                                }]);
+                            await fetchLeaderboard();
+                        } catch (e) {
+                            console.error('❌ Ошибка сохранения рекорда:', e);
+                        }
+                    }
+                } else {
+                    lastWin = 0;
+                    document.getElementById('message').textContent = '😔 Попробуй ещё!';
+                }
+
+                updateUI();
+                await saveUserData();
+
+                history.push(`${results.join(' ')} ${winAmount > 0 ? '💎+' + winAmount : '❌'}`);
+                if (history.length > 12) history.shift();
+                document.getElementById('history').textContent = 'История: ' + history.join(' | ');
+
+                isSpinning = false;
+                document.getElementById('spinBtn').disabled = false;
+
+                if (userBalance <= 0) {
+                    document.getElementById('message').textContent = '💸 ТЫ ПРОИГРАЛ ВСЁ! Используй "Сбросить прогресс"';
+                    document.getElementById('spinBtn').disabled = true;
+                }
+            }
+
+            // ============================================
+            //  КОНФЕТТИ И ЗВУК
+            // ============================================
+
+            function launchConfetti() {
+                const container = document.getElementById('confettiContainer');
+                const colors = ['#ffd700', '#ff6b00', '#ff0040', '#00ff80', '#00bfff', '#ff00ff', '#ff4444', '#44ff44'];
+                for (let i = 0; i < 120; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = (Math.random() * 10 + 6) + 'px';
+                    confetti.style.height = (Math.random() * 10 + 6) + 'px';
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    confetti.style.animationDelay = (Math.random() * 1.5) + 's';
+                    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    container.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 4500);
+                }
+            }
+
+            function playWinSound() {
+                try {
+                    const ctx = new(window.AudioContext || window.webkitAudioContext)();
+                    const notes = [523, 659, 784, 1047];
+                    notes.forEach((freq, i) => {
+                        setTimeout(() => {
+                            const osc = ctx.createOscillator();
+                            const gain = ctx.createGain();
+                            osc.connect(gain);
+                            gain.connect(ctx.destination);
+                            osc.frequency.value = freq;
+                            osc.type = 'sine';
+                            gain.gain.value = 0.15;
+                            osc.start();
+                            setTimeout(() => osc.stop(), 150);
+                        }, i * 150);
+                    });
+                } catch (e) {}
+            }
+
+            // ============================================
+            //  ТАБЛИЦА ЛИДЕРОВ
+            // ============================================
+
+            async function fetchLeaderboard() {
+                try {
+                    const { data, error } = await _supabase
+                        .from('leaderboard')
+                        .select('player_name, score')
+                        .order('score', { ascending: false })
+                        .limit(10);
+
+                    if (error) throw error;
+
+                    const leaderboardDiv = document.getElementById('leaderboard');
+                    if (!data || data.length === 0) {
+                        leaderboardDiv.innerHTML = '<p style="color: #888; text-align: center;">Пока нет рекордов. Стань первым! 🎯</p>';
+                        return;
+                    }
+
+                    let html = '<ol>';
+                    data.forEach((entry, index) => {
+                        const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}.`;
+                        html += `<li>${medal} <strong>${entry.player_name}</strong>: ${entry.score}$</li>`;
+                    });
+                    html += '</ol>';
+                    leaderboardDiv.innerHTML = html;
+                } catch (error) {
+                    console.error('❌ Ошибка загрузки:', error);
+                    document.getElementById('leaderboard').innerHTML =
+                        '<p style="color: #ff4444; text-align: center;">❌ Ошибка загрузки рейтинга</p>';
+                }
+            }
+
+            // ============================================
+            //  СБРОС
+            // ============================================
+
+            async function resetGame() {
+                if (isSpinning) return;
+                if (!currentUser) {
+                    alert('⚠️ Войдите в аккаунт!');
+                    return;
+                }
+                if (!confirm('⚠️ Вы уверены, что хотите сбросить прогресс? Баланс станет 1000$, а спины обнулятся!')) return;
+
+                userBalance = 1000;
+                userSpins = 0;
+                history = [];
+                lastWin = 0;
+                await saveUserData();
+                updateUI();
+                document.getElementById('message').textContent = '🔄 Прогресс сброшен!';
+                document.getElementById('history').textContent = 'История: ';
+                document.getElementById('spinBtn').disabled = false;
+                document.getElementById('reel1').textContent = '🍒';
+                document.getElementById('reel2').textContent = '🍒';
+                document.getElementById('reel3').textContent = '🍒';
+                document.getElementById('confettiContainer').innerHTML = '';
+            }
+
+            // ============================================
+            //  КЛАВИШИ
+            // ============================================
+
+            document.addEventListener('keydown', (e) => {
+                if (e.code === 'Space') { e.preventDefault();
+                    spin(); }
+                if (e.code === 'ArrowUp') { e.preventDefault();
+                    changeBet(5); }
+                if (e.code === 'ArrowDown') { e.preventDefault();
+                    changeBet(-5); }
+            });
+
+            // ============================================
+            //  ПРИВЯЗКА КНОПОК
+            // ============================================
+
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log('🔗 Привязка кнопок...');
+
+                document.getElementById('registerBtn').addEventListener('click', register);
+                document.getElementById('loginBtn').addEventListener('click', login);
+                document.getElementById('logoutBtn').addEventListener('click', logout);
+                document.getElementById('spinBtn').addEventListener('click', spin);
+                document.getElementById('betUpBtn').addEventListener('click', function() { changeBet(5); });
+                document.getElementById('betDownBtn').addEventListener('click', function() { changeBet(-5); });
+                document.getElementById('resetBtn').addEventListener('click', resetGame);
+
+                console.log('✅ Все кнопки привязаны!');
+            });
+
+            // ============================================
+            //  ЗАГРУЗКА ПРИ СТАРТЕ
+            // ============================================
+
+            window.addEventListener('load', async function() {
+                console.log('🚀 Игра загружена!');
+
+                try {
+                    const { data: { session } } = await _supabase.auth.getSession();
+                    if (session) {
+                        console.log('👤 Сессия найдена');
+                        currentUser = session.user;
+                        await loadUserData();
+                        showGame();
+                    } else {
+                        console.log('👤 Нет активной сессии');
+                    }
+                    fetchLeaderboard();
+                } catch (error) {
+                    console.error('❌ Ошибка при загрузке:', error);
+                }
+            });
+
+            // Реалтайм обновление таблицы
+            _supabase
+                .channel('leaderboard-changes')
+                .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'leaderboard' },
+                    () => {
+                        console.log('🔄 Обновление таблицы лидеров...');
+                        fetchLeaderboard();
+                    }
+                )
+                .subscribe();
+
+            console.log('✅ ИГРА УСПЕШНО ЗАГРУЖЕНА!');
+            
+        })(); // КОНЕЦ ОСНОВНОЙ ФУНКЦИИ
     </script>
 </body>
 </html>
