@@ -283,7 +283,7 @@
             color: white;
             box-shadow: 0 0 30px rgba(255, 68, 68, 0.3);
         }
-        .history-text {
+        .history {
             color: #888;
             text-align: center;
             font-size: 14px;
@@ -425,7 +425,7 @@
                 <div class="message" id="message">💃 Начни игру!</div>
                 <button class="reset-btn" id="resetBtn">🔄 Сбросить прогресс</button>
             </div>
-            <div class="history-text" id="historyText">История: </div>
+            <div class="history" id="history">История: </div>
         </div>
 
         <!-- ТАБЛИЦА ЛИДЕРОВ -->
@@ -442,13 +442,14 @@
 
     <script>
         // ============================================
-        //  ПОДКЛЮЧЕНИЕ К SUPABASE
+        //  ПОДКЛЮЧЕНИЕ К SUPABASE (ТОЛЬКО ОДИН РАЗ!)
         // ============================================
         
         const SUPABASE_URL = 'https://bxjuvzyxspcavnpcfytj.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_qsUmLkXOfCa6359Ywg5sUQ-_MOTJ_';
         
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // СОЗДАЁМ КЛИЕНТ ТОЛЬКО ОДИН РАЗ
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
         // ============================================
         //  ПЕРЕМЕННЫЕ
@@ -460,7 +461,7 @@
         let currentUsername = '';
         let bet = 10;
         let isSpinning = false;
-        let gameHistory = []; // ← ИСПРАВЛЕНО! Теперь gameHistory вместо history
+        let history = [];
         let lastWin = 0;
 
         const symbols = ['🍒', '🍋', '🍊', '🍇', '💎', '7️⃣', '⭐', '🎰'];
@@ -492,12 +493,10 @@
             document.getElementById('bet').textContent = bet;
             document.getElementById('spins').textContent = userSpins;
             document.getElementById('lastWin').textContent = lastWin;
-            // Исправлено: используем gameHistory
-            document.getElementById('historyText').textContent = 'История: ' + gameHistory.join(' | ');
         }
 
         // ============================================
-        //  АВТОРИЗАЦИЯ
+        //  АВТОРИЗАЦИЯ (используем supabaseClient)
         // ============================================
         
         async function register() {
@@ -518,7 +517,7 @@
             
             try {
                 console.log('📝 Создаём пользователя...');
-                const { data: authData, error: authError } = await supabase.auth.signUp({
+                const { data: authData, error: authError } = await supabaseClient.auth.signUp({
                     email: email,
                     password: password,
                     options: { data: { username: username } }
@@ -530,7 +529,7 @@
                 
                 if (authData.user) {
                     console.log('💾 Сохраняем в таблицу users...');
-                    const { error: userError } = await supabase
+                    const { error: userError } = await supabaseClient
                         .from('users')
                         .insert([{
                             id: authData.user.id,
@@ -569,7 +568,7 @@
             
             try {
                 console.log('🔑 Вход в систему...');
-                const { data, error } = await supabase.auth.signInWithPassword({
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
                     email: email,
                     password: password
                 });
@@ -592,7 +591,7 @@
         
         async function logout() {
             console.log('🚪 Выход...');
-            await supabase.auth.signOut();
+            await supabaseClient.auth.signOut();
             currentUser = null;
             document.getElementById('authSection').style.display = 'block';
             document.getElementById('userInfo').style.display = 'none';
@@ -603,7 +602,7 @@
             if (!currentUser) return;
             try {
                 console.log('📊 Загрузка данных пользователя...');
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('users')
                     .select('*')
                     .eq('id', currentUser.id)
@@ -627,7 +626,7 @@
             if (!currentUser) return;
             try {
                 console.log('💾 Сохранение данных...');
-                await supabase
+                await supabaseClient
                     .from('users')
                     .update({ balance: userBalance, total_spins: userSpins })
                     .eq('id', currentUser.id);
@@ -740,7 +739,7 @@
                 if (currentUser && currentUsername) {
                     try {
                         console.log('🏆 Сохранение рекорда...');
-                        await supabase
+                        await supabaseClient
                             .from('leaderboard')
                             .insert([{
                                 user_id: currentUser.id,
@@ -761,10 +760,9 @@
             updateUI();
             await saveUserData();
 
-            // Исправлено: используем gameHistory
-            gameHistory.push(`${results.join(' ')} ${winAmount > 0 ? '💎+' + winAmount : '❌'}`);
-            if (gameHistory.length > 12) gameHistory.shift();
-            document.getElementById('historyText').textContent = 'История: ' + gameHistory.join(' | ');
+            history.push(`${results.join(' ')} ${winAmount > 0 ? '💎+' + winAmount : '❌'}`);
+            if (history.length > 12) history.shift();
+            document.getElementById('history').textContent = 'История: ' + history.join(' | ');
 
             isSpinning = false;
             document.getElementById('spinBtn').disabled = false;
@@ -825,7 +823,7 @@
         async function fetchLeaderboard() {
             try {
                 console.log('📊 Загрузка таблицы лидеров...');
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('leaderboard')
                     .select('player_name, score')
                     .order('score', { ascending: false })
@@ -868,12 +866,12 @@
             
             userBalance = 1000;
             userSpins = 0;
-            gameHistory = []; // Исправлено
+            history = [];
             lastWin = 0;
             await saveUserData();
             updateUI();
             document.getElementById('message').textContent = '🔄 Прогресс сброшен!';
-            document.getElementById('historyText').textContent = 'История: ';
+            document.getElementById('history').textContent = 'История: ';
             document.getElementById('spinBtn').disabled = false;
             document.getElementById('reel1').textContent = '🍒';
             document.getElementById('reel2').textContent = '🍒';
@@ -901,7 +899,6 @@
             document.getElementById('registerBtn').addEventListener('click', register);
             document.getElementById('loginBtn').addEventListener('click', login);
             document.getElementById('logoutBtn').addEventListener('click', logout);
-            
             document.getElementById('spinBtn').addEventListener('click', spin);
             document.getElementById('betUpBtn').addEventListener('click', function() { changeBet(5); });
             document.getElementById('betDownBtn').addEventListener('click', function() { changeBet(-5); });
@@ -919,7 +916,7 @@
             console.log('🔗 Подключение к Supabase:', SUPABASE_URL);
             
             try {
-                const { data: { session } } = await supabase.auth.getSession();
+                const { data: { session } } = await supabaseClient.auth.getSession();
                 if (session) {
                     console.log('👤 Сессия найдена');
                     currentUser = session.user;
@@ -935,7 +932,7 @@
         });
 
         // Реалтайм обновление таблицы
-        supabase
+        supabaseClient
             .channel('leaderboard-changes')
             .on('postgres_changes', 
                 { event: 'INSERT', schema: 'public', table: 'leaderboard' },
